@@ -1,15 +1,13 @@
 // import logo from './logo.svg';
 import './App.scss';
-// import Header from './components/Header';
-// import TableUsera from './components/TableUsers';
 import Login from './components/Login';
+// import R from './components/test';
 
 function App() {
   return (
     <div className="app-containers">
-    {/* <Header/>
-    <TableUsera/> */}
     <Login/>
+    {/* <R/> */}
     </div>
   );
 }
