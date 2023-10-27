@@ -77,6 +77,7 @@ export default function RegisterPage() {
             .then((respone)=>{
                 console.log(respone)
                 alert("Đăng ký thành công")
+                window.location.href = "login"
             }
             ).catch((err)=>{
                 console.log(err.request.response);
