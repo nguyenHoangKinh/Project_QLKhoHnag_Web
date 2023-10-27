@@ -21,7 +21,7 @@ const Login = () => {
     }
     setLoadingData(true);
     let res = await loginApi(username, password);
-    console.log(">>> check login", res);
+    // console.log(">>> check login", res);
     if (res && res.token) {
       localStorage.setItem("token",res.token);
       //nieu dang nhap thanh cong thi se chuyen vao trang home
