@@ -5,6 +5,8 @@ import App from './App';
 import Login from './components/Login';
 import RegisterAccount from './components/RegisterAccount'
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import {
   createBrowserRouter,
   RouterProvider,
