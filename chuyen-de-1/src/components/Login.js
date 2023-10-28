@@ -44,7 +44,7 @@ const Login = () => {
   };
   return (
     <>
-      <div className="login-container col-12 col-sm-4">
+      <div className="login-container col-12 col-sm-4 app-containers">
         <div className="title">Login</div>
         {/* <form> */}
         <div className="text">Email Or UserName</div>
@@ -80,8 +80,11 @@ const Login = () => {
           &nbsp;Login
         </button>
         {/* </form> */}
+        {/* <div className="back">
+           Go back
+        </div> */}
         <div className="back">
-          <i className="fa-solid fa-chevron-left"></i> Go back
+          <a href="registeraccount">Register<i class="fa-solid fa-chevron-right"></i></a>
         </div>
       </div>
     </>
