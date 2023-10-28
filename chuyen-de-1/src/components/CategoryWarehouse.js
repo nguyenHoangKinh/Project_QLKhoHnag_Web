@@ -5,12 +5,12 @@ import axios from 'axios';
 
 const CategoryWarehouse = () => {
     const [ListCategory, setListCategory] = useState([]);
-    useEffect(()=>{
-        //call api
-        axios.get('https://warehouse-management-api.vercel.app/v1/warehouse/category/list').then(categories =>{
-            console.log("check",categories);
-        } );
-    },[]);
+    // useEffect(()=>{
+    //     //call api
+    //     axios.get('https://warehouse-management-api.vercel.app/v1/warehouse/category/list').then(categories =>{
+    //         console.log("check",categories);
+    //     } );
+    // },[]);
     // const getCategory = async () => {
     //     let res = await CategoryWarehouseList(); 
     //     if(res && res.categories){
@@ -20,6 +20,7 @@ const CategoryWarehouse = () => {
     // };
   return (
     <ListGroup>
+    {props.history.get.token}
     {/* {ListCategory && ListCategory.length > 0 && ListCategory.map((item,index) => {
         return ( */}
             {/* <ListGroup.Item>{item.name}</ListGroup.Item> */}
