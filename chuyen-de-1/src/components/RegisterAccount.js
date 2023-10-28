@@ -200,7 +200,7 @@ export default function RegisterPage() {
             )}
           </div>
           <div className="btn_login">
-            You have account
+                You have account
             <a href="/"> Login</a>
           </div>
           <button type="submit" className="submit-btn">

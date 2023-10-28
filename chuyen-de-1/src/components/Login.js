@@ -16,20 +16,30 @@ const Login = () => {
 
   const handleLogin = async () => {
     if (!username || !password) {
-      Toast.error("Emial/Password is required!");
+      alert("Emial/Password is required!");
       return;
     }
     setLoadingData(true);
     let res = await loginApi(username, password);
-    if (username && password) {
-      setLoadingData(false);
-      alert("dang nhap thanh cong");
-    } else {
-      //error
-      if (res && res.status === 400) {
-        Toast.error(res.data.error);
-      }
-    }
+    setLoadingData(false);
+    
+
+   
+    // if (username && password) {
+    //   alert("dang nhap thanh cong");
+      
+    // } else {
+    //   //error
+    //   alert("Nhap sai ten tai khoan hoac mat khau");
+    //   // if (res && res.status === 400) {
+    //   //   alert(res.data.error);
+    //   // }
+    //   res
+    //   .catch((err) => {
+    //     console.log(err.request.response);
+    //     // alert(err.request.response.slice(12).replace('"}', ""));
+    //   });
+    // }
     // if (res && res.token) {
     //   // console.log(">>> check login", res);
     //   // localStorage.setItem("token",res.token);
@@ -84,7 +94,7 @@ const Login = () => {
            Go back
         </div> */}
         <div className="back">
-          <a href="registeraccount">Register<i class="fa-solid fa-chevron-right"></i></a>
+          <a href="registeraccount">Register<i className="fa-solid fa-chevron-right"></i></a>
         </div>
       </div>
     </>
