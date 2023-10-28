@@ -53,8 +53,8 @@ const Login = () => {
     // }
   };
   return (
-    <>
-      <div className="login-container col-12 col-sm-4 app-containers">
+    <div className="app-containers">
+      <div className="login-container col-12 col-sm-4 ">
         <div className="title">Login</div>
         {/* <form> */}
         <div className="text">Email Or UserName</div>
@@ -97,7 +97,7 @@ const Login = () => {
           <a href="registeraccount">Register<i className="fa-solid fa-chevron-right"></i></a>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Login;
