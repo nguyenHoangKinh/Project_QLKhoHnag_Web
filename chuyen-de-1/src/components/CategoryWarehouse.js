@@ -1,33 +1,40 @@
-import { useEffect, useState } from 'react';
-import ListGroup from 'react-bootstrap/ListGroup';
-import {CategoryWarehouseList} from '../services/CategoryWarehouseService';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import ListGroup from "react-bootstrap/ListGroup";
+import { CategoryWarehouseList } from "../services/CategoryWarehouseService";
+import axios from "axios";
+// import { useNavigate } from "react-router-dom";
 
 const CategoryWarehouse = () => {
-    const [ListCategory, setListCategory] = useState([]);
-    // useEffect(()=>{
-    //     //call api
-    //     axios.get('https://warehouse-management-api.vercel.app/v1/warehouse/category/list').then(categories =>{
-    //         console.log("check",categories);
-    //     } );
-    // },[]);
-    // const getCategory = async () => {
-    //     let res = await CategoryWarehouseList(); 
-    //     if(res && res.categories){
-    //         setListCategory(res.categories);
-    //     }
-    //     // console.log(">>>check ",res);
-    // };
+  // const navigate = useNavigate();
+  const [ListCategory, setListCategory] = useState([]);
+  useEffect(() => {
+    //call api
+    let name = localStorage.getItem("jsonwebtoken");
+    // console.log("CategoryWarehouse:", CategoryWarehouseList(name).then(rea => {
+    //   console.log("CategoryWarehouse",rea.data.categories);
+    // }));
+   CategoryWarehouseList(name).then((res) => {
+     if (res && res.data && res.data.categories) {
+        console.log("category: ", res.data.categories);
+        setListCategory(res.data.categories);
+      }
+    });
+  }, []);
+  const getCategory = async (name) => {
+
+    
+  };
   return (
-    <ListGroup>
-    {props.history.get.token}
-    {/* {ListCategory && ListCategory.length > 0 && ListCategory.map((item,index) => {
-        return ( */}
-            {/* <ListGroup.Item>{item.name}</ListGroup.Item> */}
-        {/* )
-    })} */}
+    <div className="category-containers">
+    <ListGroup className="category-row">
+      {ListCategory &&
+        ListCategory.length > 0 &&
+        ListCategory.map((item, index) => {
+          return <ListGroup.Item className="category-item">{item.name}</ListGroup.Item>;
+        })}
     </ListGroup>
+    </div>
   );
-}
+};
 
 export default CategoryWarehouse;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { setAuthenticationHeader } from '../services/authenticate';
+import  CategoryWarehouse  from './CategoryWarehouse';
 import { Toast } from "bootstrap";
 import axios from "axios";
 // import { userNavigate } from "react-router-dom";
@@ -30,15 +31,18 @@ const Login = (props) => {
           setLoadingData(false);
           alert("dang nhap thanh cong")
           const token = response.data.accessToken;
-          console.log(response);
           localStorage.setItem("jsonwebtoken", token);
+          setAuthenticationHeader(token); 
+          // CategoryWarehouse(token);
           // set default headers
-          setAuthenticationHeader(token);
+          console.log("token:",token);    
+          // console.log("token:",CategoryWarehouseService(token));    
+          
           // navigate("/registeraccount");
           // props.history.push('/registeraccount', token);
           localStorage.setItem("username", credentials.username);
           // props.onLoggedIn();
-          window.location.href = "/";
+          window.location.href = "/CategoryWarehouse";
         }
       })
       .catch((error) => {

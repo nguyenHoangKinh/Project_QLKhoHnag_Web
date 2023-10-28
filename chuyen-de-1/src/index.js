@@ -4,6 +4,7 @@ import './App.scss';
 import './index.css';
 import App from './App';
 import Login from './components/Login';
+import CategoryWarehouse from './components/CategoryWarehouse';
 import RegisterAccount from './components/RegisterAccount'
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login/>,
+  },
+  {
+    path: "CategoryWarehouse",
+    element: <CategoryWarehouse/>,
   },
   {
     path: "registeraccount",
