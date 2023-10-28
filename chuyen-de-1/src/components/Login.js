@@ -21,20 +21,26 @@ const Login = () => {
     }
     setLoadingData(true);
     let res = await loginApi(username, password);
-    console.log(">>> check login", res);
-    if (res && res.token) {
-      localStorage.setItem("token",res.token);
-      //nieu dang nhap thanh cong thi se chuyen vao trang home
-      // navigate('/');
-    }else{
+    if (username && password) {
+      setLoadingData(false);
+      alert("dang nhap thanh cong");
+    } else {
       //error
-      if(res && res.status === 400){
+      if (res && res.status === 400) {
         Toast.error(res.data.error);
       }
     }
-    alert("dang nhap thanh cong");
-    
-    setLoadingData(false);
+    // if (res && res.token) {
+    //   // console.log(">>> check login", res);
+    //   // localStorage.setItem("token",res.token);
+    //   //nieu dang nhap thanh cong thi se chuyen vao trang home
+    //   // navigate('/');
+    // }else{
+    //   //error
+    //   if(res && res.status === 400){
+    //     Toast.error(res.data.error);
+    //   }
+    // }
   };
   return (
     <>
