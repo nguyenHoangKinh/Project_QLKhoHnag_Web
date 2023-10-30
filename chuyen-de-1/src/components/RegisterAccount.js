@@ -11,6 +11,8 @@ const initFormValue = {
   confirmPassword: "",
 };
 
+
+
 const isEmptyValue = (value) => {
   return !value || value.trim().length < 1;
 };
@@ -18,6 +20,13 @@ const isEmptyValue = (value) => {
 export default function RegisterPage() {
   const [formValue, setFormValue] = useState(initFormValue);
   const [formError, setFormError] = useState({});
+  const [check, setCheck] = useState("");
+  
+   function checkValue(e) {
+    var value = e.target.value;
+    console.log("You selected " + value);
+    setCheck(value)
+  }
 
   const validateForm = () => {
     const error = {};
@@ -73,9 +82,10 @@ export default function RegisterPage() {
         phone: formValue.phone,
         email: formValue.email,
       };
+ 
       axios
         .post(
-          "https://warehouse-management-api.vercel.app/v1/auth/register?status=2",
+          "https://warehouse-management-api.vercel.app/v1/auth/register?status="+check,
           acc
         )
         .then((respone) => {
@@ -199,13 +209,21 @@ export default function RegisterPage() {
               <div className="error-feedback">{formError.confirmPassword}</div>
             )}
           </div>
-          <div className="btn_login">
-                You have account
-            <a href="/"> Login</a>
+          <div>
+            <input id="box1" onChange={checkValue} type="checkbox" value="1" checked={check.includes("1") ? true : false}/>
+            <label htmlFor="#box1">Staff</label>
+          </div>
+          <div>
+            <input id="box2" onChange={checkValue} type="checkbox" value="2" checked={check.includes("2") ? true : false}/>
+            <label htmlFor="#box2">User</label>
           </div>
           <button type="submit" className="submit-btn">
             Register
           </button>
+          <div className="btn_login">
+            You have account
+            <a href="/"> Login</a>
+          </div>
         </form>
       </div>
     </div>
