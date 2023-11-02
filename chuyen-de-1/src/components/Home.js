@@ -42,7 +42,7 @@ function Home() {
   useEffect(() => {
     axios
       .get(
-        BASE_URL+"/warehouse/list?id_owner=6539131d3d09d1cd2b68e1cf",
+        BASE_URL+`/warehouse/list?id_owner=${records._id}`,
         {
           headers: {
             Token:
@@ -88,7 +88,7 @@ function Home() {
       <Link to="/create" className="btn btn-success my-3">
         Create +
       </Link>
-      <button onChange={LogoutToken} className="btn btn-danger my-3">
+      <button onClick={LogoutToken} className="btn btn-danger my-3">
         Logout 
       </button>
       <div className="d-flex flex-column justify-content-center- align-items-center bg-light vh-200">

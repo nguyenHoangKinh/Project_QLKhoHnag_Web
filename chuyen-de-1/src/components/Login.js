@@ -56,8 +56,8 @@ const Login = (props) => {
           disabled={username && password ? false : true}
           onClick={handleLogin}
         >
-          {loadingData && <i className="fa-solid fa-sync fa-spin"></i>}
-          &nbsp;Login
+          {loadingData &&<i className="fa-solid fa-sync fa-spin"></i>}
+          Login
         </button>
         <div className="back">
           <a href="registeraccount">
