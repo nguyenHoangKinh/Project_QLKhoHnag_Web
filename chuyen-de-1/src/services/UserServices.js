@@ -15,8 +15,8 @@ const LoginUserToken = (username,password) =>{
       const token = response.data.accessToken;
       localStorage.setItem("jsonwebtoken", token);
       // set default headers
-      console.log("token:",token);    
-      window.location.href = "/CategoryWarehouse";
+      // console.log("token:",token);    
+      window.location.href = "/Home";
     }
   })
   .catch((error) => {

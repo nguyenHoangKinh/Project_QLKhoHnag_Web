@@ -1,19 +1,20 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteWare } from "../WareReducer";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Logout } from "../services/UserServices";
+import { BASE_URL } from "../config";
+
 
 function Home() {
+  let Token = localStorage.getItem("jsonwebtoken");
   //const wares = useSelector((state) => state.wares);
   //const [records, setWares] = useState([]);
   const [columns, setColumns] = useState([]);
   const [records, setRecords] = useState([]);
   // console.log(wares);
-  const dispatch = useDispatch();
 
   // contructor(props){
   //   super(props);
@@ -32,16 +33,20 @@ function Home() {
   //     console.log(res)
   //   });
   // }
-  const navigate = useNavigate();
+  
+  //ham logout
+  const LogoutToken = () => {
+    Logout(Token);
+  };
 
   useEffect(() => {
     axios
       .get(
-        "https://warehouse-management-api.vercel.app/v1/warehouse/list?id_owner=6539131d3d09d1cd2b68e1cf",
+        BASE_URL+"/warehouse/list?id_owner=6539131d3d09d1cd2b68e1cf",
         {
           headers: {
             Token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxMzFkM2QwOWQxY2QyYjY4ZTFjZiIsImlzT3duZXIiOnRydWUsImlhdCI6MTY5ODkwNjY3NiwiZXhwIjoxNjk4OTEzODc2fQ.vT8V__xNAtB_iZ7j0iNiH4VUBJpmPZURJPGUXXKjIEE",
+            Token
           },
         }
       )
@@ -57,12 +62,12 @@ function Home() {
     if (conf) {
       axios
         .delete(
-          "https://warehouse-management-api.vercel.app/v1/warehouse/deleteWarehouse/" +
+          BASE_URL+"/warehouse/deleteWarehouse/" +
             id,
           {
             headers: {
               Token:
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxMzFkM2QwOWQxY2QyYjY4ZTFjZiIsImlzT3duZXIiOnRydWUsImlhdCI6MTY5ODkxMzkyNSwiZXhwIjoxNjk4OTIxMTI1fQ.xFUcP3sp6pCnC-Gbt-hV24fjtVGzLb-LFa1sFMvaZBA",
+              Token
             },
           }
         )
@@ -83,6 +88,9 @@ function Home() {
       <Link to="/create" className="btn btn-success my-3">
         Create +
       </Link>
+      <button onChange={LogoutToken} className="btn btn-danger my-3">
+        Logout 
+      </button>
       <div className="d-flex flex-column justify-content-center- align-items-center bg-light vh-200">
         <h1>List of WareHouse</h1>
         <div className="w-200 rounded bg-white border shadow p-7">

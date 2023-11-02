@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../config";
 
 function List() {
 
@@ -32,7 +33,7 @@ function List() {
   const idOwner = '6539131d3d09d1cd2b68e1cf';
 
   useEffect(() => {
-    axios.get("https://warehouse-management-api.vercel.app/v1/warehouse/create?id_owner=" + {idOnwner}).then((res) => {
+    axios.get(BASE_URL+"/warehouse/create?id_owner=" + {idOnwner}).then((res) => {
       setColumns(Object, res.data[0]);
       setRecords(res.data);
       //setRecords(res.data.warehouses);

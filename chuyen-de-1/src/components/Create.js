@@ -3,8 +3,10 @@ import { addWare } from "../WareReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../config";
 
 function Create() {
+  let Token = localStorage.getItem("jsonwebtoken");
   // const [wareHouseName, setName] = useState('');
   // const [address, setAddress] = useState('');
   // const [capacity, setCapacity] = useState('');
@@ -49,11 +51,11 @@ function Create() {
   console.log(product)
     axios
       .post(
-        "https://warehouse-management-api.vercel.app/v1/warehouse/create?id_owner=6539131d3d09d1cd2b68e1cf",
+        BASE_URL+"/warehouse/create?id_owner=6539131d3d09d1cd2b68e1cf",
         product,
         {
           headers: {
-            token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxMzFkM2QwOWQxY2QyYjY4ZTFjZiIsImlzT3duZXIiOnRydWUsImlhdCI6MTY5ODkwNjY3NiwiZXhwIjoxNjk4OTEzODc2fQ.vT8V__xNAtB_iZ7j0iNiH4VUBJpmPZURJPGUXXKjIEE",
+            token:Token,
           },
         }
       )
