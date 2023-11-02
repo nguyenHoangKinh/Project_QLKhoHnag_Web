@@ -1,7 +1,6 @@
 import axios from "axios";
 // import { useEffect } from "react";
 import { BASE_URL } from "../config";
-import { Alert } from "bootstrap";
 
 const LoginUserToken = (username,password) =>{
   axios
@@ -12,16 +11,15 @@ const LoginUserToken = (username,password) =>{
   .then((response) => {
     if (response.data) {
       alert("dang nhap thanh cong")
+      console.log(response.data);
       const token = response.data.accessToken;
       localStorage.setItem("jsonwebtoken", token);
-      // set default headers
-      // console.log("token:",token);    
-      window.location.href = "/HomeScreen";
+      // window.location.href = "/HomeScreen";
     }
   })
   .catch((error) => {
     console.log(error.data.message);
-    Alert.alert(error.data.message);
+    alert("Dang nhap that bai");
   });
 };
 const Logout = (token) => {

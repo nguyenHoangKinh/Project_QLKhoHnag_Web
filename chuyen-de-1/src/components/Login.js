@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Alert, Toast } from "bootstrap";
+import { Alert } from "bootstrap";
 import { LoginUserToken } from "../services/UserServices";
 import axios from "axios";
 const Login = (props) => {
@@ -13,13 +13,6 @@ const Login = (props) => {
     if (username && password) {
       LoginUserToken(username, password);
       setLoadingData(false);
-    } else {
-      if (username === "") {
-        Alert.alert("ban chua  nhap username!");
-      }
-      if (password === "") {
-        Alert.alert("ban chua  nhap Password!");
-      }
     }
   };
 
