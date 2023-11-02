@@ -1,23 +1,29 @@
-import { useEffect, useState } from "react";
+import axios from 'axios';
 import ListGroup from "react-bootstrap/ListGroup";
-import { CategoryWarehouseList } from "../services/CategoryWarehouseService";
-import axios from "axios";
+import React,{ useEffect, useState } from "react";
+import { BASE_URL } from "../config";
+import { Logout } from "../services/UserServices";
+import { Alert } from "bootstrap";
 
 const CategoryWarehouse = () => {
+  let Token = localStorage.getItem("jsonwebtoken");
   const [ListCategory, setListCategory] = useState([]);
   useEffect(() => {
     //call api
-    let name = localStorage.getItem("jsonwebtoken");
-   CategoryWarehouseList(name).then((res) => {
-     if (res && res.data && res.data.categories) {
-        console.log("category: ", res.data.categories);
-        setListCategory(res.data.categories);
+    axios.get(BASE_URL+'/warehouse/category/list', {
+      headers: {
+         token: Token
       }
-    });
+   }).then((res) => {
+    if (res && res.data && res.data.categories) {
+       setListCategory(res.data.categories);
+     }
+   }).catch((error)=>{
+    Alert.Alert(error.message);
+   });
   }, []);
-  const getCategory = async (name) => {
-
-    
+  const LogoutToken = () => {
+    Logout(Token);
   };
   return (
     <div className="category-containers">
@@ -28,6 +34,7 @@ const CategoryWarehouse = () => {
           return <ListGroup.Item className="category-item">{item.name}</ListGroup.Item>;
         })}
     </ListGroup>
+    <button onClick={LogoutToken}>Logout</button>
     </div>
   );
 };
