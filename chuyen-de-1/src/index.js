@@ -6,6 +6,7 @@ import App from './App';
 import Login from './components/Login';
 import CategoryWarehouse from './components/CategoryWarehouse';
 import RegisterAccount from './components/RegisterAccount'
+import HomeScreen from './components/HomeScreen';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "registeraccount",
     element: <RegisterAccount/>,
+  },
+  {
+    path: "HomeScreen",
+    element: <HomeScreen/>,
   },
 ]);
 
