@@ -3,9 +3,7 @@ import { setAuthenticationHeader } from '../services/authenticate';
 import  CategoryWarehouse  from './CategoryWarehouse';
 import { Toast } from "bootstrap";
 import axios from "axios";
-// import { userNavigate } from "react-router-dom";
 const Login = (props) => {
-  // const navigate = userNavigate();
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   const [loadingData, setLoadingData] = useState(false);
@@ -22,7 +20,7 @@ const Login = (props) => {
     // perform the login request
     setLoadingData(true);
     axios
-      .post("https://warehouse-management-api.vercel.app/v1/auth/login", {
+      .post(BASE_URL+"/login", {
         username: credentials.username,
         password: credentials.password,
       })
@@ -33,16 +31,10 @@ const Login = (props) => {
           const token = response.data.accessToken;
           localStorage.setItem("jsonwebtoken", token);
           setAuthenticationHeader(token); 
-          // CategoryWarehouse(token);
           // set default headers
           console.log("token:",token);    
-          // console.log("token:",CategoryWarehouseService(token));    
-          
-          // navigate("/registeraccount");
-          // props.history.push('/registeraccount', token);
-          localStorage.setItem("username", credentials.username);
-          // props.onLoggedIn();
-          window.location.href = "/CategoryWarehouse";
+          // console.log("token:",CategoryWarehouseService(token));   
+          window.location.href = "/HomeScreen";
         }
       })
       .catch((error) => {

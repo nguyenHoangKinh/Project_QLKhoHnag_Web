@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { BASE_URL } from '../config';
 
 const CategoryWarehouseList = (token) => {
-   return axios.get('https://warehouse-management-api.vercel.app/v1/warehouse/category/list', {
+   return axios.get(BASE_URL+'/category/list', {
       headers: {
          token: token
       }
