@@ -7,22 +7,7 @@ import { BASE_URL } from "../config";
 
 function UpdateWare() {
   let Token = localStorage.getItem("jsonwebtoken");
-  // const [wareHouseName, setName] = useState('');
-  // const [address, setAddress] = useState('');
-  // const [capacity, setCapacity] = useState('');
-  // const [monney, setMonney] = useState('');
-  // const [status, setStatus] = useState('');
-  // const [description, setDescription] = useState('');
-
-  // const wares = useSelector((state) => state.wares);
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate()
-
-  // const handleSubmit = (event) =>{
-  //   event.preventDefault();
-  //   dispatch(addWare({id:wares[wares.length - 1].id + 1 , wareHouseName, address,
-  //   capacity, monney, status, description}))
-  //   navigate('/')
+  const [records, setWares] = useState([]);
 
   const [inputData, setInputData] = useState({
     wareHouseName: "",
@@ -46,12 +31,12 @@ function UpdateWare() {
       monney: inputData.monney,
       status: inputData.status,
       description: inputData.description,
-      owner: "6539131d3d09d1cd2b68e1cf"
+      owner: inputData._id
   }
   console.log(product)
     axios
       .post(
-        BASE_URL+"/warehouse/create?id_owner=6539131d3d09d1cd2b68e1cf",
+        BASE_URL+`/warehouse/create?id_owner=${records._id}`,
         product,
         {
           headers: {
@@ -60,7 +45,6 @@ function UpdateWare() {
         }
       )
       .then((res) => {
-        //setInputData(Object, res.data)
         console.log(res);
         alert("Sua thanh cong");
         navigate("/");
