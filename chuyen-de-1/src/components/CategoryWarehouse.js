@@ -2,17 +2,12 @@ import { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { CategoryWarehouseList } from "../services/CategoryWarehouseService";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
 
 const CategoryWarehouse = () => {
-  // const navigate = useNavigate();
   const [ListCategory, setListCategory] = useState([]);
   useEffect(() => {
     //call api
     let name = localStorage.getItem("jsonwebtoken");
-    // console.log("CategoryWarehouse:", CategoryWarehouseList(name).then(rea => {
-    //   console.log("CategoryWarehouse",rea.data.categories);
-    // }));
    CategoryWarehouseList(name).then((res) => {
      if (res && res.data && res.data.categories) {
         console.log("category: ", res.data.categories);
