@@ -1,9 +1,10 @@
 import {  createSlice } from "@reduxjs/toolkit";
-import { wareList } from "./Data";
+ import { wareList } from "./Data";
+  
 
  const wareSlice = createSlice({
     name: "wares",
-    initialState: wareList,
+    initialState: wareList ,
     reducers: {
         addWare: (state, action) =>{
             // console.log(action)
