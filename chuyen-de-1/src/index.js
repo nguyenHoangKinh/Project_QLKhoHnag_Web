@@ -1,30 +1,45 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './App.scss';
 import './index.css';
 import App from './App';
+import Login from './components/Login';
+import CategoryWarehouse from './components/CategoryWarehouse';
+import RegisterAccount from './components/RegisterAccount'
 import reportWebVitals from './reportWebVitals';
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import { configureStore } from '@reduxjs/toolkit';
-import WareReducer from './WareReducer';
-import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
-const store = configureStore({
-    reducer:{
-        wares: WareReducer
-    }
-})
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App/>,
+  },
+  {
+    path: "login",
+    element: <Login/>,
+  },
+  {
+    path: "CategoryWarehouse",
+    element: <CategoryWarehouse/>,
+  },
+  {
+    path: "registeraccount",
+    element: <RegisterAccount/>,
+  },
+]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}  >   
+    <Provider store={store}  >
+    <RouterProvider router={router} />
        <App />
     </Provider>
   </React.StrictMode>
    //<AppRouter />
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
