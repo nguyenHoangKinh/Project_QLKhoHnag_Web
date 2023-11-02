@@ -7,7 +7,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-
 function Home() {
   //const wares = useSelector((state) => state.wares);
   //const [records, setWares] = useState([]);
@@ -47,7 +46,7 @@ function Home() {
         }
       )
       .then((res) => {
-        setColumns(Object, res.data)
+        setColumns(Object, res.data);
         setRecords(res.data.warehouses);
         console.log(res);
       });
@@ -57,13 +56,16 @@ function Home() {
     const conf = window.confirm("Ban co chac la xoa khong?");
     if (conf) {
       axios
-        .delete("https://warehouse-management-api.vercel.app/v1/warehouse/deleteWarehouse/" + id, 
-        {
-          headers: {
-            Token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxMzFkM2QwOWQxY2QyYjY4ZTFjZiIsImlzT3duZXIiOnRydWUsImlhdCI6MTY5ODkwNjY3NiwiZXhwIjoxNjk4OTEzODc2fQ.vT8V__xNAtB_iZ7j0iNiH4VUBJpmPZURJPGUXXKjIEE",
-          },
-        })
+        .delete(
+          "https://warehouse-management-api.vercel.app/v1/warehouse/deleteWarehouse/" +
+            id,
+          {
+            headers: {
+              Token:
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxMzFkM2QwOWQxY2QyYjY4ZTFjZiIsImlzT3duZXIiOnRydWUsImlhdCI6MTY5ODkxMzkyNSwiZXhwIjoxNjk4OTIxMTI1fQ.xFUcP3sp6pCnC-Gbt-hV24fjtVGzLb-LFa1sFMvaZBA",
+            },
+          }
+        )
         .then((res) => {
           alert("xoa thanh cong");
           // navigate("/");
@@ -85,9 +87,9 @@ function Home() {
         <h1>List of WareHouse</h1>
         <div className="w-200 rounded bg-white border shadow p-7">
           <table className="table">
-            <thead>         
+            <thead>
               <tr>
-                {/* <th>ID</th> */}
+                <th>ID</th>
                 <th>Ten</th>
                 <th>Dia chi</th>
                 <th>Danh muc</th>
@@ -99,8 +101,8 @@ function Home() {
             </thead>
             <tbody>
               {records.map((d, i) => (
-                <tr key={i}>  
-                   {/* <td>{d._id}</td>           */}
+                <tr key={i}>
+                  <td>{d._id}</td>          
                   <td>{d.wareHouseName}</td>
                   <td>{d.address}</td>
                   <td>{d.category}</td>
@@ -109,12 +111,18 @@ function Home() {
                   <td>{d.status}</td>
                   <td>{d.description}</td>
                   <td>
-                    <Link to="update" className="btn btn-sm btn-succes">
+                    <button
+                      onClick={(e) => handleSubmit(d)}
+                      className="btn btn-sm ms-4 btn-access bg-primary"
+                    >
                       Update
-                    </Link>
+                    </button><br/>
+                    {/* <Link to="update" className="btn btn-sm btn-succes">
+                      Update
+                    </Link> */}
                     <button
                       onClick={(e) => handleSubmit(d._id)}
-                      className="btn btn-sm ms-4 btn-danger"
+                      className="btn btn-sm ms-4 btn-danger " 
                     >
                       Delete
                     </button>
@@ -122,7 +130,6 @@ function Home() {
                 </tr>
               ))}
             </tbody>
-            
           </table>
         </div>
       </div>
