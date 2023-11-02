@@ -1,53 +1,26 @@
 import { useState, useEffect } from "react";
-import { setAuthenticationHeader } from '../services/authenticate';
-import  CategoryWarehouse  from './CategoryWarehouse';
-import { Toast } from "bootstrap";
+import { Alert, Toast } from "bootstrap";
+import { LoginUserToken } from "../services/UserServices";
 import axios from "axios";
-// import { userNavigate } from "react-router-dom";
 const Login = (props) => {
-  // const navigate = userNavigate();
   const [isShowPassword, setIsShowPassword] = useState(false);
-
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const [loadingData, setLoadingData] = useState(false);
-  const [credentials, setCredentials] = useState({});
-
-  const handleChange = (e) => {
-    setCredentials({
-      ...credentials,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const handleLogin = () => {
-    // perform the login request
     setLoadingData(true);
-    axios
-      .post("https://warehouse-management-api.vercel.app/v1/auth/login", {
-        username: credentials.username,
-        password: credentials.password,
-      })
-      .then((response) => {
-        if (response.data) {
-          setLoadingData(false);
-          alert("dang nhap thanh cong")
-          const token = response.data.accessToken;
-          localStorage.setItem("jsonwebtoken", token);
-          setAuthenticationHeader(token); 
-          // CategoryWarehouse(token);
-          // set default headers
-          console.log("token:",token);    
-          // console.log("token:",CategoryWarehouseService(token));    
-          
-          // navigate("/registeraccount");
-          // props.history.push('/registeraccount', token);
-          localStorage.setItem("username", credentials.username);
-          // props.onLoggedIn();
-          window.location.href = "/CategoryWarehouse";
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (username && password) {
+      LoginUserToken(username, password);
+      setLoadingData(false);
+    } else {
+      if (username === "") {
+        Alert.alert("ban chua  nhap username!");
+      }
+      if (password === "") {
+        Alert.alert("ban chua  nhap Password!");
+      }
+    }
   };
 
   return (
@@ -58,16 +31,16 @@ const Login = (props) => {
         <input
           type="text"
           placeholder="Username..."
-          name="username"
-          onChange={handleChange}
+          value={username}
+          onChange={(e) => setUserName(e.target.value)}
         />
         <div className="text"> Password </div>
         <div className="input-pass">
           <input
             type={isShowPassword === true ? "text" : "password"}
             placeholder="password..."
-            name="password"
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <i
             className={
@@ -79,8 +52,8 @@ const Login = (props) => {
           ></i>
         </div>
         <button
-            className="active"
-          //   disabled={username && password ? false : true}
+          className={username && password ? "active" : ""}
+          disabled={username && password ? false : true}
           onClick={handleLogin}
         >
           {loadingData && <i className="fa-solid fa-sync fa-spin"></i>}
@@ -95,11 +68,5 @@ const Login = (props) => {
     </div>
   );
 };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLoggedIn: () => dispatch({type: 'ON_LOGGED_IN'})
-  }
-}
 
 export default Login;
