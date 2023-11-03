@@ -75,3 +75,22 @@ code {
     margin-top: 30px;
   }
 }
+
+//category
+.category-containers{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 50%;
+  .category-row{
+    text-align: center;
+    .category-item{
+      background: #2d36660f;
+      font-size: larger;
+      &:hover{
+        background: rgb(189, 189, 248);
+        opacity: 0.8;
+      }
+    }
+  }
+}
