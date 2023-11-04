@@ -6,10 +6,12 @@ import axios from "axios";
 import { useEffect } from "react";
 import { Logout } from "../services/UserServices";
 import { BASE_URL } from "../config";
+import {jwtDecode}  from "jwt-decode"
 
 
 function Home() {
   let Token = localStorage.getItem("jsonwebtoken");
+  let idUser= jwtDecode(Token)
   const [columns, setColumns] = useState([]);
   const [records, setRecords] = useState([]);
 
@@ -24,18 +26,21 @@ function Home() {
     
     axios
       .get(
-        BASE_URL+`/warehouse/list?id_owner=${records._id}`,
+        BASE_URL+`/warehouse/list`,
         {
           headers: {
             Token:
             Token
           },
+          params: {
+            id_owner: idUser.id
+          }
         }
       )
       .then((res) => {
         setColumns(Object, res.data);
-        setRecords(res.data.warehouses);
-        console.log(res);
+        setRecords(res.data.warehouses.warehouses);
+        console.log(res.data.warehouses.warehouses);
       });
   }, []);
 
@@ -55,7 +60,7 @@ function Home() {
         )
         .then((res) => {
           alert("xoa thanh cong");
-          // navigate("/");
+          window.location.href="/HomeScreen"
           console.log(res);
         })
         .catch((err) => console.log(err));
@@ -76,7 +81,6 @@ function Home() {
           <table className="table">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Ten</th>
                 <th>Dia chi</th>
                 <th>Danh muc</th>
@@ -88,8 +92,7 @@ function Home() {
             </thead>
             <tbody>
               {records.map((d, i) => (
-                <tr key={i}>
-                  <td>{d._id}</td>          
+                <tr key={i}>        
                   <td>{d.wareHouseName}</td>
                   <td>{d.address}</td>
                   <td>{d.category}</td>
