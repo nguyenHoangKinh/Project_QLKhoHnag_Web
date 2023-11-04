@@ -18,14 +18,14 @@ const isEmptyValue = (value) => {
 export default function RegisterPage() {
   const [formValue, setFormValue] = useState(initFormValue);
   const [formError, setFormError] = useState({});
-  const [check, setCheck] = useState("");
-  const [onwer, setOnwer] = useState("")
+  // const [check, setCheck] = useState("");
+  // const [onwer, setOnwer] = useState("")
 
-  function checkValue(e) {
-    var value = e.target.value;
-    console.log("You selected " + value);
-    setCheck(value)
-  }
+  // function checkValue(e) {
+  //   var value = e.target.value;
+  //   console.log("You selected " + value);
+  //   setCheck(value)
+  // }
 
   const validateForm = () => {
     const error = {};
@@ -84,7 +84,7 @@ export default function RegisterPage() {
 
       axios
         .post(
-          "https://warehouse-management-api.vercel.app/v1/auth/register?status=" + check,
+          "https://warehouse-management-api.vercel.app/v1/auth/register?status=1",
           acc
         )
         .then((respone) => {
@@ -101,16 +101,16 @@ export default function RegisterPage() {
     }
   };
 
-  const owners = [
-    {name: "chukho", ownersId: "6539131d3d09d1cd2b68e1cf"},
-    {name: "chukho1", ownersId: "653921bc95460dd107e2b700"},
-    {name: "chukho2", ownersId: "65393078e36249890d4cf458"},
-    {name: "chukho3", ownersId: "6541c00a30aaedbdc91d0077"},
-  ]
+  // const owners = [
+  //   {name: "chukho", ownersId: "6539131d3d09d1cd2b68e1cf"},
+  //   {name: "chukho1", ownersId: "653921bc95460dd107e2b700"},
+  //   {name: "chukho2", ownersId: "65393078e36249890d4cf458"},
+  //   {name: "chukho3", ownersId: "6541c00a30aaedbdc91d0077"},
+  // ]
 
-  function handleSelectOwner(event) {
-    setOnwer(event.target.value)
-  }
+  // function handleSelectOwner(event) {
+  //   setOnwer(event.target.value)
+  // }
 
   return (
     <div className="register-page">
@@ -220,7 +220,7 @@ export default function RegisterPage() {
             )}
           </div>
 
-         <div className="d-flex justify-content-center mt-3">
+         {/* <div className="d-flex justify-content-center mt-3">
               <div className="w-100 p-2 border rounded">
                 <h5>Onwer</h5>
                 <select className="form-select" onChange={handleSelectOwner}>
@@ -230,9 +230,9 @@ export default function RegisterPage() {
                 </select>
                 <p>{onwer}</p>
               </div>
-         </div>
+         </div> */}
 
-          <div>
+          {/* <div>
             <input id="box1" onChange={checkValue} type="checkbox" value="1" checked={check.includes("1") ? true : false} />
             <label htmlFor="#box1">Staff</label>
           </div>
@@ -240,7 +240,7 @@ export default function RegisterPage() {
           <div>
             <input id="box2" onChange={checkValue} type="checkbox" value="2" checked={check.includes("2") ? true : false} />
             <label htmlFor="#box2">User</label>
-          </div>
+          </div> */}
 
           <button type="submit" className="submit-btn">
             Register
