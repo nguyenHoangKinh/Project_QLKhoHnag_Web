@@ -14,7 +14,7 @@ const LoginUserToken = (username,password) =>{
       console.log(response.data);
       const token = response.data.accessToken;
       localStorage.setItem("jsonwebtoken", token);
-      // window.location.href = "/HomeScreen";
+      window.location.href = "/HomeScreen";
     }
   })
   .catch((error) => {
