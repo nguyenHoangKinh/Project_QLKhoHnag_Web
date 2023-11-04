@@ -1,13 +1,13 @@
-import './App.scss';
-import Login from './components/Login';
-import ListWarehouseUser from './components/ListWarehouseUser';
+
+import { BrowserRouter, Routes ,Route } from "react-router-dom";
+
 
 function App() {
-  return (
-    <div className="app-containers">
-    <Login/>
-    </div>
-  );
+  return (  
+    <>
+    
+    </>
+  )
 }
 
 export default App;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../theme/RegisterAccount.css";
 import axios from "axios";
+import { BASE_URL } from "../config";
 
 const initFormValue = {
   username: "",
@@ -84,7 +85,7 @@ export default function RegisterPage() {
 
       axios
         .post(
-          "https://warehouse-management-api.vercel.app/v1/auth/register?status=1",
+          BASE_URL+"/auth/register?status=1",
           acc
         )
         .then((respone) => {
