@@ -10,6 +10,7 @@ import HomeScreen from './components/HomeScreen';
 import InformationWarehouse from './components/InformationWarehouse';
 import UpdateWare from './components/UpdateWare';
 import Create from './components/Create';
+import ListWarehouseUser from './components/ListWarehouseUser';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -50,6 +51,8 @@ const router = createBrowserRouter([
   {
     path: "InformationWarehouse",
     element: <InformationWarehouse/>,
+    path: "ListWarehouseUser",
+    element: <ListWarehouseUser/>,
   },
 ]);
 
