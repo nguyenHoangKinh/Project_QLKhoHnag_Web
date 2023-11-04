@@ -1,12 +1,13 @@
-// import logo from './logo.svg';
-
+import { BrowserRouter, Routes ,Route } from "react-router-dom";
 
 
 function App() {
-  return (
-    <div className="app-containers">
-    </div>
-  );
+  return (  
+    <>
+    
+    </>
+  )
+       
 }
 
 export default App;
