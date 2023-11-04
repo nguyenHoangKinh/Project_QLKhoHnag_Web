@@ -1,6 +1,6 @@
 import axios from "axios";
-// import { useEffect } from "react";
 import { BASE_URL } from "../config";
+import { useState } from "react";
 
 const LoginUserToken = (username,password) =>{
   axios
@@ -10,11 +10,11 @@ const LoginUserToken = (username,password) =>{
   })
   .then((response) => {
     if (response.data) {
-      alert("dang nhap thanh cong")
-      console.log(response.data);
+      // alert("dang nhap thanh cong")
+      console.log(response.data.others);
       const token = response.data.accessToken;
       localStorage.setItem("jsonwebtoken", token);
-      // window.location.href = "/HomeScreen";
+      window.location.href = "/HomeScreen";
     }
   })
   .catch((error) => {
