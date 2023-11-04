@@ -7,6 +7,7 @@ import Login from './components/Login';
 import CategoryWarehouse from './components/CategoryWarehouse';
 import RegisterAccount from './components/RegisterAccount'
 import HomeScreen from './components/HomeScreen';
+import ShowOrders from './components/ShowOrders';
 import UpdateWare from './components/UpdateWare';
 import Create from './components/Create';
 import reportWebVitals from './reportWebVitals';
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "Create",
     element: <Create/>,
+  },
+  {
+    path: "ShowOrders",
+    element: <ShowOrders/>,
   },
 ]);
 
