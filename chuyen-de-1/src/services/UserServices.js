@@ -14,12 +14,17 @@ const LoginUserToken = (username,password) =>{
       console.log(response.data.others);
       const token = response.data.accessToken;
       localStorage.setItem("jsonwebtoken", token);
-      window.location.href = "/HomeScreen";
+      if (response.data.others.isOwner) {
+        window.location.href = "/HomeScreen";
+      }else{
+        window.location.href = "/HomeUserScreen";
+      }
+      
     }
   })
   .catch((error) => {
-    console.log(error.data.message);
-    alert("Dang nhap that bai");
+    // console.log(error.request.response);
+    alert(error.request.response.slice(12).replace('"}', ""));
   });
 };
 const Logout = (token) => {
@@ -36,7 +41,7 @@ const Logout = (token) => {
         window.location.href = "/login";
       }
     }).catch((error) => {
-        console.log(error.res.message);
+      alert(error.request.response.slice(12).replace('"}', ""));
       });
 };
 export { Logout,LoginUserToken };

@@ -8,6 +8,7 @@ import CategoryWarehouse from './components/CategoryWarehouse';
 import RegisterAccount from './components/RegisterAccount'
 import HomeScreen from './components/HomeScreen';
 import UpdateWare from './components/UpdateWare';
+import HomeUserScreen from './components/HomeUserScreen';
 import Create from './components/Create';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "Create",
     element: <Create/>,
+  },
+  {
+    path: "HomeUserScreen",
+    element: <HomeUserScreen/>,
   },
 ]);
 
