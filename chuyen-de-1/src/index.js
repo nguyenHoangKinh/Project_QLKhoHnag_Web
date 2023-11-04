@@ -10,9 +10,11 @@ import HomeScreen from './components/HomeScreen';
 import UpdateWare from './components/UpdateWare';
 import HomeUserScreen from './components/HomeUserScreen';
 import Create from './components/Create';
+import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import {AuthProvider} from './context/UserContext';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -51,11 +53,17 @@ const router = createBrowserRouter([
     path: "HomeUserScreen",
     element: <HomeUserScreen/>,
   },
+  {
+    path: "*",
+    element: <NotFound/>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+  <AuthProvider>
     <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
 reportWebVitals();

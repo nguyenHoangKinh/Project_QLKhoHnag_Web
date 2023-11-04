@@ -1,15 +1,17 @@
-import React from "react";
+import {useContext } from "react";
 import { Link } from "react-router-dom";
 import { deleteWare } from "../WareReducer";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import { Logout } from "../services/UserServices";
+import { Logout } from "../context/UserContext";
 import { BASE_URL } from "../config";
 import {jwtDecode}  from "jwt-decode"
+import {UserContext} from '../context/UserContext';
 
 
 function Home() {
+  const {Logout} = useContext(UserContext);
   let Token = localStorage.getItem("jsonwebtoken");
   let idUser= jwtDecode(Token)
   const [columns, setColumns] = useState([]);

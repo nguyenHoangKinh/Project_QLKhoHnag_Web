@@ -1,8 +1,14 @@
 import axios from "axios";
 import { BASE_URL } from "../config";
-import { useState } from "react";
+import React, { createContext, useState } from "react";
+
+export const UserContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [loadingData, setLoadingData] = useState(false);
 
 const LoginUserToken = (username,password) =>{
+  setLoadingData(true);
   axios
   .post(BASE_URL+"/auth/login", {
     username: username,
@@ -11,6 +17,7 @@ const LoginUserToken = (username,password) =>{
   .then((response) => {
     if (response.data) {
       // alert("dang nhap thanh cong")
+      setLoadingData(false);
       console.log(response.data.others);
       const token = response.data.accessToken;
       localStorage.setItem("jsonwebtoken", token);
@@ -37,6 +44,7 @@ const Logout = (token) => {
     })
     .then((res) => {
       if (res) {
+        alert(res.data.message);
         localStorage.removeItem("jsonwebtoken");
         window.location.href = "/login";
       }
@@ -44,4 +52,15 @@ const Logout = (token) => {
       alert(error.request.response.slice(12).replace('"}', ""));
       });
 };
-export { Logout,LoginUserToken };
+return (
+  <UserContext.Provider
+    value={{
+      loadingData,
+      Logout,
+      LoginUserToken,
+    }}
+  >
+    {children}
+  </UserContext.Provider>
+);
+}
