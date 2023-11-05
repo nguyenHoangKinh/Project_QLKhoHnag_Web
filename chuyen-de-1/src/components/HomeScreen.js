@@ -22,8 +22,6 @@ function Home() {
   };
 
   useEffect(() => {
-
-    
     axios
       .get(
         BASE_URL+`/warehouse/list`,

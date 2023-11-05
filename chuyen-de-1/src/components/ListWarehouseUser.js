@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from "react";
 import "../theme/ListWarehouseUser.css";
 import axios from "axios";
+import { BASE_URL } from "../config";
 
 export default function ListWarehouseUser() {
-    const [ListWarehouseUser, setListWarehouseUser] = useState();
+    const [listWarehouseUser, setListWarehouseUser] = useState();
+    const [listCategoryUser, setListCategoryUser] = useState();
+    let token = localStorage.getItem("jsonwebtoken");
 
     useEffect(() => {
         //call api
-        axios.get('https://warehouse-management-api.vercel.app/v1/warehouse/listWarehouseUser', {
+        axios.get(BASE_URL + '/warehouse/listWarehouseUser', {
             headers: {
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2EwMTY3YmZmY2JkODFiOTgwOWExYiIsImlhdCI6MTY5OTAxNDczOSwiZXhwIjoxNjk5MDIxOTM5fQ.HpX5_tvV9DpW8SkC5qNcUcoTZshGPqyoQQyjsInyfpk'
+                token: token
             }
         }).then((res) => {
             setListWarehouseUser(res.data.warehouse);
+        }).catch((error) => {
+            console.log(error.message);
+        });
+
+        axios.get(BASE_URL + '/warehouse/category/list', {
+            headers: {
+                token: token
+            }
+        }).then((res) => {
+            console.log(res.data.categories)
+            setListCategoryUser(res.data.categories);
         }).catch((error) => {
             console.log(error.message);
         });
@@ -27,22 +41,32 @@ export default function ListWarehouseUser() {
                         <tr>
                             <th>Warehouse Name</th>
                             <th>Address</th>
+                            <th>Category</th>
                             <th>Capacity</th>
                             <th>Monney</th>
                             <th>Description</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {ListWarehouseUser &&
-                            ListWarehouseUser.length > 0 &&
-                            ListWarehouseUser.map((item, index) => {
+                        {listWarehouseUser &&
+                            listWarehouseUser.length > 0 &&
+                            listWarehouseUser.map((itemWarehouse, index) => {
                                 return (
                                     <tr>
-                                        <td>{item.wareHouseName}</td>
-                                        <td>{item.address}</td>
-                                        <td>{item.capacity}</td>
-                                        <td>{item.monney}</td>
-                                        <td>{item.description}</td>
+                                        <td>{itemWarehouse.wareHouseName}</td>
+                                        <td>{itemWarehouse.address}</td>
+                                        {listCategoryUser &&
+                                            listCategoryUser.length > 0 &&
+                                            listCategoryUser.map((item, index) => {
+                                                if (itemWarehouse.category.includes(item._id)) {
+                                                    return (
+                                                        <td>{item.name}</td>
+                                                    )
+                                                }
+                                            })}
+                                        <td>{itemWarehouse.capacity}</td>
+                                        <td>{itemWarehouse.monney}</td>
+                                        <td>{itemWarehouse.description}</td>
                                     </tr>
                                 )
                             })}
