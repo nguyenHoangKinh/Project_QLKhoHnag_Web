@@ -30,9 +30,8 @@ function Home() {
       .get(
         BASE_URL+`/warehouse/list`,
         {
-          headers: {
-            Token:
-            Token
+          headers: { 
+            Authorization: `Token ${Token}` 
           },
           params: {
             id_owner: idUser.id

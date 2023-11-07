@@ -13,8 +13,8 @@ const CategoryWarehouse = () => {
   useEffect(() => {
     //call api
     axios.get(BASE_URL+'/warehouse/category/list', {
-      headers: {
-         token: Token
+      headers: { 
+        Authorization: `Token ${Token}` 
       }
    }).then((res) => {
     if (res && res.data && res.data.categories) {

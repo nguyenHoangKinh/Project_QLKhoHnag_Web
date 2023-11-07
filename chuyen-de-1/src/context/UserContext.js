@@ -38,9 +38,7 @@ const Logout = (token) => {
   console.log("category: ", token);
   axios
     .get(BASE_URL + "/auth/logout", {
-      headers: {
-        token: token,
-      },
+      headers: { Authorization: `Token ${token}` }
     })
     .then((res) => {
       if (res) {
