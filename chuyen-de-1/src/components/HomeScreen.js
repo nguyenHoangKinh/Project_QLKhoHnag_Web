@@ -54,9 +54,11 @@ function Home() {
             id,
           {
             headers: {
-              Token:
-              Token
+              Authorization: `Token ${Token}` 
             },
+            params: {
+              id_owner: idUser.id
+            }
           }
         )
         .then((res) => {
