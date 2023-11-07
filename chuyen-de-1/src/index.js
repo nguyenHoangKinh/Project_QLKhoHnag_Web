@@ -51,6 +51,8 @@ const router = createBrowserRouter([
   {
     path: "InformationWarehouse",
     element: <InformationWarehouse/>,
+  },
+  {
     path: "ListWarehouseUser",
     element: <ListWarehouseUser/>,
   },
