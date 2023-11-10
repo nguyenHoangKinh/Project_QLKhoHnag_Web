@@ -1,11 +1,14 @@
 import axios from "axios";
 import { BASE_URL } from "../config";
 import React, { createContext, useState } from "react";
-
+import {jwtDecode}  from "jwt-decode"
 export const UserContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  let Token = localStorage.getItem("jsonwebtoken");
+  let idUser= jwtDecode(Token)
   const [loadingData, setLoadingData] = useState(false);
+    const [ListOrder, setListOrder] = useState([]);
 
 const LoginUserToken = (username,password) =>{
   setLoadingData(true);
@@ -50,10 +53,25 @@ const Logout = (token) => {
       alert(error.request.response.slice(12).replace('"}', ""));
       });
 };
+const orderList = (Token) => {
+  axios.get(BASE_URL+`/order/listOrderByOwner?id_user=${idUser.id}`, {
+    headers: { 
+      Authorization: `Bearer ${Token}` 
+    }
+  }).then((res) => {
+  if (res && res.data && res.data) {
+    setListOrder(res.data);
+   }
+  }).catch((error)=>{
+  alert(error.message);
+  });
+}
 return (
   <UserContext.Provider
     value={{
+      ListOrder,
       loadingData,
+      orderList,
       Logout,
       LoginUserToken,
     }}

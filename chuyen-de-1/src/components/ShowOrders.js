@@ -1,23 +1,32 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Logout } from "../services/UserServices";
-import { BASE_URL } from "../config";
+import { useState,useEffect,useContext } from "react";
+import { Logout } from "../context/UserContext";
 import ListGroup from "react-bootstrap/ListGroup";
+import {UserContext} from '../context/UserContext';
 const ShowOrders = () => {
-  
+  let Token = localStorage.getItem("jsonwebtoken");
+  // const {Logout} = useContext(UserContext);
+  // const [ListOrder, setListOrder] = useState([]);
+  const {loadingData,orderList,ListOrder} = useContext(UserContext);
+  useEffect(() => {
+    //call api
+    orderList(Token);
+  }, []);
+  // const LogoutToken = () => {
+  //   Logout(Token);
+  // };
 
   return (
     <>
       <div className="category-containers">
         <ListGroup className="category-row">
         <h1 className="text-center">List Order</h1>
-          {/* {ListCategory &&
-            ListCategory.length > 0 &&
-            ListCategory.map((item, index) => {
-              return ( */}
+          {ListOrder &&
+            ListOrder.length > 0 &&
+            ListOrder.map((item, index) => {
+              return (
           <ListGroup.Item className="category-item">
             <div class="row no-gutters">
               {/* <aside class="col-md-3 mt-2">
@@ -28,18 +37,19 @@ const ShowOrders = () => {
               <div class="col-md-6">
                 <div class="info-main text-start">
                   <h3 className="text-start"> Thông tin hóa đơn</h3>
-                    <div className="">Tên chủ kho: </div>
-                    <div className="">Tên kho hàng: </div>
-                    <div className="">Thời gian thuê: </div>
+                    <div className="">Tên chủ kho: {ListOrder.owner}</div>
+                    <div className="">Tên kho hàng: {ListOrder.warehouses} </div>
+                    <div className="">Thời gian thuê: {ListOrder.rentalTime} </div>
                 </div>
               </div>
               <aside class="col-sm-6">
                 <div class="info-aside">
                   <div class="price-wrap text-start">
                     <span class="price h5"> Thông tin bên mua </span>
-                    <div className="">Tên khách hàng: </div>
+                    <div className="">Tên khách hàng: {ListOrder.user}</div>
                   </div>
                   <br />
+                  <h4 className="text-center">{ListOrder.money}$ </h4>
                   {/* <p>
                     <a href="#" class="btn btn-primary btn-block">
                       {" "}
@@ -54,8 +64,8 @@ const ShowOrders = () => {
               </aside>
             </div>
           </ListGroup.Item>
-          {/* );
-            })} */}
+          );
+            })}
         </ListGroup>
       </div>
     </>
