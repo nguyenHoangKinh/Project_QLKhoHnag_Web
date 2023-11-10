@@ -8,6 +8,11 @@ export const UserContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [loadingData, setLoadingData] = useState(false);
   const [ListOrder, setListOrder] = useState([]);
+  const [DetailOrder, setDetailOrder] = useState({});
+  const [checkValue, setCheckValue] = useState(false);
+  // const [IdDetailOrder, setIdDetailOrder] = useState([]);
+  // console.log(IdDetailOrder);
+  console.log(DetailOrder);
 
   const LoginUserToken = (username, password) => {
     setLoadingData(true);
@@ -39,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     console.log("category: ", token);
     axios
       .get(BASE_URL + "/auth/logout", {
-        headers: { Authorization: `Token ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         if (res) {
@@ -69,11 +74,41 @@ export const AuthProvider = ({ children }) => {
         alert(error.message);
       });
   };
+  const OrderDetails = (Token,Id) => {
+    console.log(Token,Id);
+    axios
+      .get(BASE_URL + `/order/getAOrder?id=${Id}`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((res) => {
+        if (res && res.data) {
+          let detail = res.data.Order;
+          setDetailOrder(detail);
+          // console.log(detail);
+          // window.location.href="/InformationWarehouse"
+        }else{
+          console.log("mang rong...");
+        }
+      })
+      .catch((e) => {
+        console.log(`update error ${e.response.data.message}`);
+      });
+      setCheckValue(false);
+  };
+  console.log(DetailOrder);
   return (
     <UserContext.Provider
       value={{
+        checkValue,
         ListOrder,
         loadingData,
+        DetailOrder,
+        setCheckValue,
+        // setIdDetailOrder,
+        setDetailOrder,
+        OrderDetails,
         orderList,
         Logout,
         LoginUserToken,

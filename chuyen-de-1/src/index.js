@@ -9,7 +9,6 @@ import RegisterAccount from './components/RegisterAccount'
 import HomeScreen from './components/HomeScreen';
 import InformationWarehouse from './components/InformationWarehouse';
 import ShowOrders from './components/ShowOrders';
->>>>>>> Kinh/ShowOrders
 import UpdateWare from './components/UpdateWare';
 import HomeUserScreen from './components/HomeUserScreen';
 import Create from './components/Create';
@@ -60,7 +59,7 @@ const router = createBrowserRouter([
   {
     path: "ListWarehouseUser",
     element: <ListWarehouseUser/>,
-
+  },{
     path: "ShowOrders",
     element: <ShowOrders/>,
   },{
