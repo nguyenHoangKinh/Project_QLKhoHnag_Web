@@ -5,109 +5,61 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Logout } from "../services/UserServices";
 import { BASE_URL } from "../config";
+import ListGroup from "react-bootstrap/ListGroup";
 const ShowOrders = () => {
-//     let Token = localStorage.getItem("jsonwebtoken");
-//   const [columns, setColumns] = useState([]);
-//   const [records, setRecords] = useState([]);
-
   
-//   //ham logout
-//   const LogoutToken = () => {
-//     Logout(Token);
-//   };
 
-//   useEffect(() => {
-//     axios
-//       .get(
-//         BASE_URL+`/warehouse/list?id_owner=${records._id}`,
-//         {
-//           headers: {
-//             Token:
-//             Token
-//           },
-//         }
-//       )
-//       .then((res) => {
-//         setColumns(Object, res.data);
-//         setRecords(res.data.warehouses);
-//         console.log(res);
-//       });
-//   }, []);
-
-//   function handleSubmit(id) {
-//     const conf = window.confirm("Ban co chac la xoa khong?");
-//     if (conf) {
-//       axios
-//         .delete(
-//           BASE_URL+"/warehouse/deleteWarehouse/" +
-//             id,
-//           {
-//             headers: {
-//               Token:
-//               Token
-//             },
-//           }
-//         )
-//         .then((res) => {
-//           alert("xoa thanh cong");
-//           console.log(res);
-//         })
-//         .catch((err) => console.log(err));
-//     }
-//   }
-
-    return (<>
- <div className="container">
-      <Link to="/create" className="btn btn-success my-3">
-        Create +
-      </Link>
-      <button 
-    //   onClick={LogoutToken}
-       className="btn btn-danger my-3">
-        Logout 
-      </button>
-      <div className="d-flex flex-column justify-content-center- align-items-center bg-light vh-200">
-        <h1>List of Oders is Active </h1>
-        <div className="w-200 rounded bg-white border shadow p-7">
-          <table className="table w-200">
-            <thead>
-              <tr>
-                {/* <th>ID</th> */}
-                <th>ChuKho</th>
-                <th>Kho</th>
-                <th>Nguoi thue</th>
-                <th>Dung tich</th>
-                <th>Thoi Thang thue</th>
-                <th>Trang thai </th>
-                <th>Mo ta</th>
-              </tr>
-            </thead>
-            <tbody className="rounded  border border-primary mt-5">
-              {/* {records.map((d, i) => ( */}
-                <tr  className=" bg-info     ">
-                  {/* <td>{d._id}</td>           */}
-                  <td>wareHouseName</td>
-                  <td>address</td>
-                  <td>category</td>
-                  <td>capacity</td>
-                  <td>monney</td>
-                  <td>status</td>
-                  <td>description</td>
-                  <td>
-                    <button
-                    //   onClick={(e) => handleSubmit(d._id)}
-                      className="btn btn-sm ms-4 btn-danger " >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              {/* ))} */}
-            </tbody>
-          </table>
-        </div>
+  return (
+    <>
+      <div className="category-containers">
+        <ListGroup className="category-row">
+        <h1 className="text-center">List Order</h1>
+          {/* {ListCategory &&
+            ListCategory.length > 0 &&
+            ListCategory.map((item, index) => {
+              return ( */}
+          <ListGroup.Item className="category-item">
+            <div class="row no-gutters">
+              {/* <aside class="col-md-3 mt-2">
+                    <a href="#" class="img-wrap ">
+                      <img src="https://file4.batdongsan.com.vn/2023/11/02/20231102084859-e975_wm.jpg" className="img-fluid"/>
+                    </a>
+                  </aside> */}
+              <div class="col-md-6">
+                <div class="info-main text-start">
+                  <h3 className="text-start"> Thông tin hóa đơn</h3>
+                    <div className="">Tên chủ kho: </div>
+                    <div className="">Tên kho hàng: </div>
+                    <div className="">Thời gian thuê: </div>
+                </div>
+              </div>
+              <aside class="col-sm-6">
+                <div class="info-aside">
+                  <div class="price-wrap text-start">
+                    <span class="price h5"> Thông tin bên mua </span>
+                    <div className="">Tên khách hàng: </div>
+                  </div>
+                  <br />
+                  {/* <p>
+                    <a href="#" class="btn btn-primary btn-block">
+                      {" "}
+                      Details{" "}
+                    </a>
+                    <a href="#" class="btn btn-light btn-block">
+                      <i class="fa fa-heart"></i>
+                      <span class="text">Add to wishlist</span>
+                    </a>
+                  </p> */}
+                </div>
+              </aside>
+            </div>
+          </ListGroup.Item>
+          {/* );
+            })} */}
+        </ListGroup>
       </div>
-    </div>
-    </>)
-}
+    </>
+  );
+};
 
 export default ShowOrders;
