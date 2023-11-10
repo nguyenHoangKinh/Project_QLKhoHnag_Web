@@ -1,18 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import { Alert } from "bootstrap";
-import { LoginUserToken } from "../services/UserServices";
-import axios from "axios";
+import {UserContext} from '../context/UserContext';
 const Login = (props) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [loadingData, setLoadingData] = useState(false);
-
-  const handleLogin = () => {
-    setLoadingData(true);
+  const {loadingData,LoginUserToken} = useContext(UserContext);
+  const handleLogin = async () => {
     if (username && password) {
-      LoginUserToken(username, password);
-      setLoadingData(false);
+      await LoginUserToken(username, password);
     }
   };
 
@@ -49,7 +45,7 @@ const Login = (props) => {
           disabled={username && password ? false : true}
           onClick={handleLogin}
         >
-          {loadingData &&<i className="fa-solid fa-sync fa-spin"></i>}
+          {loadingData && <i className="fa-solid fa-sync fa-spin"></i>}
           Login
         </button>
         <div className="back">

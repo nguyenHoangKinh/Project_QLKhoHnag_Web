@@ -1,15 +1,19 @@
-import React from "react";
+import {useContext } from "react";
 import { Link } from "react-router-dom";
 import { deleteWare } from "../WareReducer";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import { Logout } from "../services/UserServices";
+import { Logout } from "../context/UserContext";
 import { BASE_URL } from "../config";
+import {jwtDecode}  from "jwt-decode"
+import {UserContext} from '../context/UserContext';
 
 
 function Home() {
+  const {Logout} = useContext(UserContext);
   let Token = localStorage.getItem("jsonwebtoken");
+  let idUser= jwtDecode(Token)
   const [columns, setColumns] = useState([]);
   const [records, setRecords] = useState([]);
 
@@ -20,20 +24,24 @@ function Home() {
   };
 
   useEffect(() => {
+
+    
     axios
       .get(
-        BASE_URL+`/warehouse/list?id_owner=${records._id}`,
+        BASE_URL+`/warehouse/list`,
         {
-          headers: {
-            Token:
-            Token
+          headers: { 
+            Authorization: `Token ${Token}` 
           },
+          params: {
+            id_owner: idUser.id
+          }
         }
       )
       .then((res) => {
         setColumns(Object, res.data);
-        setRecords(res.data.warehouses);
-        console.log(res);
+        setRecords(res.data.warehouses.warehouses);
+        console.log(res.data.warehouses.warehouses);
       });
   }, []);
 
@@ -46,14 +54,16 @@ function Home() {
             id,
           {
             headers: {
-              Token:
-              Token
+              Authorization: `Token ${Token}` 
             },
+            params: {
+              id_owner: idUser.id
+            }
           }
         )
         .then((res) => {
           alert("xoa thanh cong");
-          // navigate("/");
+          window.location.href="/HomeScreen"
           console.log(res);
         })
         .catch((err) => console.log(err));
@@ -74,7 +84,6 @@ function Home() {
           <table className="table">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Ten</th>
                 <th>Dia chi</th>
                 <th>Danh muc</th>
@@ -86,8 +95,7 @@ function Home() {
             </thead>
             <tbody>
               {records.map((d, i) => (
-                <tr key={i}>
-                  <td>{d._id}</td>          
+                <tr key={i}>        
                   <td>{d.wareHouseName}</td>
                   <td>{d.address}</td>
                   <td>{d.category}</td>

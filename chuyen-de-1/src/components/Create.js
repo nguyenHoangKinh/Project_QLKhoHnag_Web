@@ -2,136 +2,54 @@ import React, { useState } from "react";
 import { addWare } from "../WareReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { BASE_URL } from "../config";
+import {jwtDecode}  from "jwt-decode"
+import axios from "axios";
 
 function Create() {
   let Token = localStorage.getItem("jsonwebtoken");
-  // const [records, setRecords] = useState([]);
+  let idUser= jwtDecode(Token)
+  
   const [inputData, setInputData] = useState({
-    wareHouseName: "",
-    address: "",
-    category: "",
-    capacity: "",
-    monney: "",
-    status: "",
-    description: "",
-    owner: ""
+    wareHouseName: '',
+    address: '',
+    category: '',
+    capacity: '',
+    monney: '',
+    status: '',
+    description: '',
+    owner: idUser.id
   });
   const navigate = useNavigate();
 
   function handleSubmit(event) {
-    event.preventDefault();
-    let product = {
-      wareHouseName: inputData.wareHouseName,
-      address: inputData.address,
-      category: inputData.category,
-      capacity: inputData.capacity,
-      monney: inputData.monney,
-      status: inputData.status,
-      description: inputData.description,
-      owner: inputData._id
-  }
-  console.log(product)
+    event.preventDefault()
     axios
       .post(
-        BASE_URL+`/warehouse/create?id_owner=${inputData._id}`,
-        product,
+        BASE_URL+`/warehouse/create`,
+        inputData,
         {
           headers: {
-            token:Token,
+            Authorization: `Token ${Token}` 
           },
+          params: {
+            id_owner: idUser.id
+          }
         }
       )
       .then((res) => {
         //setInputData(Object, res.data)
         console.log(res);
         alert("Them thanh cong");
-        navigate("/");
+        navigate("/HomeScreen");
       })
       .catch((err) => console.log(err));
   }
 
   return (
     <div className="d-flex w-100 vh-100 justify-content-center align-items-center">
-      <div className="w-100 border bg-secondary text-white p-5">
+      <div className="w-50 border bg-light p-5">
         <h3>Them Kho Moi</h3>
-
-        {/* <form  onSubmit={handleSubmit}> 
-        
-          <div>
-            <label htmlFor="wareHouseName">Ten:</label>
-            <input
-              type="text"
-              name="wareHouseName"
-              className="form-control"
-              placeholder="enter name"
-              onChange={e => setName( e.target.value )
-              }
-            />
-          </div>
-          <div>
-            <label htmlFor="address">Dia chi:</label>
-            <input
-              type="text"
-              name="address"
-              className="form-control"
-              placeholder="enter address"
-              onChange={e => setAddress( e.target.value )
-              }             
-            />
-          </div>
-          <div>
-          <label htmlFor="capacity">Dung tich:</label>
-            <input
-              type="text"
-              name="capacity"
-              className="form-control"
-              placeholder="enter capacity"
-              onChange={e => setCapacity( e.target.value )
-              }
-            />
-          </div>
-          <div>
-          <label htmlFor="monney">Gia:</label>
-            <input
-              type="text"
-              name="monney"
-              className="form-control"
-              placeholder="enter monney"
-              onChange={e => setMonney( e.target.value )
-              }
-            />
-          </div>
-          <div>
-          <label htmlFor="status">Trang Thai:</label>
-            <input
-              type="text"
-              name="status"
-              className="form-control"
-              placeholder="enter status"
-              onChange={e => setStatus( e.target.value )
-              }
-             
-            />
-          </div>
-          <div>
-            <label htmlFor="ndescription">Mo ta:</label>
-            <input
-              type="text"
-              name="description"
-              className="form-control"
-              placeholder="enter description"
-              onChange={e => setDescription( e.target.value )
-              }
-             
-            />
-          </div><br />
-          <button className="btn btn-info">
-            Submit
-          </button>
-        </form> */}
-
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="wareHouseName">Ten:</label>
