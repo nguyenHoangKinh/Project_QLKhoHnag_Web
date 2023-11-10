@@ -7,8 +7,6 @@ import ListGroup from "react-bootstrap/ListGroup";
 import {UserContext} from '../context/UserContext';
 const ShowOrders = () => {
   let Token = localStorage.getItem("jsonwebtoken");
-  // const {Logout} = useContext(UserContext);
-  // const [ListOrder, setListOrder] = useState([]);
   const {loadingData,orderList,ListOrder} = useContext(UserContext);
   useEffect(() => {
     //call api

@@ -5,8 +5,6 @@ import {jwtDecode}  from "jwt-decode"
 export const UserContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  let Token = localStorage.getItem("jsonwebtoken");
-  let idUser= jwtDecode(Token)
   const [loadingData, setLoadingData] = useState(false);
     const [ListOrder, setListOrder] = useState([]);
 
@@ -54,6 +52,7 @@ const Logout = (token) => {
       });
 };
 const orderList = (Token) => {
+  let idUser= jwtDecode(Token)
   axios.get(BASE_URL+`/order/listOrderByOwner?id_user=${idUser.id}`, {
     headers: { 
       Authorization: `Bearer ${Token}` 
