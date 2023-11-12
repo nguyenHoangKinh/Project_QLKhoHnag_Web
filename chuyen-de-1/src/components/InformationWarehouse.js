@@ -1,48 +1,73 @@
 import { useState, useEffect,useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 const InformationWarehouse = () => {
   let Token = localStorage.getItem("jsonwebtoken");
+  const location = useLocation();
+  const { OrderDetails,DetailOrder } = useContext(UserContext);
+  // console.log(location.state.item._id);
+  // console.log(DetailOrder);
+  useEffect(() => {
+    //call api
+    OrderDetails(location.state.item._id);
+  }, []);
+  // console.log('====================================');
+  // console.log(ListOrder);
+  // console.log('====================================');
+  console.log(DetailOrder.length)
+    axios
+      .get(
+        `https://warehouse-management-api.vercel.app/v1/auth/account-by-id`,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+          params: {
+            id: DetailOrder.owner,
+          },
+        }
+      )
+      .then((res) => {
+        let owner = res.data.others.username;
+        console.log(owner)
+        // owners.push(<Text key={i}>{owner}</Text>);
+      })
+      .catch((e) => {
+        console.log(`get owner error ${e.res}`);
+      });
 
-  const { ListOrder } = useContext(UserContext);
-  console.log('====================================');
-  console.log(ListOrder);
-  console.log('====================================');
   return (
     <div className="container d-flex justify-content-center ">
       <div class="card" style={{ width: "46rem", height: "30rem" }}>
         {/* <div className="w-200 h-50">
         <img src="https://file4.batdongsan.com.vn/2023/05/29/20230529153800-9db6_wm.jpg" class="card-img-top " alt="..." />
         </div> */}
-
         <div class="card-body">
           <h4 class="card-title">
-            Cho thuê kho xưởng tại KCN Bàu Xéo, Trảng Bom, Đồng Nai (Diện tích
-            5000 - 16800 m2) - JSC Việt Nam
+          Thông tin hóa đơn
           </h4>
           <hr />
           <div className="row">
             <div className="box-monney-capacty row">
               <div className="col-2">
                 <h6 className="">Mức giá</h6>
-                <div className="monney">Thỏa thuận</div>
+                <div className="monney">{DetailOrder.money}</div>
               </div>
               <div className="col-2">
                 <h6 className="capacity ">Diện tích</h6>
                 <div className="capacity ">5.000 m²</div>
               </div>
+              <div className="col-3">
+                <h6 className="capacity ">thoi gian thue</h6>
+                <div className="capacity ">{DetailOrder.rentalTime}</div>
+              </div>
             </div>
             <hr />
             <div className="row">
-              <h6 className="text">Thông tin mô tả</h6>
-              <p className="description">
-                + Công ty TNHH Thực Phẩm & kho lạnh P. K Vietfood 100% vốn nước
-                ngoài, cty đang hoạt động bình thường. + Giá bán thỏa thuận theo
-                giá trị thẩm định tại thời điểm hiện tại. + Được phép kinh doanh
-                sản xuất chế biến các ngành nghề về thực phẩm. + Vị trí: Nằm
-                trong KCN Long Hậu, Cần Giuộc, long An. + Diện tích đất: 5000 m²
-                (41.15 x 121.5), đầy đủ các hạng mục, công năng hoàn chỉnh để
-                phục vụ sản xuất, kho lạnh.
-              </p>
+              <h6 className="text">Tên chủ kho: {DetailOrder.owner}</h6>
+              <h6 className="text">ten kho: {DetailOrder.warehouses}</h6>
+              <h6 className="text">ten khach {DetailOrder.user}</h6>
             </div>
             <hr />
             <div className="row">
@@ -61,6 +86,7 @@ const InformationWarehouse = () => {
       </div>
     </div>
   );
+
 };
 
 export default InformationWarehouse;

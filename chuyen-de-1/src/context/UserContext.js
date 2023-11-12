@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 export const UserContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  let token = localStorage.getItem("jsonwebtoken");
   const [loadingData, setLoadingData] = useState(false);
   const [ListOrder, setListOrder] = useState([]);
   const [DetailOrder, setDetailOrder] = useState({});
@@ -74,20 +75,18 @@ export const AuthProvider = ({ children }) => {
         alert(error.message);
       });
   };
-  const OrderDetails = (Token,Id) => {
-    console.log(Token,Id);
+  const OrderDetails = (Id) => {
+    // console.log(Token,Id);
     axios
       .get(BASE_URL + `/order/getAOrder?id=${Id}`, {
         headers: {
-          Authorization: `Bearer ${Token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
         if (res && res.data) {
           let detail = res.data.Order;
           setDetailOrder(detail);
-          // console.log(detail);
-          // window.location.href="/InformationWarehouse"
         }else{
           console.log("mang rong...");
         }
