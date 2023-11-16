@@ -5,37 +5,12 @@ import { useLocation } from "react-router-dom";
 const InformationWarehouse = () => {
   let Token = localStorage.getItem("jsonwebtoken");
   const location = useLocation();
-  const { OrderDetails,DetailOrder } = useContext(UserContext);
-  // console.log(location.state.item._id);
-  // console.log(DetailOrder);
+  const { OrderDetails,DetailOrder,checkDetailOrder } = useContext(UserContext);
+  console.log(location.state.item._id);
   useEffect(() => {
     //call api
     OrderDetails(location.state.item._id);
   }, []);
-  // console.log('====================================');
-  // console.log(ListOrder);
-  // console.log('====================================');
-  console.log(DetailOrder.length)
-    axios
-      .get(
-        `https://warehouse-management-api.vercel.app/v1/auth/account-by-id`,
-        {
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-          params: {
-            id: DetailOrder.owner,
-          },
-        }
-      )
-      .then((res) => {
-        let owner = res.data.others.username;
-        console.log(owner)
-        // owners.push(<Text key={i}>{owner}</Text>);
-      })
-      .catch((e) => {
-        console.log(`get owner error ${e.res}`);
-      });
 
   return (
     <div className="container d-flex justify-content-center ">
@@ -52,7 +27,7 @@ const InformationWarehouse = () => {
             <div className="box-monney-capacty row">
               <div className="col-2">
                 <h6 className="">Mức giá</h6>
-                <div className="monney">{DetailOrder.money}</div>
+                <div className="monney">{checkDetailOrder ? DetailOrder.money : "khong co gia tri"}</div>
               </div>
               <div className="col-2">
                 <h6 className="capacity ">Diện tích</h6>
@@ -60,19 +35,19 @@ const InformationWarehouse = () => {
               </div>
               <div className="col-3">
                 <h6 className="capacity ">thoi gian thue</h6>
-                <div className="capacity ">{DetailOrder.rentalTime}</div>
+                <div className="capacity ">{checkDetailOrder ? DetailOrder.rentalTime : "khong co gia tri"}</div>
               </div>
             </div>
             <hr />
             <div className="row">
-              <h6 className="text">Tên chủ kho: {DetailOrder.owner}</h6>
-              <h6 className="text">ten kho: {DetailOrder.warehouses}</h6>
-              <h6 className="text">ten khach {DetailOrder.user}</h6>
+              <h6 className="text">Tên chủ kho: {checkDetailOrder ? DetailOrder.owner.username : "khong co gia tri"}</h6>
+              <h6 className="text">ten kho: {checkDetailOrder ? DetailOrder.warehouses.wareHouseName : "khong co gia tri"}</h6>
+              <h6 className="text">ten khach {checkDetailOrder ? DetailOrder.user.username : "khong co gia tri"}</h6>
             </div>
             <hr />
             <div className="row">
               <h5 className="">Địa Chỉ</h5>
-              <div className="address"> thành phố Hồ Chí Minh </div>
+              <div className="address"> {checkDetailOrder ? DetailOrder.warehouses.address : "khong co gia tri"}</div>
             </div>
           </div>
           {/* <p class="card-text">

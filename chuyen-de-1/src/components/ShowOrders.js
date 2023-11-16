@@ -9,16 +9,7 @@ const ShowOrders = () => {
   let Token = localStorage.getItem("jsonwebtoken");
   let owners = [];
   const [name, setName] = useState([]);
-  const {
-    loadingData,
-    orderList,
-    ListOrder,
-    setDetailOrder,
-    setIdDetailOrder,
-    checkValue,
-    OrderDetails,
-    setCheckValue,
-  } = useContext(UserContext);
+  const { loadingData, orderList, ListOrder } = useContext(UserContext);
 
   // console.log(checkValue);
   useEffect(() => {
@@ -31,28 +22,28 @@ const ShowOrders = () => {
 
   // window.location.href = "/InformationWarehouse";
 
-  for (let i = 0; i < ListOrder.length; i++) {
-    axios
-      .get(
-        `https://warehouse-management-api.vercel.app/v1/auth/account-by-id`,
-        {
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-          params: {
-            id: ListOrder[i].owner,
-          },
-        }
-      )
-      .then((res) => {
-        let owner = res.data.others.username;
-        // console.log(owners[1])
-        owners.push({owner});
-      })
-      .catch((e) => {
-        console.log(`get owner error ${e.res}`);
-      });
-  }
+  // for (let i = 0; i < ListOrder.length; i++) {
+  //   axios
+  //     .get(
+  //       `https://warehouse-management-api.vercel.app/v1/auth/account-by-id`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${Token}`,
+  //         },
+  //         params: {
+  //           id: ListOrder[i].owner,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       let owner = res.data.others.username;
+  //       // console.log(owners[1])
+  //       owners.push({owner});
+  //     })
+  //     .catch((e) => {
+  //       console.log(`get owner error ${e.res}`);
+  //     });
+  // }
   return (
     <>
       {/* <button
@@ -72,8 +63,16 @@ const ShowOrders = () => {
             ListOrder.map((item, index) => {
               return (
                 <>
+                  {console.log(item)}
                   <ListGroup.Item className="category-item">
-                    <div className="row no-gutters">
+                    <div
+                      onClick={() => {
+                        navigation("/InformationWarehouse", {
+                          state: { item },
+                        });
+                      }}
+                      className="row no-gutters"
+                    >
                       {/* <aside class="col-md-3 mt-2">
                     <a href="#" class="img-wrap ">
                       <img src="https://file4.batdongsan.com.vn/2023/11/02/20231102084859-e975_wm.jpg" className="img-fluid"/>
@@ -83,8 +82,12 @@ const ShowOrders = () => {
                         <div className="info-main text-start">
                           <h2 className="text-start">Hóa đơn</h2>
                           <div className="">
-                            Tên chủ kho:{" "}
-                            {owners[index]}
+                            Tên chủ kho: {item.owner.username}
+                          </div>
+                          <div className="">Mã đơn: {item.name}</div>
+                          {/* <div className="">Tên kho: {item.warehouses && (item.warehouses) }</div> */}
+                          <div className="">
+                            Thời gian thuê: {item.rentalTime && item.rentalTime}
                           </div>
                           {/* <div className="">Tên kho hàng: {item.warehouses} </div>
                         <div className="">
@@ -99,11 +102,13 @@ const ShowOrders = () => {
                               {" "}
                               Thông tin bên mua{" "}
                             </span>
-                            <div className="">Tên khách hàng: {item.user}</div>
+                            <div className="">
+                              Tên khách hàng: {item.user.username}
+                            </div>
                           </div>
                           <br />
                           {/* <h4 className="text-center">{item.money}$ </h4> */}
-                          <p>
+                          {/* <p>
                             <button
                               className="btn btn-primary btn-block"
                               onClick={() => {
@@ -112,15 +117,9 @@ const ShowOrders = () => {
                                 });
                               }}
                             >
-                              {/* {
-                            console.log(checkValue)} */}
-                              {/* {checkValue
-                                ? (OrderDetails(Token, item._id),
-                                  navigation.navigate("InformationWarehouse"))
-                                : false} */}
                               Xem Chi Tiet
                             </button>
-                          </p>
+                          </p> */}
                         </div>
                       </aside>
                     </div>

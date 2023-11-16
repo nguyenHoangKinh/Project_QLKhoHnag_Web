@@ -10,10 +10,11 @@ export const AuthProvider = ({ children }) => {
   const [loadingData, setLoadingData] = useState(false);
   const [ListOrder, setListOrder] = useState([]);
   const [DetailOrder, setDetailOrder] = useState({});
+  const [checkDetailOrder, setcheckDetailOrder] = useState(false);
   const [checkValue, setCheckValue] = useState(false);
   // const [IdDetailOrder, setIdDetailOrder] = useState([]);
   // console.log(IdDetailOrder);
-  console.log(DetailOrder);
+  // console.log(DetailOrder);
 
   const LoginUserToken = (username, password) => {
     setLoadingData(true);
@@ -69,6 +70,7 @@ export const AuthProvider = ({ children }) => {
       .then((res) => {
         if (res && res.data) {
           setListOrder(res.data);
+          console.log(res.data);
         }
       })
       .catch((error) => {
@@ -77,7 +79,8 @@ export const AuthProvider = ({ children }) => {
   };
   const OrderDetails = (Id) => {
     // console.log(Token,Id);
-    axios
+    if (Id ) {
+      axios
       .get(BASE_URL + `/order/getAOrder?id=${Id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -87,14 +90,22 @@ export const AuthProvider = ({ children }) => {
         if (res && res.data) {
           let detail = res.data.Order;
           setDetailOrder(detail);
+          setcheckDetailOrder(true);
+          // console.log(res.data);
         }else{
           console.log("mang rong...");
+          setcheckDetailOrder(false);
         }
       })
       .catch((e) => {
         console.log(`update error ${e.response.data.message}`);
+        setcheckDetailOrder(false);
       });
-      setCheckValue(false);
+    }else{
+      setcheckDetailOrder(false);
+      alert("loi don hang");
+    }
+    setCheckValue(false);
   };
   console.log(DetailOrder);
   return (
@@ -104,6 +115,7 @@ export const AuthProvider = ({ children }) => {
         ListOrder,
         loadingData,
         DetailOrder,
+        checkDetailOrder,
         setCheckValue,
         // setIdDetailOrder,
         setDetailOrder,
