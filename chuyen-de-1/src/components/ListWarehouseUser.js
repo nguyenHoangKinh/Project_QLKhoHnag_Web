@@ -8,6 +8,7 @@ export default function ListWarehouseUser() {
     const [listWarehouseUser, setListWarehouseUser] = useState();
     const [categoryId, setCategoryId] = useState("0");
     const [listCategoryUser, setListCategoryUser] = useState();
+    const [textSearch, setTextSearch] = useState();
     let token = localStorage.getItem("jsonwebtoken");
 
     useEffect(() => {
@@ -37,9 +38,19 @@ export default function ListWarehouseUser() {
         setCategoryId(event.target.value)
     }
 
+    function handleSearchWarehouse(event) {
+        var input, filter;
+        input = event.target.value;
+        filter = input.toLowerCase();
+        setTextSearch(filter);
+    }
+
     return (
         <>
             <h1>List Warehouse User</h1>
+            <div className="d-flex justify-content-center mt-3">
+                <input type="text" id="myInput" onChange={handleSearchWarehouse} placeholder="Search for names.." title="Type in a name"></input>
+            </div>
             <div className="d-flex justify-content-center mt-3">
                 <div className="w-75 p-2 border rounded">
                     <h5>Catagory</h5>
@@ -73,19 +84,21 @@ export default function ListWarehouseUser() {
                     {listWarehouseUser ? (listWarehouseUser.length > 0 &&
                         listWarehouseUser.map((itemWarehouse, index) => {
                             if (categoryId && itemWarehouse.category._id.includes(categoryId) || categoryId == 0) {
-                                return (
-                                    <tbody>
-                                        <tr>
-                                            <td>{itemWarehouse.wareHouseName}</td>
-                                            <td>{itemWarehouse.address}</td>
-                                            <td>{itemWarehouse.category.name}</td>
-                                            <td>{itemWarehouse.capacity}</td>
-                                            <td>{itemWarehouse.monney}</td>
-                                            <td>{itemWarehouse.description}</td>
-                                            <td>{itemWarehouse.owner.username}</td>
-                                        </tr>
-                                    </tbody>
-                                )
+                                if (itemWarehouse.wareHouseName.toLowerCase().includes(textSearch) || !textSearch) {
+                                    return (
+                                        <tbody>
+                                            <tr>
+                                                <td>{itemWarehouse.wareHouseName}</td>
+                                                <td>{itemWarehouse.address}</td>
+                                                <td>{itemWarehouse.category.name}</td>
+                                                <td>{itemWarehouse.capacity}</td>
+                                                <td>{itemWarehouse.monney}</td>
+                                                <td>{itemWarehouse.description}</td>
+                                                <td>{itemWarehouse.owner.username}</td>
+                                            </tr>
+                                        </tbody>
+                                    )
+                                }
                             }
                         })) : (
                         <tr>
