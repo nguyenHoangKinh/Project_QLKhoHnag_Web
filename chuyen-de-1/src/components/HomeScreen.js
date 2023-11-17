@@ -6,7 +6,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { Logout } from "../services/UserServices";
 import { BASE_URL } from "../config";
-import {jwtDecode}  from "jwt-decode"
+import {jwtDecode}  from "jwt-decode";
 
 
 function Home() {
