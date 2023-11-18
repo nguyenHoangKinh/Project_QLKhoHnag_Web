@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 const InformationWarehouse = () => {
   let Token = localStorage.getItem("jsonwebtoken");
   const location = useLocation();
-  const { OrderDetails,DetailOrder,checkDetailOrder } = useContext(UserContext);
+  const { OrderDetails,DetailOrder } = useContext(UserContext);
   console.log(location.state.item._id);
   useEffect(() => {
     //call api
@@ -27,7 +27,7 @@ const InformationWarehouse = () => {
             <div className="box-monney-capacty row">
               <div className="col-2">
                 <h6 className="">Mức giá</h6>
-                <div className="monney">{DetailOrder.money != null ? DetailOrder.money : "khong co gia tri"}</div>
+                <div className="monney">{DetailOrder.money != null ? DetailOrder.money : "Không có giá trị!"}</div>
               </div>
               <div className="col-2">
                 <h6 className="capacity ">Diện tích</h6>
@@ -35,19 +35,19 @@ const InformationWarehouse = () => {
               </div>
               <div className="col-3">
                 <h6 className="capacity ">thoi gian thue</h6>
-                <div className="capacity ">{DetailOrder.rentalTime != null  ? DetailOrder.rentalTime : "khong co gia tri"}</div>
+                <div className="capacity ">{DetailOrder.rentalTime != null  ? DetailOrder.rentalTime : "Không có giá trị!"}</div>
               </div>
             </div>
             <hr />
             <div className="row">
-              <h6 className="text">Tên chủ kho: {DetailOrder.owner != null ? DetailOrder.owner.username : "khong co gia tri"}</h6>
-              <h6 className="text">ten kho: {DetailOrder.warehouses != null ? DetailOrder.warehouses.wareHouseName : "khong co gia tri"}</h6>
-              <h6 className="text">ten khach {DetailOrder.user != null ? DetailOrder.user.username : "khong co gia tri"}</h6>
+              <h6 className="text">Tên chủ kho: {DetailOrder.owner != null ? DetailOrder.owner.username : "Không có giá trị!"}</h6>
+              <h6 className="text">ten kho: {DetailOrder.warehouses != null ? DetailOrder.warehouses.wareHouseName : "Không có giá trị!"}</h6>
+              <h6 className="text">ten khach {DetailOrder.user != null ? DetailOrder.user.username : "Không có giá trị!"}</h6>
             </div>
             <hr />
             <div className="row">
               <h5 className="">Địa Chỉ</h5>
-              <div className="address"> {DetailOrder.warehouses != null ? DetailOrder.warehouses.address : "khong co gia tri"}</div>
+              <div className="address"> {DetailOrder.warehouses != null ? DetailOrder.warehouses.address : "Không có giá trị!"}</div>
             </div>
           </div>
           {/* <p class="card-text">
