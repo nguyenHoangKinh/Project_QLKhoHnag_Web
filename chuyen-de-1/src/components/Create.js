@@ -9,39 +9,28 @@ import axios from "axios";
 function Create() {
   let Token = localStorage.getItem("jsonwebtoken");
   let idUser= jwtDecode(Token)
-  // const [records, setRecords] = useState([]);
+  
   const [inputData, setInputData] = useState({
-    wareHouseName: "",
-    address: "",
-    category: "",
-    capacity: "",
-    monney: "",
-    status: "",
-    description: "",
+    wareHouseName: '',
+    address: '',
+    category: '',
+    capacity: '',
+    monney: '',
+    status: '',
+    description: '',
     owner: idUser.id
   });
   const navigate = useNavigate();
 
   function handleSubmit(event) {
-    event.preventDefault();
-    let product = {
-      wareHouseName: inputData.wareHouseName,
-      address: inputData.address,
-      category: inputData.category,
-      capacity: inputData.capacity,
-      monney: inputData.monney,
-      status: inputData.status,
-      description: inputData.description,
-      owner: inputData.owner
-  }
-  console.log(product)
+    event.preventDefault()
     axios
       .post(
         BASE_URL+`/warehouse/create`,
-        product,
+        inputData,
         {
           headers: {
-            token:Token,
+            Authorization: `Token ${Token}` 
           },
           params: {
             id_owner: idUser.id
@@ -59,9 +48,8 @@ function Create() {
 
   return (
     <div className="d-flex w-100 vh-100 justify-content-center align-items-center">
-      <div className="w-100 border bg-secondary text-white p-5">
+      <div className="w-50 border bg-light p-5">
         <h3>Them Kho Moi</h3>
-
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="wareHouseName">Ten:</label>

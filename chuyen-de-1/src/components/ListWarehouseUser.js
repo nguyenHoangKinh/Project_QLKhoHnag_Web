@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../theme/ListWarehouseUser.css";
+
 import axios from "axios";
 
 export default function ListWarehouseUser() {
+
     const [ListWarehouseUser, setListWarehouseUser] = useState();
 
     useEffect(() => {
@@ -20,6 +22,7 @@ export default function ListWarehouseUser() {
 
     return (
         <>
+
             <h1>List Warehouse User</h1>
             <div className="listwarehouseuser">
                 <table class="styled-table">
