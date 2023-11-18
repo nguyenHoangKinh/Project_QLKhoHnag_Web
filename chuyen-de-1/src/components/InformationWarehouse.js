@@ -20,7 +20,7 @@ const InformationWarehouse = () => {
         </div> */}
         <div class="card-body">
           <h4 class="card-title">
-          Thông tin hóa đơn
+          Thông tin đơn hàng
           </h4>
           <hr />
           <div className="row">

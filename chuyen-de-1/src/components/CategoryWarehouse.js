@@ -4,7 +4,6 @@ import React,{ useEffect, useState,useContext } from "react";
 import {UserContext} from '../context/UserContext';
 import { BASE_URL } from "../config";
 import { Logout } from "../context/UserContext";
-import { Alert } from "bootstrap";
 
 const CategoryWarehouse = () => {
   let Token = localStorage.getItem("jsonwebtoken");
@@ -14,14 +13,15 @@ const CategoryWarehouse = () => {
     //call api
     axios.get(BASE_URL+'/warehouse/category/list', {
       headers: { 
-        Authorization: `Token ${Token}` 
+        Authorization: `Bearer ${Token}` 
       }
    }).then((res) => {
     if (res && res.data && res.data.categories) {
        setListCategory(res.data.categories);
+       console.log(res.data.categories);
      }
    }).catch((error)=>{
-    Alert.Alert(error.message);
+    alert(error.message);
    });
   }, []);
   const LogoutToken = () => {
