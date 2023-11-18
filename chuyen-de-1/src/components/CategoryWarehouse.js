@@ -33,7 +33,7 @@ const CategoryWarehouse = () => {
       {ListCategory &&
         ListCategory.length > 0 &&
         ListCategory.map((item, index) => {
-          return <ListGroup.Item className="category-item">{item.name}</ListGroup.Item>;
+          return <ListGroup.Item className="category-item">{item != null ? item.name : ""}</ListGroup.Item>;
         })}
     </ListGroup>
     <button onClick={LogoutToken}>Logout</button>

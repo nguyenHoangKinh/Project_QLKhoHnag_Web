@@ -82,12 +82,12 @@ const ShowOrders = () => {
                         <div className="info-main text-start">
                           <h2 className="text-start">Hóa đơn</h2>
                           <div className="">
-                            Tên chủ kho: {item.owner.username}
+                            Tên chủ kho: {item != null ? item.owner.username : ""}
                           </div>
-                          <div className="">Mã đơn: {item.name}</div>
+                          <div className="">Mã đơn: {item != null ? item.name : ""}</div>
                           {/* <div className="">Tên kho: {item.warehouses && (item.warehouses) }</div> */}
                           <div className="">
-                            Thời gian thuê: {item.rentalTime && item.rentalTime}
+                            Thời gian thuê: {item != null ? item.rentalTime : ""}
                           </div>
                           {/* <div className="">Tên kho hàng: {item.warehouses} </div>
                         <div className="">
@@ -103,7 +103,7 @@ const ShowOrders = () => {
                               Thông tin bên mua{" "}
                             </span>
                             <div className="">
-                              Tên khách hàng: {item.user.username}
+                              Tên khách hàng: {item != null ? item.user.username : ""}
                             </div>
                           </div>
                           <br />
