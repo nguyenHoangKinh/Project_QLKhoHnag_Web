@@ -10,6 +10,8 @@ import HomeScreen from './components/HomeScreen';
 import UpdateWare from './components/UpdateWare';
 import Create from './components/Create';
 import ListWarehouseUser from './components/ListWarehouseUser';
+import ListPostOwner from './components/owner/ListPostOwner';
+import AddPost from './components/owner/AddPost'
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -50,6 +52,14 @@ const router = createBrowserRouter([
   {
     path: "ListWarehouseUser",
     element: <ListWarehouseUser/>,
+  },
+  {
+    path: "ListPostOwner",
+    element: <ListPostOwner/>,
+  },
+  {
+    path: "AddPost",
+    element: <AddPost/>,
   },
 ]);
 
