@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../theme/ListWarehouseUser.css";
+
 import axios from "axios";
 import { BASE_URL } from "../config";
 import { jwtDecode } from "jwt-decode";
@@ -47,6 +48,7 @@ export default function ListWarehouseUser() {
 
     return (
         <>
+
             <h1>List Warehouse User</h1>
             <div className="d-flex justify-content-center mt-3">
                 <input type="text" id="myInput" onChange={handleSearchWarehouse} placeholder="Search for names.." title="Type in a name"></input>
