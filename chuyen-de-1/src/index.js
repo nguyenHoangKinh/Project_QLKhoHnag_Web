@@ -15,6 +15,10 @@ import Create from './components/Create';
 import ListWarehouseUser from './components/ListWarehouseUser';
 import ListAcountActive from './components/ListAcountActive';
 import ListAcountDeActive from './components/ListAcountDeActive';
+import ListOwnerDeActive from './components/ListOwnerDeActive';
+import ListOwnerActive from './components/ListOwnerActive';
+import ListUserActive from './components/ListUserActive';
+import ListUserDeActive from './components/ListUserDeActive';
 import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -75,6 +79,22 @@ const router = createBrowserRouter([
   {
     path: "ListAcountDeActive",
     element: <ListAcountDeActive/>,
+  },
+  {
+    path: "ListOwnerActive",
+    element: <ListOwnerActive/>,
+  },
+  {
+    path: "ListOwnerDeActive",
+    element: <ListOwnerDeActive/>,
+  },
+  {
+    path: "ListUserActive",
+    element: <ListUserActive/>,
+  },
+  {
+    path: "ListUserDeActive",
+    element: <ListUserDeActive/>,
   },
   {
     path: "*",
