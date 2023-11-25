@@ -11,36 +11,19 @@ import {UserContext} from '../context/UserContext';
 
 
 function Home() {
-  const {Logout} = useContext(UserContext);
+  const {Logout,wListOwner,records,columns} = useContext(UserContext);
   let Token = localStorage.getItem("jsonwebtoken");
   let idUser= jwtDecode(Token)
-  const [columns, setColumns] = useState([]);
-  const [records, setRecords] = useState([]);
 
-  
+
+  console.log(records);
   //ham logout
   const LogoutToken = () => {
     Logout(Token);
   };
 
   useEffect(() => {
-    axios
-      .get(
-        BASE_URL+`/warehouse/list`,
-        {
-          headers: { 
-            Authorization: `Token ${Token}` 
-          },
-          params: {
-            id_owner: idUser.id
-          }
-        }
-      )
-      .then((res) => {
-        setColumns(Object, res.data);
-        setRecords(res.data.warehouses.warehouses);
-        console.log(res.data.warehouses.warehouses);
-      });
+    wListOwner(Token)
   }, []);
 
   function handleSubmit(id) {
@@ -96,7 +79,7 @@ function Home() {
                 <tr key={i}>        
                   <td>{d.wareHouseName}</td>
                   <td>{d.address}</td>
-                  <td>{d.category}</td>
+                  <td>{d.category.name}</td>
                   <td>{d.capacity}</td>
                   <td>{d.monney}</td>
                   <td>{d.status}</td>
