@@ -7,11 +7,14 @@ const HomeUserScreen =() => {
     const LogoutToken = () => {
         Logout(Token);
       };
+   
+
    return (<>
     <h1>HomeUserScreen</h1>
     <button onClick={LogoutToken} className="btn btn-danger my-3">
         Logout 
       </button>
+     
    </>)
 
 }

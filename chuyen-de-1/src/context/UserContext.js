@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
   const orderList = (Token) => {
     let idUser = jwtDecode(Token);
     axios
-      .get(BASE_URL + `/order/listOrderByUser?id_user=${idUser.id}`, {
+      .put(BASE_URL + `/order/listOrderByUser?id_user=${idUser.id}`, {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
@@ -77,6 +77,9 @@ export const AuthProvider = ({ children }) => {
         alert(error.message);
       });
   };
+
+  
+
   const OrderDetails = (Id) => {
     // console.log(Token,Id);
     if (Id ) {
@@ -107,6 +110,7 @@ export const AuthProvider = ({ children }) => {
     }
     setCheckValue(false);
   };
+  
   console.log(DetailOrder);
   return (
     <UserContext.Provider

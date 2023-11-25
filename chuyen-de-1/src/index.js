@@ -13,6 +13,8 @@ import UpdateWare from './components/UpdateWare';
 import HomeUserScreen from './components/HomeUserScreen';
 import Create from './components/Create';
 import ListWarehouseUser from './components/ListWarehouseUser';
+import ListAcountActive from './components/ListAcountActive';
+import ListAcountDeActive from './components/ListAcountDeActive';
 import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
   },{
     path: "HomeUserScreen",
     element: <HomeUserScreen/>,
+  },
+  {
+    path: "ListAcountActive",
+    element: <ListAcountActive/>,
+  },
+  {
+    path: "ListAcountDeActive",
+    element: <ListAcountDeActive/>,
   },
   {
     path: "*",
