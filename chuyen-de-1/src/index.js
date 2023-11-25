@@ -10,6 +10,8 @@ import HomeScreen from './components/HomeScreen';
 import InformationWarehouse from './components/InformationWarehouse';
 import ShowOrders from './components/ShowOrders';
 import UpdateWare from './components/UpdateWare';
+import ShowListOrderOwner from './components/ShowListOrderOwner';
+import ListBlog from './components/ListBlog';
 import HomeUserScreen from './components/HomeUserScreen';
 import Create from './components/Create';
 import ListWarehouseUser from './components/ListWarehouseUser';
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
   },{
     path: "HomeUserScreen",
     element: <HomeUserScreen/>,
+  },
+  {
+    path: "ListBlog",
+    element: <ListBlog/>,
+  },
+  {
+    path: "ShowListOrderOwner",
+    element: <ShowListOrderOwner/>,
   },
   {
     path: "*",

@@ -2,15 +2,16 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { Button, Flex } from 'antd';
 const InformationWarehouse = () => {
   let Token = localStorage.getItem("jsonwebtoken");
   const location = useLocation();
-  const { OrderDetails, DetailOrder } = useContext(UserContext);
+  const { OrderDetails, DetailOrder,DeleteOrderUser } = useContext(UserContext);
 
-  console.log(location.state.item._id);
+  // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ",location.state.item.user._id,location.state.item.owner._id,Token);
   useEffect(() => {
     //call api
-    OrderDetails(location.state.item._id);
+    OrderDetails(location.state.item._id) ;
   }, []);
 
   return (
@@ -81,13 +82,13 @@ const InformationWarehouse = () => {
                   </div>
                 </div>
               </div>
-              {/* <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p> */}
-              {/* <a href="#" class="btn btn-primary stretched-link">
-            Go somewhere
-          </a> */}
+              <div
+              onClick={() => {
+                 DeleteOrderUser(location.state.item.user._id,location.state.item._id,Token);
+              }}
+               className="d-flex justify-content-center">
+              <Button type="primary" danger>Hủy Đơn</Button>
+              </div>
             </div>
           </div>
         </div>
