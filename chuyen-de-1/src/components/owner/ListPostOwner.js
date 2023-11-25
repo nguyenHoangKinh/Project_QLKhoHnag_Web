@@ -10,7 +10,7 @@ export default function ListPostOwner() {
     const [textSearch, setTextSearch] = useState();
     const navigate = useNavigate();
     let token = localStorage.getItem("jsonwebtoken");
-    let idUser = jwtDecode(token)
+    let idUser = jwtDecode(token);
 
     useEffect(() => {
         //call api
@@ -26,10 +26,21 @@ export default function ListPostOwner() {
         }).catch((error) => {
             console.log(error.message);
         });
-    }, []);
+    }, [listPostOwner]);
 
-    const handleDelete = () => {
-        
+    const handleDelete = (idBlog) => {
+        axios.delete(BASE_URL + `/blog/delete-blog/${idBlog}/`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                id_owner: idUser.id
+            }
+        }).then((res) => {
+            console.log(res)
+        }).catch((error) => {
+            console.log(error.message);
+        });
     }
 
     return (
@@ -67,7 +78,7 @@ export default function ListPostOwner() {
                                                 </div>
                                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
                                                     <a class="btn btn-outline-success me-md-2" type="button" onClick={() => { navigate('/UpdatePost', { state: { id: itemPost._id } }); }}>Chỉnh sửa bài đăng</a>
-                                                    <a class="btn btn-outline-danger me-md-2" type="button" onClick={() => { navigate('/UpdatePost', { state: { id: itemPost._id } }); }}>Xóa bài viết</a>
+                                                    <a class="btn btn-outline-danger me-md-2" type="button" onClick={() => { handleDelete(itemPost._id) }}>Xóa bài viết</a>
                                                 </div>
                                                 
                                             </div>
