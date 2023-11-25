@@ -46,8 +46,8 @@ export default function ListAcountDeActive() {
                                         <td>{item.username}</td>
                                         <td>{item.email}</td>
                                         <td>{item.phone}</td>
-                                        <button >
-                                             <th>nut active</th>
+                                        <button className="btn btn-danger" >
+                                             <th>active</th>
                                         </button>
                                     </tr>
                                 )

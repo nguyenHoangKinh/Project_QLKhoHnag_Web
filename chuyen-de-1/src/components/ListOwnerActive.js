@@ -18,26 +18,6 @@ export default function ListOwnerActive() {
   useEffect(() => {
     //call api
     axios
-      .put(
-        "https://warehouse-management-api.vercel.app/v1/admin/list-account-active",
-        {
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setListAcount(res.data.accounts);
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }, []);
-
-  useEffect(() => {
-    //call api
-    axios
       .get(
         "https://warehouse-management-api.vercel.app/v1/admin/list-owner-active",
         {
@@ -77,12 +57,6 @@ export default function ListOwnerActive() {
                     <td>{item.username}</td>
                     <td>{item.email}</td>
                     <td>{item.phone}</td>
-                    <button
-                      //onClick={DeActiveAcount}
-                      className="btn btn-danger"                    
-                    >
-                      DeActive
-                    </button>
                   </tr>
                 );
               })}

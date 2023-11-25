@@ -58,12 +58,6 @@ export default function ListUserActive() {
                     <td>{item.username}</td>
                     <td>{item.email}</td>
                     <td>{item.phone}</td>
-                    <button
-                      //onClick={DeActiveAcount}
-                      className="btn btn-danger"                    
-                    >
-                      DeActive
-                    </button>
                   </tr>
                 );
               })}

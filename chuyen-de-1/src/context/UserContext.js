@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [DetailOrder, setDetailOrder] = useState({});
   const [checkDetailOrder, setcheckDetailOrder] = useState(false);
   const [checkValue, setCheckValue] = useState(false);
+  const [acount, setAcount] = useState([]);
   // const [IdDetailOrder, setIdDetailOrder] = useState([]);
   // console.log(IdDetailOrder);
   // console.log(DetailOrder);
@@ -78,8 +79,6 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  
-
   const OrderDetails = (Id) => {
     // console.log(Token,Id);
     if (Id ) {
@@ -110,6 +109,24 @@ export const AuthProvider = ({ children }) => {
     }
     setCheckValue(false);
   };
+
+
+  const deActiveAcount = (Token) => {
+    let idAcount = jwtDecode(Token);
+    axios
+      .put(BASE_URL + `/admin/deactivate-account?id=${idAcount.id}`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((res) => {
+          setAcount(res);
+          console.log(res);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
   
   console.log(DetailOrder);
   return (
@@ -120,9 +137,11 @@ export const AuthProvider = ({ children }) => {
         loadingData,
         DetailOrder,
         checkDetailOrder,
+        acount,
         setCheckValue,
         // setIdDetailOrder,
         setDetailOrder,
+        deActiveAcount,
         OrderDetails,
         orderList,
         Logout,

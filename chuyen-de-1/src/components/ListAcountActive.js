@@ -16,46 +16,29 @@ export default function ListAcountActive() {
   const [deActive, setDeActive] = useState([]);
 
 
-//   function handleSubmit(id) {  
-//       axios
-//         .delete(
-//           BASE_URL+"/admin/deactivate-account" +
-//             id,
-//           {
-//             headers: {
-//               Authorization: `Token ${Token}` 
-//             },
-//             params: {
-//               id_acount: idUser.id
-//             }
-//           }
-//         )
-//         .then((res) => {
-//           alert("de active thanh cong");
-//           window.location.href="/ListAcountActive"
-//           console.log(res);
-//         })
-//         .catch((err) => console.log(err));
-//     }
+  function handleSubmit(id) {  
+      axios
+        .put(
+          BASE_URL+"/admin/deactivate-account" +
+            id,
+          {
+            headers: {
+              Authorization: `Token ${Token}` 
+            },
+            params: {
+              id_acount: id
+            }
+          }
+        )
+        .then((res) => {
+          alert("de active thanh cong");
+          window.location.href="/ListAcountActive"
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    }
  
-  const DeActiveAcount = () => {
-    //let idAcount = jwtDecode(Token);
-    axios
-      .put(`https://warehouse-management-api.vercel.app/v1/admin/deactivate-account?id=6545f49ea87cbe45b9dbd8b2`, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      })
-      .then((res) => {
-        // if (res && res.data) {
-        //   setDeActive(res.data);
-        //   console.log(res.data);
-        // }
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  };
+  
   useEffect(() => {
     //call api
     axios
@@ -114,13 +97,13 @@ export default function ListAcountActive() {
               // ListAcount.length > 0 &&
               ListAcount.map((item, index) => {
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td>{item.username}</td>
                     <td>{item.email}</td>
                     <td>{item.phone}</td>
                     <button
-                      onClick={DeActiveAcount}
-                      className="btn btn-danger"                    
+                      onClick={(e) => handleSubmit(item)}
+                      className="btn btn-sm ms-4 btn-access bg-primary"
                     >
                       DeActive
                     </button>
