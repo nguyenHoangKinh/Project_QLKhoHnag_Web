@@ -15,6 +15,9 @@ import ListBlog from './components/ListBlog';
 import HomeUserScreen from './components/HomeUserScreen';
 import Create from './components/Create';
 import ListWarehouseUser from './components/ListWarehouseUser';
+import ListPostOwner from './components/owner/ListPostOwner';
+import AddPost from './components/owner/AddPost';
+import UpdatePost from './components/owner/UpdatePost';
 import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -79,6 +82,18 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFound/>,
+  },
+  {
+    path: "ListPostOwner",
+    element: <ListPostOwner/>,
+  },
+  {
+    path: "AddPost",
+    element: <AddPost/>,
+  },
+  {
+    path: "UpdatePost",
+    element: <UpdatePost/>,
   },
 ]);
 

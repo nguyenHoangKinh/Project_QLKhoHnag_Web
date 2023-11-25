@@ -19,14 +19,6 @@ const isEmptyValue = (value) => {
 export default function RegisterPage() {
   const [formValue, setFormValue] = useState(initFormValue);
   const [formError, setFormError] = useState({});
-  // const [check, setCheck] = useState("");
-  // const [onwer, setOnwer] = useState("")
-
-  // function checkValue(e) {
-  //   var value = e.target.value;
-  //   console.log("You selected " + value);
-  //   setCheck(value)
-  // }
 
   const validateForm = () => {
     const error = {};
@@ -83,35 +75,20 @@ export default function RegisterPage() {
         email: formValue.email,
       };
 
-      axios
-        .post(
-          BASE_URL+"/auth/register?status=1",
-          acc
-        )
-        .then((respone) => {
-          console.log(respone);
-          alert("Đăng ký thành công");
-          window.location.href = "login";
-        })
-        .catch((err) => {
-          console.log(err.request.response);
-          alert(err.request.response.slice(12).replace('"}', ""));
-        });
+      axios.post(BASE_URL + "/auth/register?status=1",
+        acc
+      ).then((respone) => {
+        console.log(respone);
+        alert("Đăng ký thành công");
+        window.location.href = "login";
+      }).catch((err) => {
+        console.log(err.request.response);
+        alert(err.request.response.slice(12).replace('"}', ""));
+      });
     } else {
       console.log("form invalid");
     }
   };
-
-  // const owners = [
-  //   {name: "chukho", ownersId: "6539131d3d09d1cd2b68e1cf"},
-  //   {name: "chukho1", ownersId: "653921bc95460dd107e2b700"},
-  //   {name: "chukho2", ownersId: "65393078e36249890d4cf458"},
-  //   {name: "chukho3", ownersId: "6541c00a30aaedbdc91d0077"},
-  // ]
-
-  // function handleSelectOwner(event) {
-  //   setOnwer(event.target.value)
-  // }
 
   return (
     <div className="register-page">
@@ -220,28 +197,6 @@ export default function RegisterPage() {
               <div className="error-feedback">{formError.confirmPassword}</div>
             )}
           </div>
-
-         {/* <div className="d-flex justify-content-center mt-3">
-              <div className="w-100 p-2 border rounded">
-                <h5>Onwer</h5>
-                <select className="form-select" onChange={handleSelectOwner}>
-                  {owners.map(owner => (
-                    <option value={owner.ownersId}>{owner.name}</option>
-                  ))}
-                </select>
-                <p>{onwer}</p>
-              </div>
-         </div> */}
-
-          {/* <div>
-            <input id="box1" onChange={checkValue} type="checkbox" value="1" checked={check.includes("1") ? true : false} />
-            <label htmlFor="#box1">Staff</label>
-          </div>
-
-          <div>
-            <input id="box2" onChange={checkValue} type="checkbox" value="2" checked={check.includes("2") ? true : false} />
-            <label htmlFor="#box2">User</label>
-          </div> */}
 
           <button type="submit" className="submit-btn">
             Register
