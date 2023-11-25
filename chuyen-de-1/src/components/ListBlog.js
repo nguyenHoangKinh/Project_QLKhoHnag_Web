@@ -24,16 +24,15 @@ const ListBlog = () => {
           ListBlogs.map((item, index) => {
             return (
               <div className="m-10">
-                {console.log(item)}
                 <div
                   // onClick={() => {
                   //   navigation("/InformationWarehouse", {
                   //     state: { item },
                   //   });
                   // }}
-                  className="row "
+                  className="row"
                 >
-                  <div className="col-md-4 border border-primary ps-0 pe-0">
+                  <div className="col-md-6 border border-primary ps-0 pe-0">
                       <Image
                         width="100%"
                         height="100%"
@@ -41,9 +40,9 @@ const ListBlog = () => {
                       />
                   </div>
                   <aside className="col-sm-6 border border-primary">
-                    <div className="info-aside">
+                    <div className="info-aside text-break">
                       <div className="price-wrap text-start">
-                        <span className="price h5"> {item.description} </span>
+                        <view className="price"> {item.description} </view>
                         <div className="">
                         Giá:~{item.warehouse.monney}
                         </div>
