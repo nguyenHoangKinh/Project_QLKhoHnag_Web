@@ -3,6 +3,7 @@ import "../../theme/AddPost.css";
 import axios from "axios";
 import { BASE_URL } from "../../config";
 import { jwtDecode } from "jwt-decode";
+import { useLocation } from 'react-router-dom';
 
 const isEmptyValue = (value) => {
     return !value || value.trim().length < 1;
@@ -10,9 +11,11 @@ const isEmptyValue = (value) => {
 
 export default function AddPost() {
     const [owner, setOwner] = useState();
+    const [blog, setBlog] = useState();
     const [description, setDescription] = useState("");
     const [warehouseId, setWarehouseId] = useState("");
     const [file, setFile] = useState([]);
+    const location = useLocation();
     let token = localStorage.getItem("jsonwebtoken");
     let idUser = jwtDecode(token)
 
@@ -30,6 +33,19 @@ export default function AddPost() {
         }).catch((error) => {
             console.log(error.message);
         });
+
+        axios.get(BASE_URL + '/blog/get-by-id', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                id: location.state.id
+            }
+        }).then((res) => {
+            setBlog(res.data.data);
+        }).catch((error) => {
+            console.log(error.message);
+        });
     }, []);
 
     const handleChangeDescription = (event) => {
@@ -39,7 +55,7 @@ export default function AddPost() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (!isEmptyValue(description) && file && warehouseId) {
+        if (!isEmptyValue(description) && file) {
             const formData = new FormData();
 
             for (let i = 0; i < file.length; i++) {
@@ -48,20 +64,20 @@ export default function AddPost() {
 
             formData.append("description", description)
 
-            axios.post(BASE_URL + "/blog/create", formData,
+            axios.put(BASE_URL + "/blog/update", formData,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
                     },
                     params: {
-                        warehouse: warehouseId
+                        id: location.state.id
                     }
                 }).then((respone) => {
                     console.log(respone);
-                    alert("Đăng bài thành công");
+                    alert("Cập nhật bài viết thành công");
                     window.location.href = "ListPostOwner";
                 }).catch((err) => {
-                    alert("Đăng bài thất bại");
+                    alert("Cập nhật bài viết thất bại");
                     console.log(err)
                 });
         } else {
@@ -85,7 +101,7 @@ export default function AddPost() {
     return (
         <>
             <div class="container py-5">
-                <h1>Thêm bài viết</h1>
+                <h1>Cập nhật bài viết</h1>
                 <div class="formbold-main-wrapper">
                     <div class="formbold-form-wrapper border border-5 p-3">
                         <form onSubmit={handleSubmit}>
@@ -120,25 +136,22 @@ export default function AddPost() {
                             </div>
                             <label for="warehouse" class="formbold-form-label">Kho hàng</label>
                             <select className="form-select"
+                                disabled
                                 onChange={handleSelectWarehouse}
                             >
-                                {owner
-                                    && owner.others.warehouses.length > 0
-                                    && owner.others.warehouses.map(item => (
-                                        <option value={item._id}>{item.wareHouseName}</option>
-                                    ))}
-                                <option></option>
+                                {blog && <option>{blog.warehouse.wareHouseName}</option>}
                             </select>
                             <div class="formbold-textarea mt-3">
-                                <textarea
+                                {blog &&
+                                    <textarea
                                     rows="6"
                                     name="description"
                                     id="description"
-                                    placeholder="Viết mô tả bài viết..."
+                                    placeholder={blog.description}
                                     class="formbold-form-input"
                                     value={description}
                                     onChange={handleChangeDescription}
-                                ></textarea>
+                                ></textarea>}
                                 <label for="description" class="formbold-form-label"> Mô tả bài viết </label>
                             </div>
 
@@ -160,7 +173,7 @@ export default function AddPost() {
                             </div>
 
                             <button class="formbold-btn">
-                                Đăng bài
+                                Cập nhật
                             </button>
                             <a class="formbold-btn" style={{marginLeft: 10, textDecoration: "none"}} href="ListPostOwner">
                                 Thoát
