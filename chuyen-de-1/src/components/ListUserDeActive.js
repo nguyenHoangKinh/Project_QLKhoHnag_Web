@@ -38,7 +38,7 @@ export default function ListUserDeActive() {
 
   return (
     <>
-      <h1>ListUserActive</h1>
+      <h1>ListUserDeActive</h1>
       
       <div className="listwarehouseuser">
         <table className="styled-table">
