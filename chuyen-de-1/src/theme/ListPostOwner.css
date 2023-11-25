@@ -8,3 +8,8 @@
 .text-gray {
   color: #aaa;
 }
+
+.emptyWarehouse {
+  font-size: 1.3em;
+  font-family: sans-serif;
+}
