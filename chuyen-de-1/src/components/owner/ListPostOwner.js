@@ -3,7 +3,7 @@ import "../../theme/ListPostOwner.css";
 import axios from "axios";
 import { BASE_URL } from "../../config";
 import { jwtDecode } from "jwt-decode";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function ListPostOwner() {
     const [listPostOwner, setListPostOwner] = useState();
@@ -78,9 +78,13 @@ export default function ListPostOwner() {
                                                 </div>
                                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
                                                     <a class="btn btn-outline-success me-md-2" type="button" onClick={() => { navigate('/UpdatePost', { state: { id: itemPost._id } }); }}>Chỉnh sửa bài đăng</a>
-                                                    <a class="btn btn-outline-danger me-md-2" type="button" onClick={() => { handleDelete(itemPost._id) }}>Xóa bài viết</a>
+                                                    <a class="btn btn-outline-danger me-md-2" type="button" onClick={() => {
+                                                        if (window.confirm("Xác nhận thêm ")) {
+                                                            handleDelete(itemPost._id)
+                                                        }
+                                                    }}>Xóa bài viết</a>
                                                 </div>
-                                                
+
                                             </div>
                                         </li>)
                                 })) : (
