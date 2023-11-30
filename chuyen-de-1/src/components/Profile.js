@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
     const [informationProfile, setInformationProfile] = useState();
-    const [textSearch, setTextSearch] = useState();
     const navigate = useNavigate();
     let token = localStorage.getItem("jsonwebtoken");
     let idUser = jwtDecode(token);
@@ -32,50 +31,134 @@ export default function Profile() {
     return (
         <div>
             {informationProfile &&
-                <div class="container rounded bg-white mt-5 mb-5">
-                    <div class="row">
-                        <div class="col-md-3 border-right">
-                            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                                <img class="rounded-circle mt-5" width="200px" height="200px" src={informationProfile.avatar} />
-                                <span class="font-weight-bold username">{informationProfile.username}</span>
-                                <span class="text-black-50">{informationProfile.email}</span>
+                <div class="container emp-profile">
+                    <div method="post">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="profile-img">
+                                    <img src={informationProfile.avatar} alt="" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="profile-head">
+                                    <h5>{informationProfile.username}</h5>
+                                    <h6>{informationProfile.email}</h6>
+                                    <p class="proile-rating"><span></span></p>
+                                    <br/>
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <div class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Thông tin cá nhân</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="profile-edit-btn" name="btnAddMore" onClick={()=> navigate('/UpdateProfile')}>Cập nhật thông tin</button>
                             </div>
                         </div>
-                        <div class="col-md-5 border-right">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">Thông tin cá nhân</h4>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-6">
-                                        <label class="labels">Username</label>
-                                        <input type="text" class="form-control" placeholder={informationProfile.username} value="" disabled />
+                        <div class="row">
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="tab-content profile-tab" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Username</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{informationProfile.username}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{informationProfile.email}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Số điện thoại</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{informationProfile.phone}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Địa chỉ</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{informationProfile.address}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Tổng số kho hàng</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{informationProfile.warehouses.length} (kho hàng)</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Tổng số bài viết</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{informationProfile.blogs.length} (bài viết)</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="labels">Email</label>
-                                        <input type="text" class="form-control" value="" placeholder={informationProfile.email} disabled />
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Experience</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Expert</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Hourly Rate</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>10$/hr</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Total Projects</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>230</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>English Level</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Expert</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Availability</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>6 months</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Your Bio</label><br />
+                                                <p>Your detail description</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-12">
-                                        <label class="labels">Số điện thoại</label>
-                                        <input type="text" class="form-control" placeholder={informationProfile.phone} value="" disabled />
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label class="labels">Địa chỉ</label>
-                                        <input type="text" class="form-control" placeholder={informationProfile.address} value="" disabled />
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label class="labels">Số kho hàng</label>
-                                        <input type="text" class="form-control" placeholder={informationProfile.warehouses.length} value="" disabled />
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label class="labels">Số bài viết</label>
-                                        <input type="text" class="form-control" placeholder={informationProfile.blogs.length} value="" disabled />
-                                    </div>
-                                </div>
-                                <div class="mt-5 text-center">
-                                    <button class="btn btn-primary profile-button" type="button">Chỉnh sửa thông tin cá nhân</button>
                                 </div>
                             </div>
                         </div>
