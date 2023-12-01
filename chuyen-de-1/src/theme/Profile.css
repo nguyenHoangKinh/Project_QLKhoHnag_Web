@@ -1,19 +1,19 @@
-body{
+/* .profile_bg{
     background: -webkit-linear-gradient(left, #3931af, #00c6ff);
-}
+} */
 .emp-profile{
     padding: 3%;
     margin-top: 10%;
     margin-bottom: 3%;
     border-radius: 0.5rem;
-    background: #fff;
+    background: #8ac6ff;
 }
 .profile-img{
     text-align: center;
 }
 .profile-img img{
-    width: 70%;
-    height: 100%;
+    width: 300px;
+    height: 180px;
 }
 .profile-img .file {
     position: relative;
@@ -96,4 +96,13 @@ body{
     font-weight: 600;
     color: #0062cc;
     font-size: 1.2em;
+}
+
+.profile-tab input{
+    font-weight: 600;
+    color: #0062cc;
+    font-size: 1.2em;
+    height: 30px;
+    width: 380px;
+    margin-bottom: 20px;
 }

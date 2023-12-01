@@ -5,8 +5,20 @@ import { BASE_URL } from "../config";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 
+const initFormValue = {
+    address: "",
+    email: "",
+    phone: "",
+};
+
+const isEmptyValue = (value) => {
+    return !value || value.trim().length < 1;
+};
+
 export default function Profile() {
     const [informationProfile, setInformationProfile] = useState();
+    const [formValue, setFormValue] = useState(initFormValue);
+    const [file, setFile] = useState();
     const navigate = useNavigate();
     let token = localStorage.getItem("jsonwebtoken");
     let idUser = jwtDecode(token);
@@ -22,14 +34,62 @@ export default function Profile() {
             }
         }).then((res) => {
             setInformationProfile(res.data.others);
-            console.log(res.data.others)
+            // console.log(res.data.others)
         }).catch((error) => {
             console.log(error.message);
         });
     }, [informationProfile]);
 
+    const updateProfile = () => {
+        if (!isEmptyValue(formValue.address) || !isEmptyValue(formValue.email) || !isEmptyValue(formValue.phone) || file) {
+            const formData = new FormData();
+            
+            if (file) {
+                formData.append("avatar", file[0].file)
+            }
+
+            formData.append("address", formValue.address)
+            formData.append("email", formValue.email)
+            formData.append("phone", formValue.phone)
+    
+            axios.put(BASE_URL + '/auth/update-account', formData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                params: {
+                    id: idUser.id
+                }
+            }).then((res) => {
+                alert("Cập nhật thông tin thành công");
+                window.location.href = "Profile";
+            }).catch((error) => {
+                console.log(error.message);
+            });
+        } else {
+            alert("Yêu cầu nhập thông tin để cập nhật");
+        }
+    }
+
+    const handleChange = (event) => {
+        const { value, name } = event.target;
+        setFormValue({
+            ...formValue,
+            [name]: value,
+        });
+    };
+
+    const handleFileChange = (e) => {
+        const files = e.target.files;
+
+        const arrayFile = Array.from(files).map((file) => ({
+            file: file,
+        }));
+        setFile(arrayFile)
+    };
+
     return (
-        <div>
+        <div className="profile_bg">
             {informationProfile &&
                 <div class="container emp-profile">
                     <form method="post">
@@ -37,6 +97,11 @@ export default function Profile() {
                             <div class="col-md-4">
                                 <div class="profile-img">
                                     <img src={informationProfile.avatar} alt="" />
+                                    <div class="file btn btn-lg btn-primary">
+                                        Change Photo
+                                        <input type="file" name="file" onChange={handleFileChange}/>
+                                        {!file ? (<div>Chọn hình ảnh</div>) : (<div>Đã chọn hình ảnh</div>)}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -47,13 +112,13 @@ export default function Profile() {
                                     <br />
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
-                                            <div class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Thông tin cá nhân</div>
+                                            <div class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Cập nhật thông tin cá nhân</div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button type="button" class="profile-edit-btn" name="btnAddMore" onClick={() => navigate('/UpdateProfile')}>Cập nhật</button>
+                                <button type="button" class="profile-edit-btn" name="btnAddMore" onClick={() => updateProfile()}>Cập nhật</button>
                             </div>
                             <div class="col-md-2">
                                 <button type="button" class="profile-edit-btn" name="btnAddMore" onClick={() => navigate('/Profile')}>Hủy</button>
@@ -78,7 +143,14 @@ export default function Profile() {
                                                 <label>Email</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{informationProfile.email}</p>
+                                                <input
+                                                    id="email"
+                                                    className="form-control"
+                                                    type="text"
+                                                    name="email"
+                                                    placeholder={informationProfile.email}
+                                                    value={formValue.email}
+                                                    onChange={handleChange} />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -86,7 +158,14 @@ export default function Profile() {
                                                 <label>Số điện thoại</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{informationProfile.phone}</p>
+                                                <input
+                                                    id="phone"
+                                                    className="form-control"
+                                                    type="text"
+                                                    name="phone"
+                                                    placeholder={informationProfile.phone}
+                                                    value={formValue.phone}
+                                                    onChange={handleChange} />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -94,7 +173,14 @@ export default function Profile() {
                                                 <label>Địa chỉ</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{informationProfile.address}</p>
+                                                <input
+                                                    id="address"
+                                                    className="form-control"
+                                                    type="text"
+                                                    name="address"
+                                                    placeholder={informationProfile.address}
+                                                    value={formValue.address}
+                                                    onChange={handleChange} />
                                             </div>
                                         </div>
                                         <div class="row">

@@ -76,7 +76,7 @@ export default function AddPost() {
 
     const handleFileChange = (e) => {
         const files = e.target.files;
-
+        
         const arrayFile = Array.from(files).map((file) => ({
             file: file,
         }));

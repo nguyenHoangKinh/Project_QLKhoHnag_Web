@@ -22,7 +22,7 @@ export default function Profile() {
             }
         }).then((res) => {
             setInformationProfile(res.data.others);
-            console.log(res.data.others)
+            // console.log(res.data.others)
         }).catch((error) => {
             console.log(error.message);
         });
