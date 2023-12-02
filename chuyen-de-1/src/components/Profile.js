@@ -9,23 +9,25 @@ export default function Profile() {
     const [informationProfile, setInformationProfile] = useState();
     const navigate = useNavigate();
     let token = localStorage.getItem("jsonwebtoken");
-    let idUser = jwtDecode(token);
 
     useEffect(() => {
         //call api
-        axios.get(BASE_URL + '/auth/account-by-id', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            params: {
-                id: idUser.id
-            }
-        }).then((res) => {
-            setInformationProfile(res.data.others);
-            // console.log(res.data.others)
-        }).catch((error) => {
-            console.log(error.message);
-        });
+        if (token) {
+            let idUser = jwtDecode(token);
+            axios.get(BASE_URL + '/auth/account-by-id', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                params: {
+                    id: idUser.id
+                }
+            }).then((res) => {
+                setInformationProfile(res.data.others);
+                // console.log(res.data.others)
+            }).catch((error) => {
+                console.log(error.message);
+            });  
+        }
     }, [informationProfile]);
 
     return (
