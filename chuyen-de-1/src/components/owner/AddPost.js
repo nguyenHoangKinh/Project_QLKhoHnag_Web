@@ -44,6 +44,7 @@ export default function AddPost() {
 
             for (let i = 0; i < file.length; i++) {
                 formData.append("images", file[i].file);
+                console.log(file[i].file)
             }
 
             formData.append("description", description)
@@ -75,7 +76,7 @@ export default function AddPost() {
 
     const handleFileChange = (e) => {
         const files = e.target.files;
-
+        
         const arrayFile = Array.from(files).map((file) => ({
             file: file,
         }));
