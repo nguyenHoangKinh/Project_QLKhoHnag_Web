@@ -13,7 +13,14 @@ const InformationWarehouse = () => {
     //call api
     OrderDetails(location.state.item._id) ;
   }, []);
-
+  function thongBao()
+  {
+    if (window.confirm(`Delete the Order ${DetailOrder.name} ?`)) {
+      this.DeleteOrderUser(location.state.item.user._id,location.state.item._id,Token);
+    }
+  
+  }
+  
   return (
     <>
       {DetailOrder == null ? (
@@ -38,7 +45,7 @@ const InformationWarehouse = () => {
                     </div>
                   </div>
                   <div className="col-2">
-                    <h6 className="capacity ">Diện tích</h6>
+                    <h6 className="capacity ">Diện tích : </h6>
                     <div className="capacity ">5.000 m²</div>
                   </div>
                   <div className="col-3">
@@ -84,7 +91,7 @@ const InformationWarehouse = () => {
               </div>
               <div
               onClick={() => {
-                 DeleteOrderUser(location.state.item.user._id,location.state.item._id,Token);
+                 thongBao();
               }}
                className="d-flex justify-content-center">
               <Button type="primary" danger>Hủy Đơn</Button>

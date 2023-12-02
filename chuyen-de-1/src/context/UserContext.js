@@ -14,6 +14,8 @@ export const AuthProvider = ({ children }) => {
   const [DetailOrder, setDetailOrder] = useState({});
   const [checkDetailOrder, setcheckDetailOrder] = useState(false);
   const [checkValue, setCheckValue] = useState(false);
+  const [columns, setColumns] = useState([]);
+  const [records, setRecords] = useState([]);
   // const [IdDetailOrder, setIdDetailOrder] = useState([]);
   // console.log(IdDetailOrder);
   // console.log(DetailOrder);
@@ -173,6 +175,25 @@ export const AuthProvider = ({ children }) => {
         alert(error.message);
       });
   };
+  const wListOwner = (Token) => {
+    let idUser = jwtDecode(Token);
+    axios
+    .get(
+      BASE_URL+`/warehouse/list?id_owner=${idUser.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    )
+    .then((res) => {
+      // setColumns(Object, res.data);
+      setRecords(res.data);
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",res.data);
+    }).catch((e) => {
+      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",e.response.data);
+    });
+  };
   console.log(DetailOrder);
   return (
     <UserContext.Provider
@@ -184,10 +205,13 @@ export const AuthProvider = ({ children }) => {
         ListOrderOwner,
         checkDetailOrder,
         ListBlogs,
+        records,
+        columns,
         setCheckValue,
         DeleteOrderUser,
         orderListOwner,
         ListBlog,
+        wListOwner,
         setDetailOrder,
         OrderDetails,
         orderList,
