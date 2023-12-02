@@ -194,6 +194,23 @@ export const AuthProvider = ({ children }) => {
       // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",e.response.data);
     });
   };
+  const DetailWarehouse = (id,Token) => {
+    axios.get(
+      BASE_URL+`/warehouse/getAWarehouse?id=${id}`,{
+        headers:{Authorization:`Bearer ${Token}`}
+      }
+    ).then((res) => {
+      // console.log(res.data);
+      if (res.data) {
+        // setDetailWarehouses(res.data)
+      }else{
+        alert("thông tin chi tiết ko tồn tại!")
+      }
+
+    }).catch((e) => {
+      console.log(` error ${e.response.data.message}`);
+    });
+  }
   console.log(DetailOrder);
   return (
     <UserContext.Provider

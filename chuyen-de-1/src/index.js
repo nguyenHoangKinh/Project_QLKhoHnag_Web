@@ -15,6 +15,7 @@ import ListBlog from './components/ListBlog';
 import HomeUserScreen from './components/HomeUserScreen';
 import Create from './components/Create';
 import ListWarehouseUser from './components/ListWarehouseUser';
+import InformationOrder from './components/InformationOrder';
 import ListPostOwner from './components/owner/ListPostOwner';
 import AddPost from './components/owner/AddPost';
 import UpdatePost from './components/owner/UpdatePost';
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
   {
     path: "UpdateProfile",
     element: <UpdateProfile/>,
+  },
+  {
+    path: "InformationOrder",
+    element: <InformationOrder/>,
   },
 ]);
 

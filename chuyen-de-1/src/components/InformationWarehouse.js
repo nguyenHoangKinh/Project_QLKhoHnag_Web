@@ -2,29 +2,56 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import { Button, Flex } from 'antd';
+import { Button, Flex } from "antd";
+import { BASE_URL } from "../config";
 const InformationWarehouse = () => {
   let Token = localStorage.getItem("jsonwebtoken");
   const location = useLocation();
-  const { OrderDetails, DetailOrder,DeleteOrderUser } = useContext(UserContext);
+  const [detailWarehouse, setDetailWarehouses] = useState({});
+  // const {  } =
+  //   useContext(UserContext);
 
-  // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ",location.state.item.user._id,location.state.item.owner._id,Token);
+  // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ",location.state.itemWarehouse._id,Token,detailWarehouse,detailWarehouse.createdAt);
   useEffect(() => {
-    //call api
-    OrderDetails(location.state.item._id) ;
-  }, []);
-  function thongBao()
-  {
-    if (window.confirm(`Delete the Order ${DetailOrder.name} ?`)) {
-      this.DeleteOrderUser(location.state.item.user._id,location.state.item._id,Token);
+    if (location.state.itemWarehouse._id,Token) {
+      axios.get(
+        BASE_URL+`/warehouse/getAWarehouse?id=${location.state.itemWarehouse._id}`,{
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        }
+      ).then((res) => {
+        console.log(res.data.warehouse);
+        if (res.data) {
+          setDetailWarehouses(res.data.warehouse)
+        }else{
+          alert("thông tin chi tiết ko tồn tại!")
+        }
+  
+      }).catch((e) => {
+        console.log(` error ${e.response.data.message}`);
+      });
+    }else{
+      alert("loi")
     }
-  
+  }, []);
+  function thongBao() {
+    if (window.confirm(`Delete the Order ${detailWarehouse.name} ?`)) {
+      this.DeleteOrderUser(
+        location.state.item.user._id,
+        location.state.item._id,
+        Token
+      );
+    }
   }
-  
+  // const formatTime = (item) => {
+  //   const options = { hour: "numeric", minute: "numeric" };
+  //   return new Date(item).toLocaleString("en-US", options);
+  // };
   return (
     <>
-      {DetailOrder == null ? (
-        alert("chi tiết đơn hàng không có giá trị")
+      {detailWarehouse == {} ? (
+        <h4 >chi tiết đơn hàng không có giá trị</h4>
       ) : (
         <div className="container d-flex justify-content-center ">
           <div class="card" style={{ width: "46rem", height: "30rem" }}>
@@ -34,13 +61,24 @@ const InformationWarehouse = () => {
             <div class="card-body">
               <h4 class="card-title">Thông tin đơn hàng</h4>
               <hr />
+              <div class="row">
+              <h6 className="">Mô tả</h6>
+                    <div className="monney">
+                      {detailWarehouse.description != null
+                        ? detailWarehouse.description
+                        : "Không có giá trị!"}
+                    </div>
+              </div>
+              <hr />
+              <h4 class="card-title">Thông tin đơn hàng</h4>
+              <hr />
               <div className="row">
                 <div className="box-monney-capacty row">
                   <div className="col-2">
                     <h6 className="">Mức giá</h6>
                     <div className="monney">
-                      {DetailOrder.money != null
-                        ? DetailOrder.money
+                      {detailWarehouse.monney != null
+                        ? detailWarehouse.monney
                         : "Không có giá trị!"}
                     </div>
                   </div>
@@ -48,33 +86,39 @@ const InformationWarehouse = () => {
                     <h6 className="capacity ">Diện tích : </h6>
                     <div className="capacity ">5.000 m²</div>
                   </div>
-                  <div className="col-3">
-                    <h6 className="capacity ">thoi gian thue</h6>
+                  {/* <div className="col-3">
+                    <h6 className="capacity ">Thời gian tạo kho</h6>
                     <div className="capacity ">
-                      {DetailOrder.rentalTime != null
-                        ? DetailOrder.rentalTime
+                      {formatTime != null
+                        ? formatTime(detailWarehouse.createdAt)
                         : "Không có giá trị!"}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <hr />
                 <div className="row">
                   <h6 className="text">
                     Tên chủ kho:{" "}
-                    {DetailOrder.owner != null
-                      ? DetailOrder.owner.username
+                    {detailWarehouse.owner != null
+                      ? detailWarehouse.owner.username
                       : "Không có giá trị!"}
                   </h6>
                   <h6 className="text">
-                    ten kho:{" "}
-                    {DetailOrder.warehouses != null
-                      ? DetailOrder.warehouses.wareHouseName
+                    Email:{" "}
+                    {detailWarehouse.owner != null
+                      ? detailWarehouse.owner.email
                       : "Không có giá trị!"}
                   </h6>
                   <h6 className="text">
-                    ten khach{" "}
-                    {DetailOrder.user != null
-                      ? DetailOrder.user.username
+                    Dia chi Chu kho{" "}
+                    {detailWarehouse.owner != null
+                      ? detailWarehouse.owner.address
+                      : "Không có giá trị!"}
+                  </h6>
+                  <h6 className="text">
+                    SDT{" "}
+                    {detailWarehouse.owner != null
+                      ? detailWarehouse.owner.phone
                       : "Không có giá trị!"}
                   </h6>
                 </div>
@@ -83,19 +127,22 @@ const InformationWarehouse = () => {
                   <h5 className="">Địa Chỉ</h5>
                   <div className="address">
                     {" "}
-                    {DetailOrder.warehouses != null
-                      ? DetailOrder.warehouses.address
+                    {detailWarehouse != null
+                      ? detailWarehouse.address
                       : "Không có giá trị!"}
                   </div>
                 </div>
               </div>
-              <div
-              onClick={() => {
-                 thongBao();
-              }}
-               className="d-flex justify-content-center">
-              <Button type="primary" danger>Hủy Đơn</Button>
-              </div>
+              {/* <div
+                onClick={() => {
+                  thongBao();
+                }}
+                className="d-flex justify-content-center"
+              >
+                <Button type="primary" danger>
+                  Hủy Đơn
+                </Button>
+              </div> */}
             </div>
           </div>
         </div>

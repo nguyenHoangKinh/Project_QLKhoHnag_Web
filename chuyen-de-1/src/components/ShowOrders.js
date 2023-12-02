@@ -28,7 +28,7 @@ const ShowOrders = () => {
                   <ListGroup.Item className="category-item">
                     <div
                       onClick={() => {
-                        navigation("/InformationWarehouse", {
+                        navigation("/InformationOrder", {
                           state: { item },
                         });
                       }}
