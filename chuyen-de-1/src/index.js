@@ -20,6 +20,8 @@ import AddPost from './components/owner/AddPost';
 import UpdatePost from './components/owner/UpdatePost';
 import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
+import Profile from './components/Profile';
+import UpdateProfile from './components/UpdateProfile'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import {AuthProvider} from './context/UserContext';
@@ -94,6 +96,14 @@ const router = createBrowserRouter([
   {
     path: "UpdatePost",
     element: <UpdatePost/>,
+  },
+  {
+    path: "Profile",
+    element: <Profile/>,
+  },
+  {
+    path: "UpdateProfile",
+    element: <UpdateProfile/>,
   },
 ]);
 

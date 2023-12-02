@@ -55,7 +55,7 @@ export default function AddPost() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (!isEmptyValue(description) && file) {
+        if (!isEmptyValue(description) || file) {
             const formData = new FormData();
 
             for (let i = 0; i < file.length; i++) {
