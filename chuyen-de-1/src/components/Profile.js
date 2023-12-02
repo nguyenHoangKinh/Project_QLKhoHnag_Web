@@ -30,8 +30,8 @@ export default function Profile() {
 
     return (
         <div>
-            {informationProfile &&
-                <div class="container emp-profile">
+            {informationProfile ?
+                (<div class="container emp-profile">
                     <div method="post">
                         <div class="row">
                             <div class="col-md-4">
@@ -94,6 +94,7 @@ export default function Profile() {
                                                 <p>{informationProfile.address}</p>
                                             </div>
                                         </div>
+                                        {informationProfile.warehouses &&
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Tổng số kho hàng</label>
@@ -101,7 +102,8 @@ export default function Profile() {
                                             <div class="col-md-6">
                                                 <p>{informationProfile.warehouses.length} (kho hàng)</p>
                                             </div>
-                                        </div>
+                                        </div>}
+                                        {informationProfile.blogs  &&
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Tổng số bài viết</label>
@@ -109,61 +111,32 @@ export default function Profile() {
                                             <div class="col-md-6">
                                                 <p>{informationProfile.blogs.length} (bài viết)</p>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Experience</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hourly Rate</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>10$/hr</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Total Projects</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>230</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>English Level</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Availability</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>6 months</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label>Your Bio</label><br />
-                                                <p>Your detail description</p>
-                                            </div>
-                                        </div>
+                                        </div>}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>}
+                </div>) : (<div class="container emp-profile">
+                    <div method="post">
+                        <div class="row">
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="profile-head">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <div class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Yêu cầu đăng nhập để xem được thông tin cá nhân</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="profile-edit-btn" name="btnAddMore" onClick={()=> navigate('/Login')}>Đăng nhập</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>)}
         </div>
     );
 }

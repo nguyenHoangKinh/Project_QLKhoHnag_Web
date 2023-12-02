@@ -106,3 +106,9 @@
     width: 380px;
     margin-bottom: 20px;
 }
+
+.error-feedback-profile {
+    color: red;
+    margin-bottom: 10px;
+    margin-top: -20px;
+}

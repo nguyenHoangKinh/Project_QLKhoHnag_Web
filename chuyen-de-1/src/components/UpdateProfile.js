@@ -19,6 +19,7 @@ export default function Profile() {
     const [informationProfile, setInformationProfile] = useState();
     const [formValue, setFormValue] = useState(initFormValue);
     const [file, setFile] = useState();
+    const [formError, setFormError] = useState({});
     const navigate = useNavigate();
     let token = localStorage.getItem("jsonwebtoken");
     let idUser = jwtDecode(token);
@@ -41,9 +42,9 @@ export default function Profile() {
     }, [informationProfile]);
 
     const updateProfile = () => {
-        if (!isEmptyValue(formValue.address) || !isEmptyValue(formValue.email) || !isEmptyValue(formValue.phone) || file) {
+        if ((!isEmptyValue(formValue.address) || !isEmptyValue(formValue.email) || !isEmptyValue(formValue.phone) || file) && validateForm()) {
             const formData = new FormData();
-            
+
             if (file) {
                 formData.append("avatar", file[0].file)
             }
@@ -51,23 +52,23 @@ export default function Profile() {
             formData.append("address", formValue.address)
             formData.append("email", formValue.email)
             formData.append("phone", formValue.phone)
-    
+
             axios.put(BASE_URL + '/auth/update-account', formData,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                params: {
-                    id: idUser.id
-                }
-            }).then((res) => {
-                alert("Cập nhật thông tin thành công");
-                window.location.href = "Profile";
-            }).catch((error) => {
-                console.log(error.message);
-            });
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    params: {
+                        id: idUser.id
+                    }
+                }).then((res) => {
+                    alert("Cập nhật thông tin thành công");
+                    window.location.href = "Profile";
+                }).catch((error) => {
+                    console.log(error.message);
+                });
         } else {
-            alert("Yêu cầu nhập thông tin để cập nhật");
+            alert("Yêu cầu nhập thông tin đẩy đủ hoặc chính xác để cập nhật");
         }
     }
 
@@ -88,6 +89,18 @@ export default function Profile() {
         setFile(arrayFile)
     };
 
+    const validateForm = () => {
+        const error = {};
+
+        if (!/\S+@\S\.\S+/.test(formValue.email)) {
+            error["email"] = "Email không hợp lệ";
+        }
+
+        setFormError(error);
+
+        return Object.keys(error).length === 0;
+    };
+
     return (
         <div className="profile_bg">
             {informationProfile &&
@@ -99,7 +112,7 @@ export default function Profile() {
                                     <img src={informationProfile.avatar} alt="" />
                                     <div class="file btn btn-lg btn-primary">
                                         Change Photo
-                                        <input type="file" name="file" onChange={handleFileChange}/>
+                                        <input type="file" name="file" onChange={handleFileChange} />
                                         {!file ? (<div>Chọn hình ảnh</div>) : (<div>Đã chọn hình ảnh</div>)}
                                     </div>
                                 </div>
@@ -151,6 +164,9 @@ export default function Profile() {
                                                     placeholder={informationProfile.email}
                                                     value={formValue.email}
                                                     onChange={handleChange} />
+                                                {formError.email && (
+                                                    <div className="error-feedback-profile">{formError.email}</div>
+                                                )}
                                             </div>
                                         </div>
                                         <div class="row">
@@ -183,70 +199,24 @@ export default function Profile() {
                                                     onChange={handleChange} />
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Tổng số kho hàng</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>{informationProfile.warehouses.length} (kho hàng)</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Tổng số bài viết</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>{informationProfile.blogs.length} (bài viết)</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Experience</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hourly Rate</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>10$/hr</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Total Projects</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>230</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>English Level</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Availability</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>6 months</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label>Your Bio</label><br />
-                                                <p>Your detail description</p>
-                                            </div>
-                                        </div>
+                                        {informationProfile.warehouses &&
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Tổng số kho hàng</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{informationProfile.warehouses.length} (kho hàng)</p>
+                                                </div>
+                                            </div>}
+                                        {informationProfile.blogs &&
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Tổng số bài viết</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{informationProfile.blogs.length} (bài viết)</p>
+                                                </div>
+                                            </div>}
                                     </div>
                                 </div>
                             </div>
