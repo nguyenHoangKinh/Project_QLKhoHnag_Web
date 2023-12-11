@@ -135,7 +135,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const DeleteOrderUser = (idUser, idOrder, token) => {
-    if (idUser && idOrder) {
+    if (idUser && idOrder && token) {
       axios
         .delete(
           BASE_URL +
@@ -147,7 +147,8 @@ export const AuthProvider = ({ children }) => {
           }
         )
         .then((res) => {
-          alert(res.data.message);
+          alert(res.data);
+          // console.log(res.data);
           window.location.href = "/ShowOrders";
         })
         .catch((e) => {
@@ -178,39 +179,37 @@ export const AuthProvider = ({ children }) => {
   const wListOwner = (Token) => {
     let idUser = jwtDecode(Token);
     axios
-    .get(
-      BASE_URL+`/warehouse/list?id_owner=${idUser.id}`,
-      {
+      .get(BASE_URL + `/warehouse/list?id_owner=${idUser.id}`, {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
-      }
-    )
-    .then((res) => {
-      // setColumns(Object, res.data);
-      setRecords(res.data);
-      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",res.data);
-    }).catch((e) => {
-      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",e.response.data);
-    });
+      })
+      .then((res) => {
+        // setColumns(Object, res.data);
+        setRecords(res.data);
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", res.data);
+      })
+      .catch((e) => {
+        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",e.response.data);
+      });
   };
-  const DetailWarehouse = (id,Token) => {
-    axios.get(
-      BASE_URL+`/warehouse/getAWarehouse?id=${id}`,{
-        headers:{Authorization:`Bearer ${Token}`}
-      }
-    ).then((res) => {
-      // console.log(res.data);
-      if (res.data) {
-        // setDetailWarehouses(res.data)
-      }else{
-        alert("thông tin chi tiết ko tồn tại!")
-      }
-
-    }).catch((e) => {
-      console.log(` error ${e.response.data.message}`);
-    });
-  }
+  const DetailWarehouse = (id, Token) => {
+    axios
+      .get(BASE_URL + `/warehouse/getAWarehouse?id=${id}`, {
+        headers: { Authorization: `Bearer ${Token}` },
+      })
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data) {
+          // setDetailWarehouses(res.data)
+        } else {
+          alert("thông tin chi tiết ko tồn tại!");
+        }
+      })
+      .catch((e) => {
+        console.log(` error ${e.response.data.message}`);
+      });
+  };
   console.log(DetailOrder);
   return (
     <UserContext.Provider

@@ -7,7 +7,7 @@ import { BASE_URL } from "../config";
 const InformationWarehouse = () => {
   let Token = localStorage.getItem("jsonwebtoken");
   const location = useLocation();
-  const [detailWarehouse, setDetailWarehouses] = useState({});
+  const [detailWarehouse, setDetailWarehouses] = useState(null);
   // const {  } =
   //   useContext(UserContext);
 
@@ -50,7 +50,7 @@ const InformationWarehouse = () => {
   // };
   return (
     <>
-      {detailWarehouse == {} ? (
+      {!detailWarehouse ? (
         <h4 >chi tiết đơn hàng không có giá trị</h4>
       ) : (
         <div className="container d-flex justify-content-center ">

@@ -19,6 +19,12 @@ const ShowOrders = () => {
       <div className="category-containers">
         <ListGroup className="category-row">
           <h1 className="text-center">List Order</h1>
+          {/* {!ListOrder ? 
+          (
+            <h5>không có đơn hàng nào</h5>
+          )
+          :
+           */}
           {ListOrder &&
             ListOrder.length > 0 &&
             ListOrder.map((item, index) => {
