@@ -1,0 +1,78 @@
+:root {
+    --primary-color: #0168b7;
+    --light-primary-color: #3977c4;
+    --semi-primary-color: #5988ae;
+    --heavy-primary-color: #064d86;
+    --black-primary-color: #082949;
+    --transparent-primary-color: #79b0da;
+    --red-color: #c82d3a;
+    --light-red-color: #e34148;
+    --green-color: #4b966f;
+    --heavy-green-color: #217639;
+    --white-color: #ffffff;
+    --black-color: #000000;
+    --yellow-color: #c1d341;
+    --opposite-color: #f9b279;
+    --dust-color: #6f6f6f;
+    --theme-color: #f7fafd;
+  }
+   /* the mul-img section */
+.card {
+    overflow: hidden;
+  }
+  
+  .card figure img {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+    opacity: 1;
+    height: 250px;
+  }
+  
+  .card:hover img {
+    -webkit-transform: scale(1.3);
+    transform: scale(1.2);
+    opacity: .5;
+  }
+  
+  .card figure {
+    margin: 0;
+    padding: 0;
+    background: var(--white-color);
+    overflow: hidden;
+    background-color: var(--black-primary-color);
+  }
+  
+  
+  .card-buttons-1 h4 {
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+    font-weight: 700;
+    color: var(--white-color);
+  }
+  
+  .card-buttons-1 p {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    color: var(--white-color);
+  }
+  
+  .card-buttons-1 a {
+    font-size: 15px;
+    text-transform: capitalize;
+  }
+  
+  .card-buttons-1 {
+    top: 50%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .card:hover .card-buttons-1 {
+    opacity: 1;
+    transform: translateY(0);
+  }
