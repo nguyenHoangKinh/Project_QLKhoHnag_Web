@@ -105,7 +105,7 @@ export default function Profile() {
                                                 <p>{informationProfile.warehouses.length} (kho hàng)</p>
                                             </div>
                                         </div>}
-                                        {informationProfile.blogs  &&
+                                        {informationProfile.blogs.length > 0  &&
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Tổng số bài viết</label>

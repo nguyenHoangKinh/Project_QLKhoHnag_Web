@@ -42,6 +42,7 @@ export default function Profile() {
     }, [informationProfile]);
 
     const updateProfile = () => {
+        console.log(formValue.email)
         if ((!isEmptyValue(formValue.address) || !isEmptyValue(formValue.email) || !isEmptyValue(formValue.phone) || file) && validateForm()) {
             const formData = new FormData();
 
@@ -83,6 +84,8 @@ export default function Profile() {
     const handleFileChange = (e) => {
         const files = e.target.files;
 
+        console.log(files)
+
         const arrayFile = Array.from(files).map((file) => ({
             file: file,
         }));
@@ -91,7 +94,7 @@ export default function Profile() {
 
     const validateForm = () => {
         const error = {};
-
+        
         if (!/\S+@\S\.\S+/.test(formValue.email)) {
             error["email"] = "Email không hợp lệ";
         }
