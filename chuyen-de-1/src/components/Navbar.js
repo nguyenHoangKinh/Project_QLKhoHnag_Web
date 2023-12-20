@@ -25,7 +25,7 @@ function NavbarComponent() {
     <Navbar.Brand href="#home">
         <img
           alt=""
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Logo_2012_International_Academy_of_Franciscan_Theology_-_mini.jpg/800px-Logo_2012_International_Academy_of_Franciscan_Theology_-_mini.jpg"
+          src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/08/hinh-nen-dien-thoai-anime-2.jpg"
           width="30"
           height="30"
           className="d-inline-block align-top"
