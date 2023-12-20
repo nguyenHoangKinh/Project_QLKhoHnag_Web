@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [checkValue, setCheckValue] = useState(false);
   const [columns, setColumns] = useState([]);
   const [records, setRecords] = useState([]);
+  const [detailBlog, setDetailBlog] = useState([]);
   // const [IdDetailOrder, setIdDetailOrder] = useState([]);
   // console.log(IdDetailOrder);
   // console.log(DetailOrder);
@@ -47,7 +48,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
   const Logout = (token) => {
-    console.log("category: ", token);
+    // console.log("category: ", token);
     axios
       .get(BASE_URL + "/auth/logout", {
         headers: { Authorization: `Bearer ${token}` },
@@ -56,7 +57,7 @@ export const AuthProvider = ({ children }) => {
         if (res) {
           alert(res.data.message);
           localStorage.removeItem("jsonwebtoken");
-          window.location.href = "/login";
+          window.location.href = "/";
         }
       })
       .catch((error) => {
@@ -129,6 +130,25 @@ export const AuthProvider = ({ children }) => {
           alert(e.response.data.message);
           //   logout()
           // }
+        });
+    } else {
+      alert("load bai viet that bai!");
+    }
+  };
+  const DetailBlog = (token,id) => {
+    if (token,id) {
+      axios
+        .get(BASE_URL + `/blog/get-by-id?id=${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res && res.data.data) {
+            setDetailBlog(res.data.data)
+          }
+        })
+        .catch((e) => {
         });
     } else {
       alert("load bai viet that bai!");
@@ -207,10 +227,12 @@ export const AuthProvider = ({ children }) => {
         ListBlogs,
         records,
         columns,
+        detailBlog,
         setCheckValue,
         DeleteOrderUser,
         orderListOwner,
         ListBlog,
+        DetailBlog,
         wListOwner,
         setDetailOrder,
         OrderDetails,
