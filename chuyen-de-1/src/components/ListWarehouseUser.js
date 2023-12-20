@@ -254,6 +254,4 @@ function UpdateWare() {
       </div>
     </div>
   );
-}
-
-export default UpdateWare;
+}}

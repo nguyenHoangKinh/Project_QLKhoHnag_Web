@@ -186,6 +186,20 @@ export const AuthProvider = ({ children }) => {
     let idOwner = jwtDecode(Token);
     axios
       .get(BASE_URL + `/order/listOrderByOwner?id_owner=${idOwner.id}`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((res) => {
+        if (res && res.data) {
+          setListOrderOwner(res.data);
+          console.log(res.data);
+        }
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 
 
   const deActiveAcount = (Token) => {
