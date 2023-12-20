@@ -18,6 +18,7 @@ import ListAcountDeActive from './components/ListAcountDeActive';
 import ListOwnerDeActive from './components/ListOwnerDeActive';
 import ListOwnerActive from './components/ListOwnerActive';
 import ListUserActive from './components/ListUserActive';
+import HomeAdminScreen from './components/HomeAdminScreen';
 import ListUserDeActive from './components/ListUserDeActive';
 import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
@@ -28,6 +29,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import DetailWareUser from './components/user/DetailWareUser';
 
 const router = createBrowserRouter([
   {
@@ -73,6 +75,10 @@ const router = createBrowserRouter([
     element: <HomeUserScreen/>,
   },
   {
+    path: "HomeAdminScreen",
+    element: <HomeAdminScreen/>,
+  },
+  {
     path: "ListAcountActive",
     element: <ListAcountActive/>,
   },
@@ -100,6 +106,11 @@ const router = createBrowserRouter([
     path: "*",
     element: <NotFound/>,
   },
+  {
+    path: "/DetailWareUser/:id",
+    element: <DetailWareUser/>,
+  },
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

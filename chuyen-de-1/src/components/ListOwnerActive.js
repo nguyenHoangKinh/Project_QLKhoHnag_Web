@@ -39,7 +39,8 @@ export default function ListOwnerActive() {
     <>
       <h1>ListOwnerActive</h1>
       
-      <div className="listwarehouseuser">
+      <div className="listwarehouseuser"
+      style={{ marginTop: 1000, width: "100%" }}>
         <table className="styled-table">
           <thead>
             <tr>

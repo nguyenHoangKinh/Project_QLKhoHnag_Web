@@ -41,7 +41,8 @@ export default function ListOwnerDeActive() {
     <>
       <h1>ListOwnerDeActive</h1>
       
-      <div className="listwarehouseuser">
+      <div className="listwarehouseuser"
+      style={{ marginTop: 1000, width: "100%" }}>
         <table className="styled-table">
           <thead>
             <tr>

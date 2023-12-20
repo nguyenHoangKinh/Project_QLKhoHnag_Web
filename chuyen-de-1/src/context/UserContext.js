@@ -33,6 +33,8 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem("jsonwebtoken", token);
           if (response.data.others.isOwner) {
             window.location.href = "/HomeScreen";
+          } else if(response.data.others.isAdmin){
+            window.location.href = "/HomeAdminScreen";
           } else {
             window.location.href = "/HomeUserScreen";
           }

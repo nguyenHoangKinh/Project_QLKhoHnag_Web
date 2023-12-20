@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../theme/ListWarehouseUser.css";
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
 import { BASE_URL } from "../config";
-import { jwtDecode } from "jwt-decode";
-import { Link } from "react-router-dom";
+
 
 import axios from "axios";
 
@@ -39,25 +36,8 @@ export default function ListAcountActive() {
     }
  
   
-  useEffect(() => {
-    //call api
-    axios
-      .put(
-        "https://warehouse-management-api.vercel.app/v1/admin/list-account-active",
-        {
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setListAcount(res.data.accounts);
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }, []);
+
+ 
 
   useEffect(() => {
     //call api
@@ -72,7 +52,7 @@ export default function ListAcountActive() {
       )
       .then((res) => {
         setListAcount(res.data.accounts);
-        //console.log(res.data.accounts);
+        console.log(res.data.accounts);
       })
       .catch((error) => {
         console.log(error.message);
