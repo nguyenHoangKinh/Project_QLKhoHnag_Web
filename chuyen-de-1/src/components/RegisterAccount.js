@@ -19,6 +19,7 @@ const isEmptyValue = (value) => {
 export default function RegisterPage() {
   const [formValue, setFormValue] = useState(initFormValue);
   const [formError, setFormError] = useState({});
+  const [check, setCheck] = useState("");
 
   const validateForm = () => {
     const error = {};
@@ -75,7 +76,7 @@ export default function RegisterPage() {
         email: formValue.email,
       };
 
-      axios.post(BASE_URL + "/auth/register?status=1",
+      axios.post(BASE_URL + "/auth/register?status=" + check,
         acc
       ).then((respone) => {
         console.log(respone);
@@ -89,6 +90,12 @@ export default function RegisterPage() {
       console.log("form invalid");
     }
   };
+
+  function checkValue(e) {
+    var value = e.target.value;
+    console.log("You selected " + value);
+    setCheck(value)
+  }
 
   return (
     <>
@@ -194,9 +201,20 @@ export default function RegisterPage() {
                           <div className="error-feedback" style={{ marginTop: -25, marginBottom: 15, marginLeft: 110 }}>{formError.confirmPassword}</div>
                         )}
                       </div>
+
+                      <div>
+                        <input id="box1" onChange={checkValue} type="checkbox" value="1" checked={check.includes("1") ? true : false} />
+                        <label htmlFor="#box1">Chủ kho</label>
+                      </div>
+
+                      <div>
+                        <input id="box2" onChange={checkValue} type="checkbox" value="2" checked={check.includes("2") ? true : false} />
+                        <label htmlFor="#box2">Khách hàng</label>
+                      </div>
+
                       <div class="col-md-12">
                         <div >
-                          <button type="submit" class="btn btn-secondary" style={{ width: "100%", height: 50, fontSize: 25}}>Tạo tài khoản</button>
+                          <button type="submit" class="btn btn-secondary" style={{ width: "100%", height: 50, fontSize: 25 }}>Tạo tài khoản</button>
                         </div>
                       </div>
                     </div>
