@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [columns, setColumns] = useState([]);
   const [records, setRecords] = useState([]);
   const [detailBlog, setDetailBlog] = useState([]);
+  const [acount, setAcount] = useState([]);
   // const [IdDetailOrder, setIdDetailOrder] = useState([]);
   // console.log(IdDetailOrder);
   // console.log(DetailOrder);
@@ -37,6 +38,8 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem("jsonwebtoken", token);
           if (response.data.others.isOwner) {
             window.location.href = "/HomeScreen";
+          } else if(response.data.others.isAdmin){
+            window.location.href = "/HomeAdminScreen";
           } else {
             window.location.href = "/HomeUserScreen";
           }
@@ -67,7 +70,7 @@ export const AuthProvider = ({ children }) => {
   const orderList = (Token) => {
     let idUser = jwtDecode(Token);
     axios
-      .get(BASE_URL + `/order/listOrderByUser?id_user=${idUser.id}`, {
+      .put(BASE_URL + `/order/listOrderByUser?id_user=${idUser.id}`, {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
@@ -82,6 +85,7 @@ export const AuthProvider = ({ children }) => {
         alert(error.message);
       });
   };
+
   const OrderDetails = (Id) => {
     // console.log(Token,Id);
     if (Id) {
@@ -112,6 +116,7 @@ export const AuthProvider = ({ children }) => {
     }
     setCheckValue(false);
   };
+
   const ListBlog = (token) => {
     if (token) {
       axios
@@ -181,6 +186,12 @@ export const AuthProvider = ({ children }) => {
     let idOwner = jwtDecode(Token);
     axios
       .get(BASE_URL + `/order/listOrderByOwner?id_owner=${idOwner.id}`, {
+
+
+  const deActiveAcount = (Token) => {
+    let idAcount = jwtDecode(Token);
+    axios
+      .put(BASE_URL + `/admin/deactivate-account?id=${idAcount.id}`, {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
@@ -190,11 +201,14 @@ export const AuthProvider = ({ children }) => {
           setListOrderOwner(res.data);
           console.log(res.data);
         }
+          setAcount(res);
+          console.log(res);
       })
       .catch((error) => {
         alert(error.message);
       });
   };
+
   const wListOwner = (Token) => {
     let idUser = jwtDecode(Token);
     axios
@@ -214,6 +228,7 @@ export const AuthProvider = ({ children }) => {
       // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",e.response.data);
     });
   };
+  
   console.log(DetailOrder);
   return (
     <UserContext.Provider
@@ -228,6 +243,7 @@ export const AuthProvider = ({ children }) => {
         records,
         columns,
         detailBlog,
+        acount,
         setCheckValue,
         DeleteOrderUser,
         orderListOwner,
@@ -235,6 +251,7 @@ export const AuthProvider = ({ children }) => {
         DetailBlog,
         wListOwner,
         setDetailOrder,
+        deActiveAcount,
         OrderDetails,
         orderList,
         Logout,
