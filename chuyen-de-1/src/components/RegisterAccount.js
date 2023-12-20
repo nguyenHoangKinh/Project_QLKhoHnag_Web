@@ -217,39 +217,5 @@ export default function RegisterPage() {
       <script src="js/bootstrap.min.js"></script>
       <script src="js/main.js"></script>
     </>
-
-    // <div className="register-page">
-    //   <div className="register-form-container">
-    //     <h1 className="title">Register account</h1>
-
-    //       <div className="mb-2">
-    //         <label htmlFor="confirm-password" className="form-label">
-    //           Confirm Password
-    //         </label>
-    //         <input
-    //           id="confirm-password"
-    //           className="form-control"
-    //           type="password"
-    //           name="confirmPassword"
-    //           value={formValue.confirmPassword}
-    //           onChange={handleChange}
-    //         />
-    //         {formError.confirmPassword && (
-    //           <div className="error-feedback">{formError.confirmPassword}</div>
-    //         )}
-    //       </div>
-
-    //       <button type="submit" className="submit-btn">
-    //         Register
-    //       </button>
-
-    //       <div className="btn_login">
-    //         You have account
-    //         <a href="/"> Login</a>
-    //       </div>
-
-    //     </form>
-    //   </div>
-    // </div>
   );
 }
