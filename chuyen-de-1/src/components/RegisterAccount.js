@@ -91,124 +91,165 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="register-page">
-      <div className="register-form-container">
-        <h1 className="title">Register account</h1>
+    <>
+      <section class="ftco-section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="wrap d-md-flex">
+                <div class="text-wrap p-4 p-lg-5 d-flex img d-flex align-items-end">
+                </div>
+                <div class="login-wrap p-4 p-md-5">
+                  <h3 class="mb-3">Tạo tài khoản</h3>
+                  <form onSubmit={handleSubmit} class="signup-form">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group d-flex align-items-center">
+                          <label class="label" for="name">Username</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="username"
+                            name="username"
+                            value={formValue.username}
+                            onChange={handleChange} />
+                        </div>
+                        {formError.confirmPassword && (
+                          <div className="error-feedback" style={{ marginTop: -25, marginBottom: 15, marginLeft: 110 }}>{formError.username}</div>
+                        )}
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group d-flex align-items-center">
+                          <label class="label" for="address">Address</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="address"
+                            name="address"
+                            value={formValue.address}
+                            onChange={handleChange} />
+                        </div>
+                        {formError.confirmPassword && (
+                          <div className="error-feedback" style={{ marginTop: -25, marginBottom: 15, marginLeft: 110 }}>{formError.address}</div>
+                        )}
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group d-flex align-items-center">
+                          <label class="label" for="email">Email</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            value={formValue.email}
+                            onChange={handleChange} />
+                        </div>
+                        {formError.confirmPassword && (
+                          <div className="error-feedback" style={{ marginTop: -25, marginBottom: 15, marginLeft: 110 }}>{formError.email}</div>
+                        )}
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group d-flex align-items-center">
+                          <label class="label" for="phone">Phone</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="phone"
+                            name="phone"
+                            value={formValue.phone}
+                            onChange={handleChange} />
+                        </div>
+                        {formError.confirmPassword && (
+                          <div className="error-feedback" style={{ marginTop: -25, marginBottom: 15, marginLeft: 110 }}>{formError.phone}</div>
+                        )}
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group d-flex align-items-center">
+                          <label class="label" for="password">Password</label>
+                          <input
+                            type="password"
+                            class="form-control"
+                            id="password"
+                            name="password"
+                            value={formValue.password}
+                            onChange={handleChange} />
+                        </div>
+                        {formError.confirmPassword && (
+                          <div className="error-feedback" style={{ marginTop: -25, marginBottom: 15, marginLeft: 110 }}>{formError.password}</div>
+                        )}
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group d-flex align-items-center">
+                          <label class="label" for="confirm-password">Confirm Password</label>
+                          <input
+                            type="password"
+                            class="form-control"
+                            id="confirm-password"
+                            className="form-control"
+                            name="confirmPassword"
+                            value={formValue.confirmPassword}
+                            onChange={handleChange} />
+                        </div>
+                        {formError.confirmPassword && (
+                          <div className="error-feedback" style={{ marginTop: -25, marginBottom: 15, marginLeft: 110 }}>{formError.confirmPassword}</div>
+                        )}
+                      </div>
+                      <div class="col-md-12">
+                        <div >
+                          <button type="submit" class="btn btn-secondary" style={{ width: "100%", height: 50, fontSize: 25}}>Tạo tài khoản</button>
+                        </div>
+                      </div>
+                    </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-2">
-            <label htmlFor="username" className="form-label">
-              Username
-            </label>
-            <input
-              id="username"
-              className="form-control"
-              type="text"
-              name="username"
-              value={formValue.username}
-              onChange={handleChange}
-            />
-            {formError.username && (
-              <div className="error-feedback">{formError.username}</div>
-            )}
+                  </form>
+                  <div class="w-100 text-center">
+                    <p class="mt-4">Tôi đã có tài khoản! <a href="login">Đăng Nhập</a></p>
+                    <p class="mt-4"><a href="HomeScreenAll">Trang chủ</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/main.js"></script>
+    </>
 
-          <div className="mb-2">
-            <label htmlFor="address" className="form-label">
-              Address
-            </label>
-            <input
-              id="address"
-              className="form-control"
-              type="text"
-              name="address"
-              value={formValue.address}
-              onChange={handleChange}
-            />
-            {formError.address && (
-              <div className="error-feedback">{formError.address}</div>
-            )}
-          </div>
+    // <div className="register-page">
+    //   <div className="register-form-container">
+    //     <h1 className="title">Register account</h1>
 
-          <div className="mb-2">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              id="email"
-              className="form-control"
-              type="text"
-              name="email"
-              value={formValue.email}
-              onChange={handleChange}
-            />
-            {formError.email && (
-              <div className="error-feedback">{formError.email}</div>
-            )}
-          </div>
+    //       <div className="mb-2">
+    //         <label htmlFor="confirm-password" className="form-label">
+    //           Confirm Password
+    //         </label>
+    //         <input
+    //           id="confirm-password"
+    //           className="form-control"
+    //           type="password"
+    //           name="confirmPassword"
+    //           value={formValue.confirmPassword}
+    //           onChange={handleChange}
+    //         />
+    //         {formError.confirmPassword && (
+    //           <div className="error-feedback">{formError.confirmPassword}</div>
+    //         )}
+    //       </div>
 
-          <div className="mb-2">
-            <label htmlFor="phone" className="form-label">
-              Phone
-            </label>
-            <input
-              id="phone"
-              className="form-control"
-              type="text"
-              name="phone"
-              value={formValue.phone}
-              onChange={handleChange}
-            />
-            {formError.phone && (
-              <div className="error-feedback">{formError.phone}</div>
-            )}
-          </div>
+    //       <button type="submit" className="submit-btn">
+    //         Register
+    //       </button>
 
-          <div className="mb-2">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              id="password"
-              className="form-control"
-              type="password"
-              name="password"
-              value={formValue.password}
-              onChange={handleChange}
-            />
-            {formError.password && (
-              <div className="error-feedback">{formError.password}</div>
-            )}
-          </div>
+    //       <div className="btn_login">
+    //         You have account
+    //         <a href="/"> Login</a>
+    //       </div>
 
-          <div className="mb-2">
-            <label htmlFor="confirm-password" className="form-label">
-              Confirm Password
-            </label>
-            <input
-              id="confirm-password"
-              className="form-control"
-              type="password"
-              name="confirmPassword"
-              value={formValue.confirmPassword}
-              onChange={handleChange}
-            />
-            {formError.confirmPassword && (
-              <div className="error-feedback">{formError.confirmPassword}</div>
-            )}
-          </div>
-
-          <button type="submit" className="submit-btn">
-            Register
-          </button>
-
-          <div className="btn_login">
-            You have account
-            <a href="/"> Login</a>
-          </div>
-
-        </form>
-      </div>
-    </div>
+    //     </form>
+    //   </div>
+    // </div>
   );
 }
