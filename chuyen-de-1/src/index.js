@@ -22,6 +22,7 @@ import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
 import Profile from './components/Profile';
 import UpdateProfile from './components/UpdateProfile'
+import DetailsOrderPage from './components/DetailsOrderPage'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import {AuthProvider} from './context/UserContext';
@@ -34,14 +35,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
-  },
-  {
-    path: "login",
-    element: <Login/>,
-  },
-  {
-    path: "CategoryWarehouse",
-    element: <CategoryWarehouse/>,
   },
   {
     path: "registeraccount",
@@ -104,6 +97,10 @@ const router = createBrowserRouter([
   {
     path: "UpdateProfile",
     element: <UpdateProfile/>,
+  },
+  {
+    path: "DetailsOrderPage",
+    element: <DetailsOrderPage/>,
   },
 ]);
 
