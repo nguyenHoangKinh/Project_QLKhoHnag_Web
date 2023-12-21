@@ -18,8 +18,12 @@ export const AuthProvider = ({ children }) => {
   const [records, setRecords] = useState([]);
   const [detailBlog, setDetailBlog] = useState([]);
   const [acount, setAcount] = useState([]);
+  //chat
+  const [listMessages, setListMessages] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [messages, setMessages] = useState([]);
   // const [IdDetailOrder, setIdDetailOrder] = useState([]);
-  // console.log(IdDetailOrder);
+  // console.log(chats);
   // console.log(DetailOrder);
 
   const LoginUserToken = (username, password) => {
@@ -213,7 +217,6 @@ export const AuthProvider = ({ children }) => {
       .then((res) => {
         if (res && res.data) {
           setListOrderOwner(res.data);
-          console.log(res.data);
         }
           setAcount(res);
           console.log(res);
@@ -242,8 +245,99 @@ export const AuthProvider = ({ children }) => {
       // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",e.response.data);
     });
   };
+  const userChats = (token,id) => {
+    if (token && id) {
+      axios
+        .get(BASE_URL + `/chat/findUser/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          if (res && res.data) {
+            setChats(res.data.chat)
+            // console.log(res.data.chat);
+            // setListMessages(res.data.message);
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    } else {
+      console.log("load user chat that bai!");
+    }
+  };
+  const AddChats = (secondIds) => {
+    // let number = false;
+    // if (userInfo.accessToken && userInfo.others._id) {
+    //   axios
+    //     .get(ORDER_URL + `/chat/listChat`, {
+    //       headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+    //     })
+    //     .then((res) => {
+    //       if (res && res.data) {
+    //         checkProfile(secondIds, res.data.chat);
+    //       }
+    //     })
+    //     .catch((e) => {
+    //       console.log(e.response.data);
+    //     });
+    // } else {
+    //   console.log("load user chat that bai!");
+    // }
+  };
+  const PostMessage = async (token, idMessages) => {
+    let idMess = idMessages.chatId;
+    let Token = token;
+    if (
+      token &&
+      idMessages.chatId &&
+      idMessages.senderId &&
+      idMessages.text
+    ) {
+      await axios
+        .post(
+          BASE_URL + `/message/createMessage/`,
+          {
+            chatId: idMessages.chatId,
+            senderId: idMessages.senderId,
+            text: idMessages.text,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        .then((res) => {
+          if (res && res.data) {
+            // console.log(res.data);
+            fetchMessages(Token,idMess)
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    } else {
+      console.log("load pust chat that bai!");
+    }
+  };
+  const fetchMessages = async (token,id) => {
+    if (token && id) {
+      axios
+        .get(BASE_URL + `/message/findMessage/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          if (res && res.data) {
+            setMessages(res.data.message);
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    } else {
+      console.log("load user chat that bai!");
+    }
+};
+
   
-  console.log(DetailOrder);
   return (
     <UserContext.Provider
       value={{
@@ -270,6 +364,15 @@ export const AuthProvider = ({ children }) => {
         orderList,
         Logout,
         LoginUserToken,
+        //chat
+        userChats,
+        AddChats,
+        PostMessage,
+        fetchMessages,
+        setMessages,
+        listMessages,
+        chats,
+        messages,
       }}
     >
       {children}

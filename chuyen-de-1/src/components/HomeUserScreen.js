@@ -7,6 +7,8 @@ import { jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
+import Header from "./HomeHeader";
+import Navbar from "./HomeNavbar";
 
 export default function HomeUserScreen() {
   let Token = localStorage.getItem("jsonwebtoken");
@@ -37,6 +39,8 @@ export default function HomeUserScreen() {
   return (
     <>
       <>
+      <Header/>
+      <Navbar/>
         <div className="tabar">
           <h1>ListWarehouseUser</h1>
           <Link to="/ListAcountDeActive" className="btn btn-success my-3">
