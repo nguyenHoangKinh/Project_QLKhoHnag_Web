@@ -4,6 +4,8 @@ import axios from "axios";
 import { BASE_URL } from "../../config";
 import { jwtDecode } from "jwt-decode";
 import { useLocation } from 'react-router-dom';
+import Navbar from '../HomeNavbar';
+import Footer from '../HomeFooter';
 
 const isEmptyValue = (value) => {
     return !value || value.trim().length < 1;
@@ -100,7 +102,8 @@ export default function AddPost() {
 
     return (
         <>
-            <div class="container py-5">
+        <Navbar/>
+            <div class="container py-2">
                 <h1>Cập nhật bài viết</h1>
                 <div class="formbold-main-wrapper">
                     <div class="formbold-form-wrapper border border-5 p-3">
@@ -176,12 +179,13 @@ export default function AddPost() {
                                 Cập nhật
                             </button>
                             <a class="formbold-btn" style={{marginLeft: 10, textDecoration: "none"}} href="ListPostOwner">
-                                Thoát
+                                Quay Lại
                             </a>
                         </form>
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     );
 }
