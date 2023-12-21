@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "../theme/RegisterAccount.css";
 import axios from "axios";
 import { BASE_URL } from "../config";
+import Navbar from './HomeNavbar';
+import Footer from './HomeFooter';
 
 const initFormValue = {
   username: "",
@@ -99,6 +101,7 @@ export default function RegisterPage() {
 
   return (
     <>
+      <Navbar />
       <section class="ftco-section">
         <div class="container">
           <div class="row justify-content-center">
@@ -222,7 +225,7 @@ export default function RegisterPage() {
                   </form>
                   <div class="w-100 text-center">
                     <p class="mt-4">Tôi đã có tài khoản! <a href="login">Đăng Nhập</a></p>
-                    <p class="mt-4"><a href="HomeScreenAll">Trang chủ</a></p>
+                    <p class="mt-4"><a href="/">Trang chủ</a></p>
                   </div>
                 </div>
               </div>
@@ -230,6 +233,7 @@ export default function RegisterPage() {
           </div>
         </div>
       </section>
+      <Footer/>
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.js"></script>
       <script src="js/bootstrap.min.js"></script>

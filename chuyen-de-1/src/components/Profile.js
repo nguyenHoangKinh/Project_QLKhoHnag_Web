@@ -4,6 +4,8 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
+import Navbar from './HomeNavbar';
+import Footer from './HomeFooter';
 
 export default function Profile() {
     const [informationProfile, setInformationProfile] = useState();
@@ -26,12 +28,13 @@ export default function Profile() {
                 // console.log(res.data.others)
             }).catch((error) => {
                 console.log(error.message);
-            });  
+            });
         }
     }, [informationProfile]);
 
     return (
         <div>
+            <Navbar />
             {informationProfile ?
                 (<div class="container emp-profile">
                     <div method="post">
@@ -46,7 +49,7 @@ export default function Profile() {
                                     <h5>{informationProfile.username}</h5>
                                     <h6>{informationProfile.email}</h6>
                                     <p class="proile-rating"><span></span></p>
-                                    <br/>
+                                    <br />
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
                                             <div class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Thông tin cá nhân</div>
@@ -55,7 +58,7 @@ export default function Profile() {
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <button type="button" class="profile-edit-btn" name="btnAddMore" onClick={()=> navigate('/UpdateProfile')}>Cập nhật thông tin</button>
+                                <button type="button" class="profile-edit-btn" name="btnAddMore" onClick={() => navigate('/UpdateProfile')}>Cập nhật thông tin</button>
                             </div>
                         </div>
                         <div class="row">
@@ -97,23 +100,23 @@ export default function Profile() {
                                             </div>
                                         </div>
                                         {informationProfile.warehouses &&
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Tổng số kho hàng</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>{informationProfile.warehouses.length} (kho hàng)</p>
-                                            </div>
-                                        </div>}
-                                        {informationProfile.blogs.length > 0  &&
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Tổng số bài viết</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>{informationProfile.blogs.length} (bài viết)</p>
-                                            </div>
-                                        </div>}
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Tổng số kho hàng</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{informationProfile.warehouses.length} (kho hàng)</p>
+                                                </div>
+                                            </div>}
+                                        {informationProfile.blogs.length > 0 &&
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Tổng số bài viết</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{informationProfile.blogs.length} (bài viết)</p>
+                                                </div>
+                                            </div>}
                                     </div>
                                 </div>
                             </div>
@@ -134,11 +137,12 @@ export default function Profile() {
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <button type="button" class="profile-edit-btn" name="btnAddMore" onClick={()=> navigate('/Login')}>Đăng nhập</button>
+                                <button type="button" class="profile-edit-btn" name="btnAddMore" onClick={() => navigate('/Login')}>Đăng nhập</button>
                             </div>
                         </div>
                     </div>
                 </div>)}
+            <Footer />
         </div>
     );
 }
