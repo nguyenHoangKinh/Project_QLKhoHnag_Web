@@ -23,9 +23,7 @@ function Home() {
     Logout(Token);
   };
 
-  useEffect(() => {
-
-    
+  useEffect(() => { 
     axios
       .get(
         BASE_URL+`/warehouse/list`,

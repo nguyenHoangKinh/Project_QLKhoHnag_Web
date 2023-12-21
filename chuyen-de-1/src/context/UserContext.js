@@ -9,9 +9,15 @@ export const AuthProvider = ({ children }) => {
   let token = localStorage.getItem("jsonwebtoken");
   const [loadingData, setLoadingData] = useState(false);
   const [ListOrder, setListOrder] = useState([]);
+  const [ListOrderOwner, setListOrderOwner] = useState([]);
+  const [ListBlogs, setListBlogs] = useState([]);
   const [DetailOrder, setDetailOrder] = useState({});
   const [checkDetailOrder, setcheckDetailOrder] = useState(false);
   const [checkValue, setCheckValue] = useState(false);
+  const [columns, setColumns] = useState([]);
+  const [records, setRecords] = useState([]);
+  const [detailBlog, setDetailBlog] = useState([]);
+  const [acount, setAcount] = useState([]);
   // const [IdDetailOrder, setIdDetailOrder] = useState([]);
   // console.log(IdDetailOrder);
   // console.log(DetailOrder);
@@ -32,6 +38,8 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem("jsonwebtoken", token);
           if (response.data.others.isOwner) {
             window.location.href = "/HomeScreen";
+          } else if(response.data.others.isAdmin){
+            window.location.href = "/HomeAdminScreen";
           } else {
             window.location.href = "/HomeUserScreen";
           }
@@ -43,7 +51,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
   const Logout = (token) => {
-    console.log("category: ", token);
+    // console.log("category: ", token);
     axios
       .get(BASE_URL + "/auth/logout", {
         headers: { Authorization: `Bearer ${token}` },
@@ -52,7 +60,7 @@ export const AuthProvider = ({ children }) => {
         if (res) {
           alert(res.data.message);
           localStorage.removeItem("jsonwebtoken");
-          window.location.href = "/login";
+          window.location.href = "/";
         }
       })
       .catch((error) => {
@@ -62,7 +70,7 @@ export const AuthProvider = ({ children }) => {
   const orderList = (Token) => {
     let idUser = jwtDecode(Token);
     axios
-      .get(BASE_URL + `/order/listOrderByUser?id_user=${idUser.id}`, {
+      .put(BASE_URL + `/order/listOrderByUser?id_user=${idUser.id}`, {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
@@ -77,36 +85,164 @@ export const AuthProvider = ({ children }) => {
         alert(error.message);
       });
   };
+
   const OrderDetails = (Id) => {
     // console.log(Token,Id);
-    if (Id ) {
+    if (Id) {
       axios
-      .get(BASE_URL + `/order/getAOrder?id=${Id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (res && res.data) {
-          let detail = res.data.Order;
-          setDetailOrder(detail);
-          setcheckDetailOrder(true);
-          // console.log(res.data);
-        }else{
-          console.log("mang rong...");
+        .get(BASE_URL + `/order/getAOrder?id=${Id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res && res.data) {
+            let detail = res.data.Order;
+            setDetailOrder(detail);
+            setcheckDetailOrder(true);
+            // console.log(res.data);
+          } else {
+            console.log("mang rong...");
+            setcheckDetailOrder(false);
+          }
+        })
+        .catch((e) => {
+          console.log(`update error ${e.response.data.message}`);
           setcheckDetailOrder(false);
-        }
-      })
-      .catch((e) => {
-        console.log(`update error ${e.response.data.message}`);
-        setcheckDetailOrder(false);
-      });
-    }else{
+        });
+    } else {
       setcheckDetailOrder(false);
       alert("loi don hang");
     }
     setCheckValue(false);
   };
+
+  const ListBlog = (token) => {
+    if (token) {
+      axios
+        .get(BASE_URL + `/blog/list-by-blog`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          // alert(res.data.message);
+          // console.log(res.data.blog);
+          setListBlogs(res.data.blog);
+        })
+        .catch((e) => {
+          // if (e.response.data.success === false) {
+          alert(e.response.data.message);
+          //   logout()
+          // }
+        });
+    } else {
+      alert("load bai viet that bai!");
+    }
+  };
+  const DetailBlog = (token,id) => {
+    if (token,id) {
+      axios
+        .get(BASE_URL + `/blog/get-by-id?id=${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res && res.data.data) {
+            setDetailBlog(res.data.data)
+          }
+        })
+        .catch((e) => {
+        });
+    } else {
+      alert("load bai viet that bai!");
+    }
+  };
+  const DeleteOrderUser = (idUser, idOrder, token) => {
+    if (idUser && idOrder) {
+      axios
+        .delete(
+          BASE_URL +
+            `/order/deleteOrderByUser?id_user=${idUser}&id_order=${idOrder}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          alert(res.data.message);
+          window.location.href = "/ShowOrders";
+        })
+        .catch((e) => {
+          alert(e.response.data.message);
+        });
+    } else {
+      alert("xoa that bai!");
+    }
+  };
+  const orderListOwner = (Token) => {
+    let idOwner = jwtDecode(Token);
+    axios
+      .get(BASE_URL + `/order/listOrderByOwner?id_owner=${idOwner.id}`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((res) => {
+        if (res && res.data) {
+          setListOrderOwner(res.data);
+          console.log(res.data);
+        }
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
+
+  const deActiveAcount = (Token) => {
+    let idAcount = jwtDecode(Token);
+    axios
+      .put(BASE_URL + `/admin/deactivate-account?id=${idAcount.id}`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((res) => {
+        if (res && res.data) {
+          setListOrderOwner(res.data);
+          console.log(res.data);
+        }
+          setAcount(res);
+          console.log(res);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
+  const wListOwner = (Token) => {
+    let idUser = jwtDecode(Token);
+    axios
+    .get(
+      BASE_URL+`/warehouse/list?id_owner=${idUser.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    )
+    .then((res) => {
+      // setColumns(Object, res.data);
+      setRecords(res.data);
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",res.data);
+    }).catch((e) => {
+      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",e.response.data);
+    });
+  };
+  
   console.log(DetailOrder);
   return (
     <UserContext.Provider
@@ -115,10 +251,21 @@ export const AuthProvider = ({ children }) => {
         ListOrder,
         loadingData,
         DetailOrder,
+        ListOrderOwner,
         checkDetailOrder,
+        ListBlogs,
+        records,
+        columns,
+        detailBlog,
+        acount,
         setCheckValue,
-        // setIdDetailOrder,
+        DeleteOrderUser,
+        orderListOwner,
+        ListBlog,
+        DetailBlog,
+        wListOwner,
         setDetailOrder,
+        deActiveAcount,
         OrderDetails,
         orderList,
         Logout,
