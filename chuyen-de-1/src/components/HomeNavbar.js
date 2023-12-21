@@ -14,7 +14,8 @@ const Navbar = () => {
     }
 
     const logout = () => {
-        localStorage.removeItem("jsonwebtoken")
+        localStorage.removeItem("jsonwebtoken");
+        window.location.href = "/";
     }
 
     useEffect(() => {
@@ -33,7 +34,7 @@ const Navbar = () => {
                 console.log(error.message);
             });
         }
-    }, [user]);
+    }, []);
 
     return (
         <>
@@ -123,7 +124,7 @@ const Navbar = () => {
                             <li className="nav-item mx-2 dropdown">
                                 <a className="nav-link text-uppercase fs-5 dropdown-toggle text-white" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
+                                    Quản Lý Đơn Hàng
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li><a className="dropdown-item" href="#">Action</a></li>
@@ -135,10 +136,10 @@ const Navbar = () => {
                                 </ul>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" href="ListPostOwner">Quản Lý Bài Viết</a>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Quản Lý Kho Hàng</a>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
@@ -173,7 +174,7 @@ const Navbar = () => {
                                 </ul>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" href="ListWarehouseUser">Danh Sách Kho Hàng</a>
                             </li>
                             <li className="nav-item mx-2">
                                 <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>

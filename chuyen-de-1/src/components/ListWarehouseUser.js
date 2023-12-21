@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../theme/ListWarehouseUser.css";
-
 import axios from "axios";
 import { BASE_URL } from "../config";
 import { jwtDecode } from "jwt-decode";
+import Navbar from './HomeNavbar';
+import Footer from './HomeFooter';
+import CardWarehouse from './CardWarehouse';
+
 
 export default function ListWarehouseUser() {
     const [listWarehouseUser, setListWarehouseUser] = useState();
@@ -45,76 +48,62 @@ export default function ListWarehouseUser() {
         filter = input.toLowerCase();
         setTextSearch(filter);
     }
-
+    console.log(listWarehouseUser);
     return (
         <>
-
-            <h1>List Warehouse User</h1>
+            <Navbar />
             <div className="d-flex justify-content-center mt-3">
                 <input type="text" id="myInput" onChange={handleSearchWarehouse} placeholder="Search for names.." title="Type in a name"></input>
             </div>
-            <div className="d-flex justify-content-center mt-3">
-                <div className="w-75 p-2 border rounded">
-                    <h5>Catagory</h5>
-                    <select className="form-select"
-                        onChange={handleSelectCatagory}
-                    >
-                        {listCategoryUser
-                            && listCategoryUser.length > 0
-                            && listCategoryUser.map(item => (
-                                <option value={item._id}>{item.name}</option>
 
-                            ))}
-                        <option value={0}>Tất cả kho hàng</option>
-                    </select>
-                    {/* <p>{categoryId}</p> */}
+
+            <section style={{ backgroundColor: '#f7fafd' }}>
+                <div className="container mt-4 py-5">
+                    <div className="section-header">
+                        <h2>Danh sách kho hàng</h2>
+                    </div>
+
+                    <div className="d-flex mb-3 ms-auto" style={{marginTop: -50, width: 500}}>
+                        <div className="w-75 p-2 border rounded ms-auto">
+                            <h5>Catagory</h5>
+                            <select className="form-select"
+                                onChange={handleSelectCatagory}
+                            >
+                                {listCategoryUser
+                                    && listCategoryUser.length > 0
+                                    && listCategoryUser.map(item => (
+                                        <option value={item._id}>{item.name}</option>
+
+                                    ))}
+                                <option value={0}>Tất cả kho hàng</option>
+                            </select>
+                            {/* <p>{categoryId}</p> */}
+                        </div>
+                    </div>
+
+                    <div className="row g-4">
+                        <div>
+                            <div className="row row-cols-2 row-cols-md-4 g-4">
+                                {listWarehouseUser ? (listWarehouseUser.length > 0 && listWarehouseUser.map((card) => {
+                                    if (categoryId && card.category._id.includes(categoryId) || categoryId == 0) {
+                                        if (card.wareHouseName.toLowerCase().includes(textSearch) || !textSearch) {
+                                            return (
+                                                <div key={card.id} className="col">
+                                                    <CardWarehouse {...card} />
+                                                </div>
+                                            )
+                                        }
+                                    }
+                                    <div key={card.id} className="col">
+                                        <CardWarehouse {...card} />
+                                    </div>
+                                })) : (<div>Không có kho hàng</div>)}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className="listwarehouseuser">
-                <table class="styled-table">
-                    <thead>
-                        <tr>
-                            <th>Warehouse Name</th>
-                            <th>Address</th>
-                            <th>Category</th>
-                            <th>Capacity</th>
-                            <th>Monney (VND)</th>
-                            <th>Description</th>
-                            <th>Owner</th>
-                        </tr>
-                    </thead>
-                    {listWarehouseUser ? (listWarehouseUser.length > 0 &&
-                        listWarehouseUser.map((itemWarehouse, index) => {
-                            if (categoryId && itemWarehouse.category._id.includes(categoryId) || categoryId == 0) {
-                                if (itemWarehouse.wareHouseName.toLowerCase().includes(textSearch) || !textSearch) {
-                                    return (
-                                        <tbody>
-                                            <tr>
-                                                <td>{itemWarehouse.wareHouseName}</td>
-                                                <td>{itemWarehouse.address}</td>
-                                                <td>{itemWarehouse.category.name}</td>
-                                                <td>{itemWarehouse.capacity}</td>
-                                                <td>{itemWarehouse.monney}</td>
-                                                <td>{itemWarehouse.description}</td>
-                                                <td>{itemWarehouse.owner.username}</td>
-                                            </tr>
-                                        </tbody>
-                                    )
-                                }
-                            }
-                        })) : (
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <td className="emptyWarehouse">Không có kho hàng</td>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    )}
-                </table>
-            </div>
+            </section>
+            <Footer />
         </>
     );
 }
