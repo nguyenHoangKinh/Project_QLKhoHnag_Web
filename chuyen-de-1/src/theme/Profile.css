@@ -3,10 +3,10 @@
 } */
 .emp-profile{
     padding: 3%;
-    margin-top: 10%;
+    margin-top: 2%;
     margin-bottom: 3%;
     border-radius: 0.5rem;
-    background: #8ac6ff;
+    background: #74abe9;
 }
 .profile-img{
     text-align: center;
@@ -54,7 +54,7 @@
     margin-top: 5%;
 }
 .proile-rating span{
-    color: #495057;
+    color: #000;
     font-size: 15px;
     font-weight: 600;
 }
@@ -94,7 +94,7 @@
 }
 .profile-tab p{
     font-weight: 600;
-    color: #0062cc;
+    color: #fff;
     font-size: 1.2em;
 }
 

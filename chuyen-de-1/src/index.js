@@ -142,6 +142,10 @@ const router = createBrowserRouter([
     path: "/DetailWareUser/:id",
     element: <DetailWareUser/>,
   },
+  {
+    path: "/Login",
+    element: <Login/>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
