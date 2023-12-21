@@ -174,7 +174,7 @@ const Navbar = () => {
                                 </ul>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" href="ListWarehouseUser">Danh Sách Kho Hàng</a>
                             </li>
                             <li className="nav-item mx-2">
                                 <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
