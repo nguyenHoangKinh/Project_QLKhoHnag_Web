@@ -1,10 +1,9 @@
-import { BrowserRouter, Routes ,Route } from "react-router-dom";
-import Login from "./components/Login";
+import Home2012 from "./components/Home2012";
 
 function App() {
   return (  
     <>
-    <Login/>
+    <Home2012/>
     </>
   )
 }
