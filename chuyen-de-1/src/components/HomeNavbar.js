@@ -124,7 +124,7 @@ const Navbar = () => {
                             <li className="nav-item mx-2 dropdown">
                                 <a className="nav-link text-uppercase fs-5 dropdown-toggle text-white" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
+                                    Quản Lý Đơn Hàng
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li><a className="dropdown-item" href="#">Action</a></li>
