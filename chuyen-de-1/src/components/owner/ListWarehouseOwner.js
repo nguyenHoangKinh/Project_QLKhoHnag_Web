@@ -34,8 +34,30 @@ export default function ListWarehouseOwner() {
       });
   }, [listWarehouseOwner]);
 
-  const handleDelete = (idBlog) => {};
-  console.log(listWarehouseOwner);
+  const handleDelete = (id) => {
+    const conf = window.confirm("Ban co chac la xoa khong?");
+    if (conf) {
+      axios
+        .delete(
+          BASE_URL+"/warehouse/deleteWarehouse/" +
+          id,
+          {
+            headers: {
+              Authorization: `Bearer ${token}` 
+            },
+            params: {
+              id_owner: idUser.id
+            }
+          }
+        )
+        .then((res) => {
+          alert("xoa thanh cong");
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+//   console.log(listWarehouseOwner);
   return (
     <>
       <Navbar />
@@ -119,11 +141,7 @@ export default function ListWarehouseOwner() {
                           class="btn btn-outline-primary btn-sm mt-2"
                           type="button"
                           onClick={() => {
-                            if (
-                              window.confirm("Bạn có muốn bài viết này không ?")
-                            ) {
                               handleDelete(itemWarehouse._id);
-                            }
                           }}
                         >
                           Xóa kho hàng
