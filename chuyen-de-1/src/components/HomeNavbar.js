@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { jwtDecode } from "jwt-decode";
 import { BASE_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Navbar = () => {
+    const navigation = useNavigate();
     const [user, setUser] = useState();
     let token = localStorage.getItem("jsonwebtoken");
     let idUser;
@@ -15,6 +17,9 @@ const Navbar = () => {
 
     const logout = () => {
         localStorage.removeItem("jsonwebtoken")
+    }
+    const order = () => {
+        navigation("/ShowListOrderUser")
     }
 
     useEffect(() => {
@@ -173,7 +178,7 @@ const Navbar = () => {
                                 </ul>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" onClick={order}>orderUser</a>
                             </li>
                             <li className="nav-item mx-2">
                                 <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
