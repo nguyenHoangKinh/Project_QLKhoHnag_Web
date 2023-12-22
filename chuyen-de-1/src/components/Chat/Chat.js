@@ -3,6 +3,7 @@ import ChatBox from "../../components/ChatBox/ChatBox";
 import Conversation from "../Coversation/Conversation";
 import { UserContext } from "../../context/UserContext";
 import "./Chat.css";
+import "../ChatBox/ChatBox.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
@@ -22,10 +23,10 @@ const Chat = () => {
   let idUsers = idUser.id;
   // Get the chat in chat section
   useEffect(() => {
-    userChats(Token,idUser.id);
+    userChats(Token, idUser.id);
   }, [idUser.id]);
-  
-  console.log(currentChat);  
+
+  console.log("id>>>>>>>>>>>>>",receivedMessage);
   // Connect to Socket.io
   useEffect(() => {
     socket.current = io("http://localhost:3001");
@@ -38,64 +39,71 @@ const Chat = () => {
   // Send Message to socket server
   useEffect(() => {
     if (sendMessage !== null) {
-      console.log(">>>>>",sendMessage,onlineUsers);
-      // socket.current.emit("send-message", sendMessage);
+      socket.current.emit("send-message", sendMessage);
     }
   }, [sendMessage]);
 
   // Get the message from socket server
   useEffect(() => {
     socket.current.on("recieve-message", (data) => {
-      console.log(data);
       setReceivedMessage(data);
     });
-  }, []);
+  }, [sendMessage]);
 
   const checkOnlineStatus = (chat) => {
     const chatMember = chat.members.find((member) => member !== idUser.id);
     const online = onlineUsers.find((user) => user.userId === chatMember);
-    return  online ? true : false;
-    
+    return online ? true : false;
   };
   return (
-    <div style={{background:"#ececec"}}>
-    <Navbar/>
-    <div className="Chat">
-      {/* Left Side */}
-      <div className="Left-side-chat">
-        <div className="Chat-container">
-         <div className="Chat-thanh">
-         <h2>Chats</h2>
-          <div className="Chat-list">
-            {chats != "" ? chats.map((chat) => (
-              <div
-                onClick={() => {
-                  setCurrentChat(chat);
-                }}
-              >
-                <Conversation
-                  data={chat}
-                  currentUser={idUser.id}
-                  online={checkOnlineStatus(chat)}
-                />
+    <div style={{ background: "#ececec" }}>
+      <Navbar />
+      <div className="Chat">
+        {/* Left Side */}
+        <div className="Left-side-chat">
+          <div className="Chat-container">
+            <div className="Chat-thanh">
+              <h2>Chats</h2>
+              <div className="Chat-list">
+                {chats != ""
+                  ? chats.map((chat) => (
+                      <div
+                        onClick={() => {
+                          setCurrentChat(chat);
+                        }}
+                      >
+                        <Conversation
+                          data={chat}
+                          currentUser={idUser.id}
+                          online={checkOnlineStatus(chat)}
+                        />
+                      </div>
+                    ))
+                  : "khong co du lieu"}
               </div>
-            )): "khong co du lieu"}
+            </div>
           </div>
-         </div>
+        </div>
+
+        {/* Right Side */}
+
+        <div className="Right-side-chat">
+          {currentChat || idUser.id != null ? (
+            <ChatBox
+              chat={currentChat}
+              currentUser={idUser.id}
+              setSendMessage={setSendMessage}
+              receivedMessage={receivedMessage}
+            />
+          ) : (
+            <div className="ChatBox-container">
+              <span className="chatbox-empty-message">
+                Tap on a chat to start conversation...
+              </span>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Right Side */}
-
-      <div className="Right-side-chat">
-        <ChatBox
-          chat={currentChat}
-          currentUser={idUser.id}
-          setSendMessage={setSendMessage}
-          receivedMessage={receivedMessage}
-        />
-      </div>
-    </div>
     </div>
   );
 };
