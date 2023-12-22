@@ -28,7 +28,7 @@ const CategoryWarehouse = () => {
     Logout(Token);
   };
   return (
-    <div className="category-containers">
+    <div className="">
     <ListGroup className="category-row">
       {ListCategory &&
         ListCategory.length > 0 &&
@@ -36,7 +36,6 @@ const CategoryWarehouse = () => {
           return <ListGroup.Item className="category-item">{item != null ? item.name : ""}</ListGroup.Item>;
         })}
     </ListGroup>
-    <button onClick={LogoutToken}>Logout</button>
     </div>
   );
 };

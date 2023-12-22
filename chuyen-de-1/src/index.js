@@ -18,10 +18,22 @@ import ListWarehouseUser from './components/ListWarehouseUser';
 import ListPostOwner from './components/owner/ListPostOwner';
 import AddPost from './components/owner/AddPost';
 import UpdatePost from './components/owner/UpdatePost';
+import ListAcountActive from './components/ListAcountActive';
+import ListAcountDeActive from './components/ListAcountDeActive';
+import ListOwnerDeActive from './components/ListOwnerDeActive';
+import ListOwnerActive from './components/ListOwnerActive';
+import ListUserActive from './components/ListUserActive';
+import HomeAdminScreen from './components/HomeAdminScreen';
+import ListUserDeActive from './components/ListUserDeActive';
 import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
 import Profile from './components/Profile';
 import UpdateProfile from './components/UpdateProfile'
+import DetailsOrderPage from './components/DetailsOrderPage'
+import ShowListOrderUser from './components/ShowListOrderUser'
+import ListOrderUnconfirmed from './components/ListOrderUnconfirmedUser';
+import ListOrderPendingPaymentUser from './components/ListOrderPendingPaymentUser';
+import ListOrdePaid from './components/ListOrdePaid';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import {AuthProvider} from './context/UserContext';
@@ -29,19 +41,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import DetailWareUser from './components/user/DetailWareUser';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
-  },
-  {
-    path: "login",
-    element: <Login/>,
-  },
-  {
-    path: "CategoryWarehouse",
-    element: <CategoryWarehouse/>,
   },
   {
     path: "registeraccount",
@@ -81,6 +86,34 @@ const router = createBrowserRouter([
     path: "ShowListOrderOwner",
     element: <ShowListOrderOwner/>,
   },
+	{
+    path: "HomeAdminScreen",
+    element: <HomeAdminScreen/>,
+  },
+  {
+    path: "ListAcountActive",
+    element: <ListAcountActive/>,
+  },
+  {
+    path: "ListAcountDeActive",
+    element: <ListAcountDeActive/>,
+  },
+  {
+    path: "ListOwnerActive",
+    element: <ListOwnerActive/>,
+  },
+  {
+    path: "ListOwnerDeActive",
+    element: <ListOwnerDeActive/>,
+  },
+  {
+    path: "ListUserActive",
+    element: <ListUserActive/>,
+  },
+  {
+    path: "ListUserDeActive",
+    element: <ListUserDeActive/>,
+  },
   {
     path: "*",
     element: <NotFound/>,
@@ -104,6 +137,34 @@ const router = createBrowserRouter([
   {
     path: "UpdateProfile",
     element: <UpdateProfile/>,
+  },
+  {
+    path: "DetailsOrderPage",
+    element: <DetailsOrderPage/>,
+  },
+	{
+    path: "/DetailWareUser/:id",
+    element: <DetailWareUser/>,
+  },
+  {
+    path: "/ShowListOrderUser",
+    element: <ShowListOrderUser/>,
+  },
+  {
+    path: "/ListOrderUnconfirmed",
+    element: <ListOrderUnconfirmed/>,
+  },
+  {
+    path: "/ListOrderPendingPaymentUser",
+    element: <ListOrderPendingPaymentUser/>
+  },
+  {
+    path: "/ListOrdePaid",
+    element: <ListOrdePaid/>
+  },
+  {
+    path: "/Login",
+    element: <Login/>,
   },
 ]);
 

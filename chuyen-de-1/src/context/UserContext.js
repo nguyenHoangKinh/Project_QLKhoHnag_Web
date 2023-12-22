@@ -16,6 +16,8 @@ export const AuthProvider = ({ children }) => {
   const [checkValue, setCheckValue] = useState(false);
   const [columns, setColumns] = useState([]);
   const [records, setRecords] = useState([]);
+  const [detailBlog, setDetailBlog] = useState([]);
+  const [acount, setAcount] = useState([]);
   // const [IdDetailOrder, setIdDetailOrder] = useState([]);
   // console.log(IdDetailOrder);
   // console.log(DetailOrder);
@@ -36,6 +38,8 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem("jsonwebtoken", token);
           if (response.data.others.isOwner) {
             window.location.href = "/HomeScreen";
+          } else if(response.data.others.isAdmin){
+            window.location.href = "/HomeAdminScreen";
           } else {
             window.location.href = "/HomeUserScreen";
           }
@@ -47,7 +51,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
   const Logout = (token) => {
-    console.log("category: ", token);
+    // console.log("category: ", token);
     axios
       .get(BASE_URL + "/auth/logout", {
         headers: { Authorization: `Bearer ${token}` },
@@ -56,7 +60,7 @@ export const AuthProvider = ({ children }) => {
         if (res) {
           alert(res.data.message);
           localStorage.removeItem("jsonwebtoken");
-          window.location.href = "/login";
+          window.location.href = "/";
         }
       })
       .catch((error) => {
@@ -66,7 +70,7 @@ export const AuthProvider = ({ children }) => {
   const orderList = (Token) => {
     let idUser = jwtDecode(Token);
     axios
-      .get(BASE_URL + `/order/listOrderByUser?id_user=${idUser.id}`, {
+      .put(BASE_URL + `/order/listOrderByUser?id_user=${idUser.id}`, {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
@@ -81,6 +85,7 @@ export const AuthProvider = ({ children }) => {
         alert(error.message);
       });
   };
+
   const OrderDetails = (Id) => {
     // console.log(Token,Id);
     if (Id) {
@@ -111,6 +116,7 @@ export const AuthProvider = ({ children }) => {
     }
     setCheckValue(false);
   };
+
   const ListBlog = (token) => {
     if (token) {
       axios
@@ -129,6 +135,25 @@ export const AuthProvider = ({ children }) => {
           alert(e.response.data.message);
           //   logout()
           // }
+        });
+    } else {
+      alert("load bai viet that bai!");
+    }
+  };
+  const DetailBlog = (token,id) => {
+    if (token,id) {
+      axios
+        .get(BASE_URL + `/blog/get-by-id?id=${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res && res.data.data) {
+            setDetailBlog(res.data.data)
+          }
+        })
+        .catch((e) => {
         });
     } else {
       alert("load bai viet that bai!");
@@ -175,6 +200,29 @@ export const AuthProvider = ({ children }) => {
         alert(error.message);
       });
   };
+
+
+  const deActiveAcount = (Token) => {
+    let idAcount = jwtDecode(Token);
+    axios
+      .put(BASE_URL + `/admin/deactivate-account?id=${idAcount.id}`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((res) => {
+        if (res && res.data) {
+          setListOrderOwner(res.data);
+          console.log(res.data);
+        }
+          setAcount(res);
+          console.log(res);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
   const wListOwner = (Token) => {
     let idUser = jwtDecode(Token);
     axios
@@ -194,6 +242,7 @@ export const AuthProvider = ({ children }) => {
       // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",e.response.data);
     });
   };
+  
   console.log(DetailOrder);
   return (
     <UserContext.Provider
@@ -207,12 +256,16 @@ export const AuthProvider = ({ children }) => {
         ListBlogs,
         records,
         columns,
+        detailBlog,
+        acount,
         setCheckValue,
         DeleteOrderUser,
         orderListOwner,
         ListBlog,
+        DetailBlog,
         wListOwner,
         setDetailOrder,
+        deActiveAcount,
         OrderDetails,
         orderList,
         Logout,
