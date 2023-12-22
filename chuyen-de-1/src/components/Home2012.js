@@ -14,8 +14,6 @@ const Home2012 = () => {
     <div>
      <Header/>
      <Navbar/>
-     <BlogSection/>
-     <BlogPostsSection/>
      <BlogPostsSection2/>
      <Footer/>
     </div>
