@@ -26,7 +26,6 @@ const Chat = () => {
     userChats(Token, idUser.id);
   }, [idUser.id]);
 
-  console.log("id>>>>>>>>>>>>>",receivedMessage);
   // Connect to Socket.io
   useEffect(() => {
     socket.current = io("http://localhost:3001");

@@ -16,7 +16,7 @@ const InformationWarehouse = () => {
   function thongBao()
   {
     if (window.confirm(`Delete the Order ${DetailOrder.name} ?`)) {
-      this.DeleteOrderUser(location.state.item.user._id,location.state.item._id,Token);
+      DeleteOrderUser(location.state.item.user._id,location.state.item._id,Token);
     }
   
   }
