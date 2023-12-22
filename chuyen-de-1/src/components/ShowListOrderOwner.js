@@ -4,24 +4,24 @@ import { useState, useEffect, useContext } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-const ShowOrders = () => {
+const ShowListOrderOwner = () => {
   const navigation = useNavigate();
   let Token = localStorage.getItem("jsonwebtoken");
-  const { loadingData, orderList, ListOrder } = useContext(UserContext);
+  const { loadingData, orderListOwner, ListOrderOwner } = useContext(UserContext);
 
-  // console.log(checkValue);
+  console.log(ListOrderOwner);
   useEffect(() => {
     //call api
-    orderList(Token);
+    orderListOwner(Token);
   }, []);
   return (
     <>
       <div className="category-containers">
         <ListGroup className="category-row">
-          <h1 className="text-center">List Order</h1>
-          {ListOrder &&
-            ListOrder.length > 0 &&
-            ListOrder.map((item, index) => {
+          <h1 className="text-center">List Order Owner</h1>
+          {ListOrderOwner &&
+            ListOrderOwner.length > 0 &&
+            ListOrderOwner.map((item, index) => {
               return (
                 <>
                   {console.log(item)}
@@ -58,23 +58,9 @@ const ShowOrders = () => {
                             </div>
                           </div>
                           <br />
-                          {/* <h4 className="text-center">{item.money}$ </h4> */}
-                          {/* <p>
-                            <button
-                              className="btn btn-primary btn-block"
-                              onClick={() => {
-                                navigation("/InformationWarehouse", {
-                                  state: { item },
-                                });
-                              }}
-                            >
-                              Xem Chi Tiet
-                            </button>
-                          </p> */}
                         </div>
                       </aside>
                     </div>
-                    {/* <div className="">{setIdDetailOrder(item._id)}</div> */}
                   </ListGroup.Item>
                 </>
               );
@@ -85,4 +71,4 @@ const ShowOrders = () => {
   );
 };
 
-export default ShowOrders;
+export default ShowListOrderOwner;
