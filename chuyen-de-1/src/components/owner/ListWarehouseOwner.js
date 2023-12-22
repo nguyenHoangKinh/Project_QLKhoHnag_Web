@@ -12,23 +12,6 @@ export default function ListWarehouseOwner() {
     const navigate = useNavigate();
     let token = localStorage.getItem("jsonwebtoken");
     let idUser = jwtDecode(token);
-
-    useEffect(() => {
-        //call api
-        axios.get(BASE_URL + '/warehouse/list', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            params: {
-                id_owner: idUser.id
-            }
-        }).then((res) => {
-            setListWarehouseOwner(res.data);
-        }).catch((error) => {
-            console.log(error.message);
-        });
-    }, [listWarehouseOwner]);
-
     const handleDelete = (idBlog) => {
         
     }

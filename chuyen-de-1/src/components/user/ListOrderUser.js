@@ -1,39 +1,48 @@
-import React from 'react';
+import { useState, useEffect, useContext } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { jwtDecode } from "jwt-decode";
-import { BASE_URL } from "../config";
+import { BASE_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 
-const ListOrder = () => {
-    const navigation = useNavigate();
-    const order = () => {
-        navigation("/ShowListOrderUser")
+const ListOrderUser = () => {
+    let token = localStorage.getItem("jsonwebtoken");
+    let idUser;
+    
+    if (token) {
+        idUser = jwtDecode(token);
     }
+
+    const navigation = useNavigate();
+    
     const orderUnconfirmed = () => {
         navigation("/ListOrderUnconfirmed")
     }
     const ListOrderPendingPaymentUser = () => {
         navigation("/ListOrderPendingPaymentUser")
     }
-    const ListOrdePaid = () => {
-        navigation("/ListOrdePaid")
+    const ListOrdePaidUser = () => {
+        navigation("/ListOrdePaidUser")
+    }
+    const orderUser = () => {
+        navigation("/ShowListOrderUser")
     }
     return (
+        <>
         <div class="main_content">
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <div class="list-group">
+                        <div class="list-group1">
                             <a  class="list-group-item list-group-item-action" onClick={orderUnconfirmed}>Chờ xác nhận đơn</a>
                             <a  class="list-group-item list-group-item-action" onClick={ListOrderPendingPaymentUser}>Chờ thanh toán</a>
-                            <a class="list-group-item list-group-item-action" onClick={ListOrdePaid}>Đã thanh toán</a>
-                            <a class="list-group-item list-group-item-action " onClick={order}>Hóa đơn</a>
+                            <a class="list-group-item list-group-item-action" onClick={ListOrdePaidUser}>Đã thanh toán</a>
+                            <a class="list-group-item list-group-item-action " onClick={orderUser}>Hóa đơn</a>
                         </div>
                     </div>
                 </div>
-
                 <section class="h-100 h-custom">
                     <div class="container h-100 py-5">
                         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -135,7 +144,8 @@ const ListOrder = () => {
                 </section>
             </div>
         </div>
+        </>
     );
 };
 
-export default ListOrder;
+export default ListOrderUser;

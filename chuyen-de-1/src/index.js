@@ -10,7 +10,7 @@ import HomeOwnerScreen from './components/HomeOwnerScreen';
 import InformationWarehouse from './components/InformationWarehouse';
 import ShowOrders from './components/ShowOrders';
 import UpdateWare from './components/UpdateWare';
-import ShowListOrderOwner from './components/ShowListOrderOwner';
+import ShowListOrderOwner from './components/owner/ShowListOrderOwner';
 import ListBlog from './components/ListBlog';
 import HomeUserScreen from './components/HomeUserScreen';
 import Create from './components/Create';
@@ -29,14 +29,12 @@ import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
 import Profile from './components/Profile';
 import UpdateProfile from './components/UpdateProfile'
-import DetailsOrderPage from './components/DetailsOrderPage'
-import ShowListOrderUser from './components/ShowListOrderUser'
-import ListOrderUnconfirmed from './components/ListOrderUnconfirmedUser';
-import ListOrderPendingPaymentUser from './components/ListOrderPendingPaymentUser';
-import ListOrdePaid from './components/ListOrdePaid';
+import DetailsOrderPage from './components/DetailsOrderPage';
+import ListOrdePaidUser from './components/user/ListOrdePaidUser';
 import ListWarehouseOwner from './components/owner/ListWarehouseOwner';
 import UpdateWarehouseOwner from './components/owner/UpdateWarehouseOwner';
-import Chat from './components/Chat/Chat'import 'bootstrap/dist/css/bootstrap.min.css';
+import Chat from './components/Chat/Chat'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import {AuthProvider} from './context/UserContext';
 import {
@@ -44,6 +42,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import DetailWareUser from './components/user/DetailWareUser';
+import ShowListOrderUser from './components/user/ShowListOrderUser';
+import ListOrderUnconfirmed from './components/user/ListOrderUnconfirmedUser';
+import ListOrderPendingPaymentUser from './components/user/ListOrderPendingPaymentUser';
+import ListOrderPendingPaymentOwner from './components/owner/ListOrderPendingPaymentOwner';
+import ListOrderUnconfirmedOwner from './components/owner/ListOrderUnconfirmedOwner';
+import ListOrdePaidOwner from './components/owner/ListOrdePaidOwner';
+
 
 const router = createBrowserRouter([
   {
@@ -83,10 +88,6 @@ const router = createBrowserRouter([
   {
     path: "ListBlog",
     element: <ListBlog/>,
-  },
-  {
-    path: "ShowListOrderOwner",
-    element: <ShowListOrderOwner/>,
   },
 	{
     path: "HomeAdminScreen",
@@ -153,6 +154,10 @@ const router = createBrowserRouter([
     element: <ShowListOrderUser/>,
   },
   {
+    path: "/ShowListOrderOwner",
+    element: <ShowListOrderOwner/>,
+  },
+  {
     path: "/ListOrderUnconfirmed",
     element: <ListOrderUnconfirmed/>,
   },
@@ -161,8 +166,20 @@ const router = createBrowserRouter([
     element: <ListOrderPendingPaymentUser/>
   },
   {
-    path: "/ListOrdePaid",
-    element: <ListOrdePaid/>
+    path: "/ListOrderUnconfirmedOwner",
+    element: <ListOrderUnconfirmedOwner/>
+  },
+  {
+    path: "/ListOrderPendingPaymentOwner",
+    element: <ListOrderPendingPaymentOwner/>
+  },
+  {
+    path: "/ListOrdePaidUser",
+    element: <ListOrdePaidUser/>
+  },
+  {
+    path: "/ListOrdePaidOwner",
+    element: <ListOrdePaidOwner/>
   },
   {
     path: "/Login",
