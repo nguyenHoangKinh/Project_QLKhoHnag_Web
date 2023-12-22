@@ -6,7 +6,7 @@ import App from './App';
 import Login from './components/Login';
 import CategoryWarehouse from './components/CategoryWarehouse';
 import RegisterAccount from './components/RegisterAccount'
-import HomeScreen from './components/HomeScreen';
+import HomeOwnerScreen from './components/HomeOwnerScreen';
 import InformationWarehouse from './components/InformationWarehouse';
 import ShowOrders from './components/ShowOrders';
 import UpdateWare from './components/UpdateWare';
@@ -14,7 +14,7 @@ import ShowListOrderOwner from './components/ShowListOrderOwner';
 import ListBlog from './components/ListBlog';
 import HomeUserScreen from './components/HomeUserScreen';
 import Create from './components/Create';
-import ListWarehouseUser from './components/ListWarehouseUser';
+import ListWarehouseUser from './components/user/ListWarehouseUser';
 import ListPostOwner from './components/owner/ListPostOwner';
 import AddPost from './components/owner/AddPost';
 import UpdatePost from './components/owner/UpdatePost';
@@ -34,7 +34,9 @@ import ShowListOrderUser from './components/ShowListOrderUser'
 import ListOrderUnconfirmed from './components/ListOrderUnconfirmedUser';
 import ListOrderPendingPaymentUser from './components/ListOrderPendingPaymentUser';
 import ListOrdePaid from './components/ListOrdePaid';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import ListWarehouseOwner from './components/owner/ListWarehouseOwner';
+import UpdateWarehouseOwner from './components/owner/UpdateWarehouseOwner';
+import Chat from './components/Chat/Chat'import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import {AuthProvider} from './context/UserContext';
 import {
@@ -53,8 +55,8 @@ const router = createBrowserRouter([
     element: <RegisterAccount/>,
   },
   {
-    path: "HomeScreen",
-    element: <HomeScreen/>,
+    path: "HomeOwnerScreen",
+    element: <HomeOwnerScreen/>,
   },
   {
     path: "UpdateWare",
@@ -165,6 +167,18 @@ const router = createBrowserRouter([
   {
     path: "/Login",
     element: <Login/>,
+  },
+  {
+    path: "/ListWarehouseOwner",
+    element: <ListWarehouseOwner/>,
+  },
+  {
+    path: "/UpdateWarehouseOwner",
+    element: <UpdateWarehouseOwner/>,
+  },
+  {
+    path: "/chatUse",
+    element: <Chat/>,
   },
 ]);
 

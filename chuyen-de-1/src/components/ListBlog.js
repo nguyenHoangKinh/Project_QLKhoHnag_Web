@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { EnvironmentOutlined, EnvironmentTwoTone } from "@ant-design/icons";
 import CategoryWarehouse from "./CategoryWarehouse";
 import DetailsOrderPage from "./DetailsOrderPage";
-import Login from "./Login";
 
 const ListBlog = () => {
   let Token = localStorage.getItem("jsonwebtoken");
@@ -33,7 +32,7 @@ const DetaiBolg = (item) => {
       <h1 className="text-center">List Blog</h1>
       <div className="row">
         <div className="col-3 border-end">
-          <CategoryWarehouse />
+          
         </div>
         <div className="col" style={{}}>
           {ListBlogs &&

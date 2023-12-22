@@ -7,6 +7,10 @@ import { jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
+import Header from "./HomeHeader";
+import Navbar from "./HomeNavbar";
+import BlogPostsSection2 from "./BlogPostSection2";
+import Footer from "./HomeFooter";
 
 export default function HomeUserScreen() {
   let Token = localStorage.getItem("jsonwebtoken");
@@ -37,7 +41,10 @@ export default function HomeUserScreen() {
   return (
     <>
       <>
-        <div className="tabar">
+      <Header/>
+      <Navbar/>
+      <BlogPostsSection2/>
+        {/* <div className="tabar">
           <h1>ListWarehouseUser</h1>
           <Link to="/ListAcountDeActive" className="btn btn-success my-3">
             .......
@@ -86,7 +93,8 @@ export default function HomeUserScreen() {
                 })}
             </tbody>
           </table>
-        </div>
+        </div> */}
+        <Footer/>
       </>
     </>
   );

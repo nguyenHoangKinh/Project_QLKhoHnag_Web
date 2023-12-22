@@ -8,6 +8,10 @@ import { Logout } from "../context/UserContext";
 import { BASE_URL } from "../config";
 import {jwtDecode}  from "jwt-decode"
 import {UserContext} from '../context/UserContext';
+import Navbar from "./HomeNavbar";
+import Header from "./HomeHeader";
+import Footer from "./HomeFooter";
+import BlogPostsSection2 from "./BlogPostSection2";
 
 
 function Home() {
@@ -23,54 +27,57 @@ function Home() {
     Logout(Token);
   };
 
-  useEffect(() => { 
-    axios
-      .get(
-        BASE_URL+`/warehouse/list`,
-        {
-          headers: { 
-            Authorization: `Token ${Token}` 
-          },
-          params: {
-            id_owner: idUser.id
-          }
-        }
-      )
-      .then((res) => {
-        setColumns(Object, res.data);
-        setRecords(res.data.warehouses.warehouses);
-        console.log(res.data.warehouses.warehouses);
-      });
-  }, []);
+  // useEffect(() => { 
+  //   axios
+  //     .get(
+  //       BASE_URL+`/warehouse/list`,
+  //       {
+  //         headers: { 
+  //           Authorization: `Token ${Token}` 
+  //         },
+  //         params: {
+  //           id_owner: idUser.id
+  //         }
+  //       }
+  //     )
+  //     .then((res) => {
+  //       setColumns(Object, res.data);
+  //       setRecords(res.data.warehouses.warehouses);
+  //       console.log(res.data.warehouses.warehouses);
+  //     });
+  // }, []);
 
-  function handleSubmit(id) {
-    const conf = window.confirm("Ban co chac la xoa khong?");
-    if (conf) {
-      axios
-        .delete(
-          BASE_URL+"/warehouse/deleteWarehouse/" +
-            id,
-          {
-            headers: {
-              Authorization: `Token ${Token}` 
-            },
-            params: {
-              id_owner: idUser.id
-            }
-          }
-        )
-        .then((res) => {
-          alert("xoa thanh cong");
-          window.location.href="/HomeScreen"
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
-    }
-  }
+  // function handleSubmit(id) {
+  //   const conf = window.confirm("Ban co chac la xoa khong?");
+  //   if (conf) {
+  //     axios
+  //       .delete(
+  //         BASE_URL+"/warehouse/deleteWarehouse/" +
+  //           id,
+  //         {
+  //           headers: {
+  //             Authorization: `Token ${Token}` 
+  //           },
+  //           params: {
+  //             id_owner: idUser.id
+  //           }
+  //         }
+  //       )
+  //       .then((res) => {
+  //         alert("xoa thanh cong");
+  //         window.location.href="/HomeScreen"
+  //         console.log(res);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }
 
   return (
     <div className="container">
-      <Link to="/create" className="btn btn-success my-3">
+    <Header/>
+    <Navbar/>
+    <BlogPostsSection2/>
+      {/* <Link to="/create" className="btn btn-success my-3">
         Create +
       </Link>
       <button onClick={LogoutToken} className="btn btn-danger my-3">
@@ -121,7 +128,8 @@ function Home() {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
+      <Footer/>
     </div>
   );
 }
