@@ -19,15 +19,17 @@ let statusS = [
 export default function UpdateWarehouseOwner() {
     const [warehouse, setWarehouse] = useState();
     const [category, setCategory] = useState();
-    const [warehouseName, setWarehouseName] = useState("");
-    const [address, setAddress] = useState("");
-    const [categoryId, setCategoryId] = useState("");
+    const [warehouseName, setWarehouseName] = useState();
+    const [address, setAddress] = useState();
+    const [categoryId, setCategoryId] = useState();
     const [currentCapacity, setCurrentCapacity] = useState();
     const [capacity, setCapacity] = useState();
     const [monney, setMonney] = useState();
     const [status, setStatus] = useState();
-    const [description, setDescription] = useState("");
+    const [description, setDescription] = useState();
+    const [imageWarehouse, setImageWarehouse] = useState();
     const [file, setFile] = useState([]);
+    const [fileStatus, setFileStatus] = useState(false);
     const location = useLocation();
     let token = localStorage.getItem("jsonwebtoken");
     let idUser = jwtDecode(token)
@@ -88,25 +90,20 @@ export default function UpdateWarehouseOwner() {
     const handleChangeDescription = (event) => {
         setDescription(event.target.value)
     };
-
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!isEmptyValue(description) || file.length || !isEmptyValue(warehouseName) || !isEmptyValue(address) || !isEmptyValue(categoryId) || !isEmptyValue(currentCapacity) || !isEmptyValue(capacity) || !isEmptyValue(monney) || !isEmptyValue(status)) {
-            const formData = new FormData();
-            for (let i = 0; i < file.length; i++) {
-                formData.append("imageWarehouse", file[i].file);
-            }
-
-            formData.append("warehouseName", warehouseName);
-            formData.append("address", address);
-            formData.append("category", categoryId);
-            formData.append("currentCapacity", currentCapacity);
-            formData.append("capacity", capacity);
-            formData.append("monney", monney);
-            formData.append("status", status);
-            formData.append("description", description);
-
-            axios.put(BASE_URL + "/warehouse/updateWarehouse/" + location.state.id, {"warehouseName": warehouseName},
+            axios.put(BASE_URL + "/warehouse/updateWarehouse/" + location.state.id, {
+                "wareHouseName": warehouseName,
+                "address": address,
+                "category": categoryId,
+                "currentCapacity": currentCapacity,
+                "capacity": capacity,
+                "monney": monney,
+                "status": status,
+                "description": description,
+                "imageWarehouse": imageWarehouse,
+            },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -131,7 +128,25 @@ export default function UpdateWarehouseOwner() {
             file: file,
         }));
         setFile((prevImages) => [...prevImages, ...arrayFile])
+        setFileStatus(true)
     };
+
+    if (fileStatus) {
+        const formData = new FormData();
+
+        for (let i = 0; i < file.length; i++) {
+            formData.append("file", file[i].file);
+        }
+        
+        formData.append('upload_preset', 'ImageProject');
+        axios.put("https://api.cloudinary.com/v1_1/dborrd4h5/image/upload",
+            formData).then((respone) => {
+                setImageWarehouse(respone.data.secure_url)
+            }).catch((err) => {
+                console.log(err)
+            });
+        setFileStatus(false)
+    }
 
     return (
         <>
