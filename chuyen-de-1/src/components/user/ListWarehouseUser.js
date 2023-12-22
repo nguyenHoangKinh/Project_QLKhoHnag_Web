@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "../theme/ListWarehouseUser.css";
+import "../../theme//ListWarehouseUser.css";
 import axios from "axios";
-import { BASE_URL } from "../config";
+import { BASE_URL } from "../../config";
 import { jwtDecode } from "jwt-decode";
-import Navbar from './HomeNavbar';
-import Footer from './HomeFooter';
-import CardWarehouse from './CardWarehouse';
+import Navbar from '../HomeNavbar';
+import Footer from '../HomeFooter';
+import CardWarehouse from '../CardWarehouse';
 
 
 export default function ListWarehouseUser() {

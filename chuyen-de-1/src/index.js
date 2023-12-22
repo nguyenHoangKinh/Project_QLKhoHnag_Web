@@ -14,7 +14,7 @@ import ShowListOrderOwner from './components/ShowListOrderOwner';
 import ListBlog from './components/ListBlog';
 import HomeUserScreen from './components/HomeUserScreen';
 import Create from './components/Create';
-import ListWarehouseUser from './components/ListWarehouseUser';
+import ListWarehouseUser from './components/user/ListWarehouseUser';
 import ListPostOwner from './components/owner/ListPostOwner';
 import AddPost from './components/owner/AddPost';
 import UpdatePost from './components/owner/UpdatePost';
@@ -28,8 +28,10 @@ import ListUserDeActive from './components/ListUserDeActive';
 import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
 import Profile from './components/Profile';
-import UpdateProfile from './components/UpdateProfile'
-import DetailsOrderPage from './components/DetailsOrderPage'
+import UpdateProfile from './components/UpdateProfile';
+import DetailsOrderPage from './components/DetailsOrderPage';
+import ListWarehouseOwner from './components/owner/ListWarehouseOwner';
+import UpdateWarehouseOwner from './components/owner/UpdateWarehouseOwner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import {AuthProvider} from './context/UserContext';
@@ -145,6 +147,14 @@ const router = createBrowserRouter([
   {
     path: "/Login",
     element: <Login/>,
+  },
+  {
+    path: "/ListWarehouseOwner",
+    element: <ListWarehouseOwner/>,
+  },
+  {
+    path: "/UpdateWarehouseOwner",
+    element: <UpdateWarehouseOwner/>,
   },
 ]);
 

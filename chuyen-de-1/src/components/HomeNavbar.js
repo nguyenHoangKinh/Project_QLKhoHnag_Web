@@ -139,7 +139,7 @@ const Navbar = () => {
                                 <a className="nav-link text-uppercase fs-5 text-white" href="ListPostOwner">Quản Lý Bài Viết</a>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Quản Lý Kho Hàng</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" href="ListWarehouseOwner">Quản Lý Kho Hàng</a>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
