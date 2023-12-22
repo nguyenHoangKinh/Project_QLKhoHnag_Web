@@ -6,7 +6,7 @@ import App from './App';
 import Login from './components/Login';
 import CategoryWarehouse from './components/CategoryWarehouse';
 import RegisterAccount from './components/RegisterAccount'
-import HomeScreen from './components/HomeScreen';
+import HomeOwnerScreen from './components/HomeOwnerScreen';
 import InformationWarehouse from './components/InformationWarehouse';
 import ShowOrders from './components/ShowOrders';
 import UpdateWare from './components/UpdateWare';
@@ -28,10 +28,13 @@ import ListUserDeActive from './components/ListUserDeActive';
 import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
 import Profile from './components/Profile';
+
 import UpdateProfile from './components/UpdateProfile';
 import DetailsOrderPage from './components/DetailsOrderPage';
 import ListWarehouseOwner from './components/owner/ListWarehouseOwner';
 import UpdateWarehouseOwner from './components/owner/UpdateWarehouseOwner';
+import Chat from './components/Chat/Chat'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import {AuthProvider} from './context/UserContext';
@@ -51,8 +54,8 @@ const router = createBrowserRouter([
     element: <RegisterAccount/>,
   },
   {
-    path: "HomeScreen",
-    element: <HomeScreen/>,
+    path: "HomeOwnerScreen",
+    element: <HomeOwnerScreen/>,
   },
   {
     path: "UpdateWare",
@@ -155,6 +158,10 @@ const router = createBrowserRouter([
   {
     path: "/UpdateWarehouseOwner",
     element: <UpdateWarehouseOwner/>,
+  },
+  {
+    path: "/chatUse",
+    element: <Chat/>,
   },
 ]);
 
