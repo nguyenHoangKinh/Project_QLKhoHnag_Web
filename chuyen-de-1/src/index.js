@@ -28,10 +28,13 @@ import ListUserDeActive from './components/ListUserDeActive';
 import NotFound from './components/NotFound';
 import reportWebVitals from './reportWebVitals';
 import Profile from './components/Profile';
+
 import UpdateProfile from './components/UpdateProfile';
 import DetailsOrderPage from './components/DetailsOrderPage';
 import ListWarehouseOwner from './components/owner/ListWarehouseOwner';
 import UpdateWarehouseOwner from './components/owner/UpdateWarehouseOwner';
+import Chat from './components/Chat/Chat'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import {AuthProvider} from './context/UserContext';
@@ -155,6 +158,10 @@ const router = createBrowserRouter([
   {
     path: "/UpdateWarehouseOwner",
     element: <UpdateWarehouseOwner/>,
+  },
+  {
+    path: "/chatUse",
+    element: <Chat/>,
   },
 ]);
 

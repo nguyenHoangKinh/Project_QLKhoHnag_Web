@@ -8,6 +8,7 @@ import { Logout } from "../context/UserContext";
 import { BASE_URL } from "../config";
 import {jwtDecode}  from "jwt-decode"
 import {UserContext} from '../context/UserContext';
+import Navbar from "./HomeNavbar";
 
 
 function Home() {
@@ -70,6 +71,7 @@ function Home() {
 
   return (
     <div className="container">
+    <Navbar/>
       <Link to="/create" className="btn btn-success my-3">
         Create +
       </Link>
