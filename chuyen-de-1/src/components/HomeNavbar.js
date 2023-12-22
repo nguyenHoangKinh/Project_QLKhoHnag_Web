@@ -17,7 +17,7 @@ const Navbar = () => {
 
     const logout = () => {
         localStorage.removeItem("jsonwebtoken");
-        window.location.href = "/";
+        window.location.href = "/Login";
     }
     const ChatUser = () => {
         navigation("/chatUse")

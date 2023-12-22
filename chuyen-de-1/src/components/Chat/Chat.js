@@ -17,6 +17,7 @@ const Chat = () => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [sendMessage, setSendMessage] = useState(null);
+  const [sendOnline, setSendOnline] = useState(null);
   const [receivedMessage, setReceivedMessage] = useState(null);
   let idUsers = idUser.id;
   // Get the chat in chat section
@@ -24,7 +25,7 @@ const Chat = () => {
     userChats(Token,idUser.id);
   }, [idUser.id]);
   
-  // console.log(chats);  
+  console.log(currentChat);  
   // Connect to Socket.io
   useEffect(() => {
     socket.current = io("http://localhost:3001");
@@ -37,7 +38,8 @@ const Chat = () => {
   // Send Message to socket server
   useEffect(() => {
     if (sendMessage !== null) {
-      socket.current.emit("send-message", sendMessage);
+      console.log(">>>>>",sendMessage,onlineUsers);
+      // socket.current.emit("send-message", sendMessage);
     }
   }, [sendMessage]);
 
@@ -52,9 +54,9 @@ const Chat = () => {
   const checkOnlineStatus = (chat) => {
     const chatMember = chat.members.find((member) => member !== idUser.id);
     const online = onlineUsers.find((user) => user.userId === chatMember);
-    return online ? true : false;
+    return  online ? true : false;
+    
   };
-
   return (
     <div style={{background:"#ececec"}}>
     <Navbar/>

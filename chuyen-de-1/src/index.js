@@ -6,7 +6,7 @@ import App from './App';
 import Login from './components/Login';
 import CategoryWarehouse from './components/CategoryWarehouse';
 import RegisterAccount from './components/RegisterAccount'
-import HomeScreen from './components/HomeScreen';
+import HomeOwnerScreen from './components/HomeOwnerScreen';
 import InformationWarehouse from './components/InformationWarehouse';
 import ShowOrders from './components/ShowOrders';
 import UpdateWare from './components/UpdateWare';
@@ -54,8 +54,8 @@ const router = createBrowserRouter([
     element: <RegisterAccount/>,
   },
   {
-    path: "HomeScreen",
-    element: <HomeScreen/>,
+    path: "HomeOwnerScreen",
+    element: <HomeOwnerScreen/>,
   },
   {
     path: "UpdateWare",

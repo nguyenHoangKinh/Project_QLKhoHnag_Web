@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
           const token = response.data.accessToken;
           localStorage.setItem("jsonwebtoken", token);
           if (response.data.others.isOwner) {
-            window.location.href = "/HomeScreen";
+            window.location.href = "/HomeOwnerScreen";
           } else if(response.data.others.isAdmin){
             window.location.href = "/HomeAdminScreen";
           } else {
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
   const Logout = (token) => {
-    // console.log("category: ", token);
+    console.log("category: ", token);
     axios
       .get(BASE_URL + "/auth/logout", {
         headers: { Authorization: `Bearer ${token}` },
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
         if (res) {
           alert(res.data.message);
           localStorage.removeItem("jsonwebtoken");
-          window.location.href = "/";
+          window.location.href = "/Login";
         }
       })
       .catch((error) => {
@@ -121,16 +121,10 @@ export const AuthProvider = ({ children }) => {
     setCheckValue(false);
   };
 
-  const ListBlog = (token) => {
-    if (token) {
+  const ListBlog = () => {
       axios
-        .get(BASE_URL + `/blog/list-by-blog`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get(BASE_URL + `/blog/list-by-blog`)
         .then((res) => {
-          // alert(res.data.message);
           // console.log(res.data.blog);
           setListBlogs(res.data.blog);
         })
@@ -140,9 +134,6 @@ export const AuthProvider = ({ children }) => {
           //   logout()
           // }
         });
-    } else {
-      alert("load bai viet that bai!");
-    }
   };
   const DetailBlog = (token,id) => {
     if (token,id) {
@@ -307,8 +298,9 @@ export const AuthProvider = ({ children }) => {
         )
         .then((res) => {
           if (res && res.data) {
-            // console.log(res.data);
-            fetchMessages(Token,idMess)
+            // console.log(res.data.message);
+            // fetchMessages(Token,idMess)
+            setMessages([...messages, res.data.message])
           }
         })
         .catch((e) => {

@@ -11,11 +11,7 @@ const CategoryWarehouse = () => {
   const [ListCategory, setListCategory] = useState([]);
   useEffect(() => {
     //call api
-    axios.get(BASE_URL+'/warehouse/category/list', {
-      headers: { 
-        Authorization: `Bearer ${Token}` 
-      }
-   }).then((res) => {
+    axios.get(BASE_URL+'/warehouse/category/list').then((res) => {
     if (res && res.data && res.data.categories) {
        setListCategory(res.data.categories);
        console.log(res.data.categories);
