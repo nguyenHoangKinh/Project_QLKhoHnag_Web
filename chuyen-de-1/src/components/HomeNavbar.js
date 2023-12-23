@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { jwtDecode } from "jwt-decode";
 import { BASE_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Navbar = () => {
+    const navigation = useNavigate();
     const [user, setUser] = useState();
     let token = localStorage.getItem("jsonwebtoken");
     const navigation = useNavigate();
@@ -21,6 +23,9 @@ const Navbar = () => {
     }
     const ChatUser = () => {
         navigation("/chatUse")
+    }
+    const order = () => {
+        navigation("/ShowListOrderUser")
     }
 
     useEffect(() => {
@@ -182,10 +187,7 @@ const Navbar = () => {
                                 </ul>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" href="ListWarehouseUser">Danh Sách Kho Hàng</a>
-                            </li>
-                            <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" onClick={ChatUser}>chat</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" onClick={order}>orderUser</a>
                             </li>
                             <li className="nav-item mx-2">
                                 <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
