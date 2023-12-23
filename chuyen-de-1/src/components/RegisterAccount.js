@@ -206,12 +206,12 @@ export default function RegisterPage() {
                       </div>
 
                       <div>
-                        <input id="box1" onChange={checkValue} type="checkbox" value="1" checked={check.includes("1") ? true : false} />
+                        <input id="box1" onChange={checkValue} type="checkbox" value="0" checked={check.includes("0") ? true : false} />
                         <label htmlFor="#box1">Chủ kho</label>
                       </div>
 
                       <div>
-                        <input id="box2" onChange={checkValue} type="checkbox" value="2" checked={check.includes("2") ? true : false} />
+                        <input id="box2" onChange={checkValue} type="checkbox" value="1" checked={check.includes("1") ? true : false} />
                         <label htmlFor="#box2">Khách hàng</label>
                       </div>
 

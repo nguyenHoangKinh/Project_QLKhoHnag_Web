@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
         if (res) {
           alert(res.data.message);
           localStorage.removeItem("jsonwebtoken");
-          window.location.href = "/Login";
+          window.location.href = "/";
         }
       })
       .catch((error) => {
