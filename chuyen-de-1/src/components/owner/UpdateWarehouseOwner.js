@@ -275,7 +275,7 @@ export default function UpdateWarehouseOwner() {
                                         </defs>
                                     </svg>
                                     <input type="file" name="upload" id="upload" onChange={handleFileChange} />
-                                    {file.length === 0 ? (<div>Chọn hình ảnh</div>) : (<div>Đã chọn hình ảnh</div>)}
+                                    {file.length === 0 ? (<div>Chọn hình ảnh</div>) : (<img class="img-fluid img-responsive rounded product-image" src={imageWarehouse} style={{ width: 200, height: 200 }} />)}
                                 </label>
                             </div>
 

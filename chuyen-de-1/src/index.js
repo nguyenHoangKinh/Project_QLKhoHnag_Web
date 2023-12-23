@@ -42,7 +42,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import DetailWareUser from './components/user/DetailWareUser';
+import RentWareHouse from './components/user/RentWareHouse';
 
 const router = createBrowserRouter([
   {
@@ -144,8 +144,8 @@ const router = createBrowserRouter([
     element: <DetailsBlogPage/>,
   },
 	{
-    path: "/DetailWareUser/:id",
-    element: <DetailWareUser/>,
+    path: "/RentWareHouse/:id",
+    element: <RentWareHouse/>,
   },
   {
     path: "/Login",
