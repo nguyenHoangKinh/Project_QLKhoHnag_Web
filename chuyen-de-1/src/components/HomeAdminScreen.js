@@ -181,6 +181,18 @@ const HomeAdminScreen = () => {
         <Link to="/ListAcountDeActive" className="btn btn-success my-3">
           ListAcountDeActive
         </Link>{" "}
+        <Link to="/ListOwnerActive" className="btn btn-success my-3">
+          ListTKOwnerActive
+        </Link>{" "}
+        <Link to="/ListOwnerDeActive" className="btn btn-success my-3">
+          ListTKOwnerDeActive
+        </Link>{" "}
+        <Link to="/ListUserActive" className="btn btn-success my-3">
+          ListTKUserActive
+        </Link>{" "}
+        <Link to="/ListUserDeActive" className="btn btn-success my-3">
+          ListTKUserDeActive
+        </Link>{" "}
         <button onClick={LogoutToken} className="btn btn-danger my-3">
           Logout
         </button>
