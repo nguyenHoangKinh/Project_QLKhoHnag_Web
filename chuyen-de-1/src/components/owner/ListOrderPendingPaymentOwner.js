@@ -30,7 +30,7 @@ const ListOrderPendingPaymentOwner = () => {
   useEffect(() => {
     axios
       .get(
-        `${BASE_URL}/order/listOrderByOwner?status=0`,
+        `${BASE_URL}/order/listOrderByOwner?status=1`,
         {
           headers: { Authorization: `Bearer ${Token}` },
         }
