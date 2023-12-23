@@ -177,12 +177,13 @@ const DetailsOrderPage = () => {
                   <div class="headings d-flex justify-content-between align-items-center mb-3">
                     <h5>Bình luận</h5>
                   </div>
-                  <form class="input-group mb-3" onSubmit={addComment}>
+                  {idUser ? ( <form class="input-group mb-3" onSubmit={addComment}>
                     <input type="text" class="form-control" placeholder="comment" aria-label="Username" value={message} aria-describedby="basic-addon1" onChange={e => setMessage(e.target.value)} />
                     <div class="input-group-prepend">
                       <button class="input-group-text" id="basic-addon1">Nhập bình luận</button>
                     </div>
-                  </form>
+                  </form>) : (<></>)}
+                 
                   {comment ? (comment.length > 0 &&
                     comment.map((item, index) => {
                       return (
