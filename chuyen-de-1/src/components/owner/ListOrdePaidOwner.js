@@ -26,7 +26,7 @@ const ListOrdePaidOwner = () => {
     navigation("/ShowListOrderOwner")
   }
 
-  useEffect(() => {
+  const ListOrderOwner = () => {
     axios
       .get(
         `${BASE_URL}/order/listOrderByOwner?status=2`,
@@ -40,12 +40,33 @@ const ListOrdePaidOwner = () => {
           console.log(order);
           setListOrderOwner0(order);
         }
-
       })
       .catch((e) => {
-
       });
+  }
+  useEffect(() => {
+    ListOrderOwner()
   }, []);
+  const DeleteOrderOwner = (idOrder) => {
+    if (idOrder) {
+      axios
+        .delete(
+          `${BASE_URL}/order/deleteOrderByOwner?id_order=${idOrder}`,
+          {
+            headers: {
+              Authorization: `Bearer ${Token}`,
+            },
+          }
+        )
+        .then((res) => {
+          ListOrderOwner();
+        })
+        .catch((e) => {
+        });
+    } else {
+      alert("xoa that bai!");
+    }
+  };
 
   //console.log(ListOrderOwner);
 
@@ -92,11 +113,14 @@ const ListOrdePaidOwner = () => {
                                 </a>
                               </th>
                               <td class="align-middle">
-
                               </td>
-                             
                               <td class="align-middle">
-                                <a class="myButton"><i class="fa-solid fa-trash"></i></a>
+                                <a class="myButton"onClick={() => {
+                                  if (window.confirm("Bạn có muốn bài viết này không ?")) {
+                                    DeleteOrderOwner(item._id)
+                                  }
+                                } 
+                                }><i class="fa-solid fa-trash"></i></a>
                               </td>
                             </tr>
                           )

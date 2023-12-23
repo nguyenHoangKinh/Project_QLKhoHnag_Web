@@ -70,7 +70,7 @@ const ListOrderUser = () => {
                                                 <tr>
                                                     <th scope="col" class="h5">Order list</th>
                                                     <th scope="col" class="h5"></th>
-                                                    <th scope="col" class="h5">Xóa</th>
+                                                    <th scope="col" class="h5"></th>
 
                                                 </tr>
                                             </thead>
@@ -88,10 +88,6 @@ const ListOrderUser = () => {
                                                                 </a>
                                                             </th>
                                                             <td class="align-middle">
-                                                            </td>
-                                                            
-                                                            <td class="align-middle">
-                                                                <a class="myButton"><i class="fa-solid fa-trash"></i></a>
                                                             </td>
                                                         </tr>
                                                     )

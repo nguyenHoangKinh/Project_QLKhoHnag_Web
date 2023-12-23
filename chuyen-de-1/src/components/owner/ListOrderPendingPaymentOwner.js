@@ -11,7 +11,8 @@ import Footer from '../HomeFooter';
 
 const ListOrderPendingPaymentOwner = () => {
   let Token = localStorage.getItem("jsonwebtoken");
-  const [ListOrderOwner1, setListOrderOwner0] = useState([]);
+  const [ListOrderOwner1, setListOrderOwner1] = useState([]);
+  const [ListOrderOwner2, setListOrderOwner2] = useState([]);
 
   const navigation = useNavigate();
   const orderUnconfirmedOwner = () => {
@@ -26,8 +27,7 @@ const ListOrderPendingPaymentOwner = () => {
   const orderOwner = () => {
     navigation("/ShowListOrderOwner")
   }
-
-  useEffect(() => {
+  const ListOrderOwnerStatus1 = () => {
     axios
       .get(
         `${BASE_URL}/order/listOrderByOwner?status=1`,
@@ -39,16 +39,77 @@ const ListOrderPendingPaymentOwner = () => {
         if (res && res.data) {
           let order = res.data.data;
           console.log(order);
-          setListOrderOwner0(order);
+          setListOrderOwner1(order);
         }
-
       })
       .catch((e) => {
-
       });
+  }
+  const ListOrderOwnerStatus2 = () => {
+    axios
+      .get(
+        `${BASE_URL}/order/listOrderByOwner?status=2`,
+        {
+          headers: { Authorization: `Bearer ${Token}` },
+        }
+      )
+      .then((res) => {
+        if (res && res.data) {
+          let order = res.data.data;
+          console.log(order);
+          setListOrderOwner2(order);
+        }
+      })
+      .catch((e) => {
+      });
+  }
+  useEffect(() => {
+    ListOrderOwnerStatus1()
+    ListOrderOwnerStatus2()
   }, []);
-
-
+  const DeleteOrderOwner = (idOrder) => {
+    if (idOrder) {
+      axios
+        .delete(
+          `${BASE_URL}/order/deleteOrderByOwner?id_order=${idOrder}`,
+          {
+            headers: {
+              Authorization: `Bearer ${Token}`,
+            },
+          }
+        )
+        .then((res) => {
+          ListOrderOwnerStatus1();
+        })
+        .catch((e) => {
+        });
+    } else {
+      alert("xoa that bai!");
+    }
+  };
+  const ConfirmOrderOwner = (idOrder) => {
+    if (idOrder) {
+      axios
+        .put(
+          `${BASE_URL}/order/payment?id_order=${idOrder}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${Token}`,
+            },
+          }
+        )
+        .then((res) => {
+          ListOrderOwnerStatus1();
+          ListOrderOwnerStatus2();
+        })
+        .catch((e) => {
+        
+        });
+    } else {
+      alert("xoa that bai!");
+    }
+  };
   //console.log(ListOrderOwner);
 
   return (
@@ -96,10 +157,20 @@ const ListOrderPendingPaymentOwner = () => {
                               </th>
                               <td class="align-middle">
                               </td>
-                              <td class="align-middle text-center"> <a class="myButton"><i class="fa-solid fa-credit-card"></i></a>
+                              <td class="align-middle text-center"> <a class="myButton"onClick={() => {
+                                  if (window.confirm("Bạn có xác nhận đơn hàng này đã được thanh toán này không ?")) {
+                                    ConfirmOrderOwner(item._id)
+                                  }
+                                } 
+                                }><i class="fa-solid fa-credit-card"></i></a>
                               </td>
                               <td class="align-middle">
-                                <a class="myButton"><i class="fa-solid fa-trash"></i></a>
+                                <a class="myButton"onClick={() => {
+                                  if (window.confirm("Bạn có muốn xóa đơn hàng này không ?")) {
+                                    DeleteOrderOwner(item._id)
+                                  }
+                                } 
+                                }><i class="fa-solid fa-trash"></i></a>
                               </td>
                             </tr>
                           )

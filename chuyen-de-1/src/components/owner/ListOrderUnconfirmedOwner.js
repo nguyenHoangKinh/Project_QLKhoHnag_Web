@@ -8,11 +8,13 @@ import Header from '../HomeHeader';
 import Navbar from '../HomeNavbar';
 import Footer from '../HomeFooter';
 import { BASE_URL } from "../../config";
-import ListOrderOnwer from "./ListOrderOwner";
+import { Alert } from "bootstrap";
 
 const ListOrderUnconfirmedOwner = () => {
   let Token = localStorage.getItem("jsonwebtoken");
   const [ListOrderOwner0, setListOrderOwner0] = useState([]);
+  const [ListOrderOwner1, setListOrderOwner1] = useState([]);
+
   console.log(">>>>>>>>>>>>>", ListOrderOwner0);
   const navigation = useNavigate();
   const orderUnconfirmedOwner = () => {
@@ -27,9 +29,7 @@ const ListOrderUnconfirmedOwner = () => {
   const orderOwner = () => {
     navigation("/ShowListOrderOwner")
   }
-
-
-  useEffect(() => {
+  const ListOrderOwnerStatus0 = () => {
     axios
       .get(
         `${BASE_URL}/order/listOrderByOwner?status=0`,
@@ -43,12 +43,77 @@ const ListOrderUnconfirmedOwner = () => {
           console.log(order);
           setListOrderOwner0(order);
         }
-
       })
       .catch((e) => {
-
       });
+  }
+  const ListOrderOwnerStatus1 = () => {
+    axios
+      .get(
+        `${BASE_URL}/order/listOrderByOwner?status=1`,
+        {
+          headers: { Authorization: `Bearer ${Token}` },
+        }
+      )
+      .then((res) => {
+        if (res && res.data) {
+          let order = res.data.data;
+          console.log(order);
+          setListOrderOwner1(order);
+        }
+      })
+      .catch((e) => {
+      });
+  }
+
+  useEffect(() => {
+    ListOrderOwnerStatus0()
+    ListOrderOwnerStatus1()
   }, []);
+  const ActivateOrderOwner = (idOrder) => {
+    if (idOrder) {
+      axios
+        .put(
+          `${BASE_URL}/order/activate?id_order=${idOrder}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${Token}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          ListOrderOwnerStatus0();
+          ListOrderOwnerStatus1();
+        })
+        .catch((e) => {
+         
+        });
+    } else {
+      alert("xoa that bai!");
+    }
+  }
+  const DeleteOrderOwner = (idOrder) => {
+    if (idOrder) {
+      axios
+        .delete(
+          `${BASE_URL}/order/deleteOrderByOwner?id_order=${idOrder}`,
+          {
+            headers: {
+              Authorization: `Bearer ${Token}`,
+            },
+          }
+        )
+        .then((res) => {
+          ListOrderOwnerStatus0();
+        })
+        .catch((e) => {
+        });
+    } else {
+      alert("xoa that bai!");
+    }
+  };
 
 
   //console.log(ListOrderOwner);
@@ -98,10 +163,20 @@ const ListOrderUnconfirmedOwner = () => {
                               </th>
                               <td class="align-middle">
                               </td>
-                              <td class="align-middle text-center"> <a class="myButton"><i class="fa-solid fa-check"></i></a>
+                              <td class="align-middle text-center"> <a class="myButton" onClick={() => {
+                                if (window.confirm("Bạn có muốn kích hoạt đơn này không ?")) {
+                                  ActivateOrderOwner(item._id)
+                                }
+                              }
+                              }><i class="fa-solid fa-check"></i></a>
                               </td>
                               <td class="align-middle">
-                                <a class="myButton"><i class="fa-solid fa-trash"></i></a>
+                                <a class="myButton" onClick={() => {
+                                  if (window.confirm("Bạn có muốn xóa đơn hàng này không ?")) {
+                                    DeleteOrderOwner(item._id)
+                                  }
+                                }
+                                }><i class="fa-solid fa-trash"></i></a>
                               </td>
                             </tr>
                           )

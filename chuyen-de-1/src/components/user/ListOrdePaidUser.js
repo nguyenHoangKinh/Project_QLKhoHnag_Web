@@ -26,7 +26,7 @@ const ListOrdePaidUser = () => {
   const orderUser = () => {
     navigation("/ShowListOrderUser")
   }
-  useEffect(() => {
+  const ListOrderUser = () => {
     axios
       .get(
         `${BASE_URL}/order/listOrderByUser?status=2`,
@@ -45,7 +45,30 @@ const ListOrdePaidUser = () => {
       .catch((e) => {
 
       });
+  }
+  useEffect(() => {
+    ListOrderUser()
   }, []);
+  const DeleteOrderOwner = (idOrder) => {
+    if (idOrder) {
+      axios
+        .delete(
+          `${BASE_URL}/order/deleteOrderByUser?id_order=${idOrder}`,
+          {
+            headers: {
+              Authorization: `Bearer ${Token}`,
+            },
+          }
+        )
+        .then((res) => {
+          ListOrderUser();
+        })
+        .catch((e) => {
+        });
+    } else {
+      alert("xoa that bai!");
+    }
+  };
   //console.log(ListOrderOwner);
 
   return (
@@ -74,7 +97,7 @@ const ListOrdePaidUser = () => {
                         <tr>
                           <th scope="col" class="h5">Order list</th>
                           <th scope="col" class="h5"></th>
-                          <th scope="col" class="h5">Xóa</th>
+                          <th scope="col" class="h5"></th>
 
                         </tr>
                       </thead>
@@ -94,9 +117,14 @@ const ListOrdePaidUser = () => {
                               <td class="align-middle">
                               </td>
 
-                              <td class="align-middle">
-                                <a class="myButton"><i class="fa-solid fa-trash"></i></a>
-                              </td>
+                              {/* <td class="align-middle">
+                                <a class="myButton"onClick={() => {
+                                  if (window.confirm("Bạn có muốn bài viết này không ?")) {
+                                    DeleteOrderOwner(item._id)
+                                  }
+                                } 
+                                }><i class="fa-solid fa-trash"></i></a>
+                              </td> */}
                             </tr>
                           )
                         })}
