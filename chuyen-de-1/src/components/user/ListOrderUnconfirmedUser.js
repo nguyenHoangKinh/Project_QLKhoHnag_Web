@@ -25,7 +25,12 @@ const ListOrderUnconfirmed = () => {
   const orderUser = () => {
     navigation("/ShowListOrderUser")
   }
-
+  const DetailOrder = (item) => {
+    navigation("/DetailOrder", {
+        state: { item }
+    }
+    )
+}
   const ListOrderUser = () => {
     axios
       .get(
@@ -107,7 +112,7 @@ const ListOrderUnconfirmed = () => {
                           return (
                             <tr>
                               <th scope="row">
-                                <a href="/#" class="list-group-item">
+                                <a class="list-group-item"onClick={() => { DetailOrder(item) }}>
                                   <div class="d-flex align-items-center">
                                     <div class="flex-column ms-4">
                                       <p class="mb-2">Tên chủ kho: {item.owner.username}</p><p class="mb-2">Thời gian thuê: {item.rentalTime}</p>

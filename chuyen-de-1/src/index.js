@@ -41,13 +41,14 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import DetailWareUser from './components/user/DetailWareUser';
+//import DetailWareUser from './components/user/DetailWareUser';
 import ShowListOrderUser from './components/user/ShowListOrderUser';
 import ListOrderUnconfirmed from './components/user/ListOrderUnconfirmedUser';
 import ListOrderPendingPaymentUser from './components/user/ListOrderPendingPaymentUser';
 import ListOrderPendingPaymentOwner from './components/owner/ListOrderPendingPaymentOwner';
 import ListOrderUnconfirmedOwner from './components/owner/ListOrderUnconfirmedOwner';
 import ListOrdePaidOwner from './components/owner/ListOrdePaidOwner';
+import DetailOrder from './components/DeltailOrder';
 
 import RentWareHouse from './components/user/RentWareHouse';
 
@@ -193,6 +194,10 @@ const router = createBrowserRouter([
   {
     path: "/UpdateWarehouseOwner",
     element: <UpdateWarehouseOwner/>,
+  },
+  {
+    path: "/DetailOrder",
+    element: <DetailOrder/>,
   },
   {
     path: "/chatUse",

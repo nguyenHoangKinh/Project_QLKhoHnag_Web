@@ -147,10 +147,10 @@ const Navbar = () => {
                                 </ul>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" onClick={orderOwner}>ListOwnner</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" onClick={orderOwner}>List Order</a>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" onClick={ChatUser}>chat</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" onClick={ChatUser}>Chat</a>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-auto mb-2 mb-lg-0">

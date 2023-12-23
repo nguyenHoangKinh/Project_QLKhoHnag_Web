@@ -25,7 +25,12 @@ const ListOrdePaidOwner = () => {
   const orderOwner = () => {
     navigation("/ShowListOrderOwner")
   }
-
+  const DetailOrder = (item) => {
+    navigation("/DetailOrder", {
+      state: { item }
+    }
+    )
+  }
   const ListOrderOwner = () => {
     axios
       .get(
@@ -104,7 +109,7 @@ const ListOrdePaidOwner = () => {
                           return (
                             <tr>
                               <th scope="row">
-                                <a href="/#" class="list-group-item">
+                                <a class="list-group-item" onClick={() => { DetailOrder(item) }}>
                                   <div class="d-flex align-items-center">
                                     <div class="flex-column ms-4">
                                       <p class="mb-2">Tên chủ kho: {item.owner.username}</p><p class="mb-2">Thời gian thuê: {item.rentalTime}</p>
@@ -115,11 +120,11 @@ const ListOrdePaidOwner = () => {
                               <td class="align-middle">
                               </td>
                               <td class="align-middle">
-                                <a class="myButton"onClick={() => {
+                                <a class="myButton" onClick={() => {
                                   if (window.confirm("Bạn có muốn bài viết này không ?")) {
                                     DeleteOrderOwner(item._id)
                                   }
-                                } 
+                                }
                                 }><i class="fa-solid fa-trash"></i></a>
                               </td>
                             </tr>
