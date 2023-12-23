@@ -18,8 +18,12 @@ export const AuthProvider = ({ children }) => {
   const [records, setRecords] = useState([]);
   const [detailBlog, setDetailBlog] = useState([]);
   const [acount, setAcount] = useState([]);
+  //chat
+  const [listMessages, setListMessages] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [messages, setMessages] = useState([]);
   // const [IdDetailOrder, setIdDetailOrder] = useState([]);
-  // console.log(IdDetailOrder);
+  // console.log(chats);
   // console.log(DetailOrder);
 
   const LoginUserToken = (username, password) => {
@@ -37,11 +41,11 @@ export const AuthProvider = ({ children }) => {
           const token = response.data.accessToken;
           localStorage.setItem("jsonwebtoken", token);
           if (response.data.others.isOwner) {
-            window.location.href = "/ListWarehouseOwner";
+            window.location.href = "/HomeOwnerScreen";
           } else if(response.data.others.isAdmin){
             window.location.href = "/HomeAdminScreen";
           } else {
-            window.location.href = "/ListWarehouseUser";
+            window.location.href = "/HomeUserScreen";
           }
         }
       })
@@ -51,7 +55,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
   const Logout = (token) => {
-    // console.log("category: ", token);
+    console.log("category: ", token);
     axios
       .get(BASE_URL + "/auth/logout", {
         headers: { Authorization: `Bearer ${token}` },
@@ -60,7 +64,7 @@ export const AuthProvider = ({ children }) => {
         if (res) {
           alert(res.data.message);
           localStorage.removeItem("jsonwebtoken");
-          window.location.href = "/";
+          window.location.href = "/Login";
         }
       })
       .catch((error) => {
@@ -117,16 +121,10 @@ export const AuthProvider = ({ children }) => {
     setCheckValue(false);
   };
 
-  const ListBlog = (token) => {
-    if (token) {
+  const ListBlog = () => {
       axios
-        .get(BASE_URL + `/blog/list-by-blog`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get(BASE_URL + `/blog/list-by-blog`)
         .then((res) => {
-          // alert(res.data.message);
           // console.log(res.data.blog);
           setListBlogs(res.data.blog);
         })
@@ -136,9 +134,6 @@ export const AuthProvider = ({ children }) => {
           //   logout()
           // }
         });
-    } else {
-      alert("load bai viet that bai!");
-    }
   };
   const DetailBlog = (token,id) => {
     if (token,id) {
@@ -213,7 +208,6 @@ export const AuthProvider = ({ children }) => {
       .then((res) => {
         if (res && res.data) {
           setListOrderOwner(res.data);
-          console.log(res.data);
         }
           setAcount(res);
           console.log(res);
@@ -242,8 +236,144 @@ export const AuthProvider = ({ children }) => {
       // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",e.response.data);
     });
   };
+  const userChats = (token,id) => {
+    if (token && id) {
+      axios
+        .get(BASE_URL + `/chat/findUser/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          if (res && res.data) {
+            setChats(res.data.chat)
+            // console.log(res.data.chat);
+            // setListMessages(res.data.message);
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    } else {
+      console.log("load user chat that bai!");
+    }
+  };
+  const AddChats = (secondIds) => {
+    // let number = false;
+    // if (userInfo.accessToken && userInfo.others._id) {
+    //   axios
+    //     .get(ORDER_URL + `/chat/listChat`, {
+    //       headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+    //     })
+    //     .then((res) => {
+    //       if (res && res.data) {
+    //         checkProfile(secondIds, res.data.chat);
+    //       }
+    //     })
+    //     .catch((e) => {
+    //       console.log(e.response.data);
+    //     });
+    // } else {
+    //   console.log("load user chat that bai!");
+    // }
+  };
+  const DeleteUserChat = (token,id,idUser) => {
+    // console.log(token,id,idUser);
+    let userId = idUser;
+    let Token = token;
+    if (token && id) {
+      axios
+        .delete(BASE_URL + `/chat/deleteChat/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          if (res && res.data) {
+            window.location.href = "/chatUse";
+            // userChats(Token,userId)
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data.message);
+        });
+    } else {
+      alert("Xoa userChat that bai!");
+    }
+  };
+  const PostMessage = async (token, idMessages) => {
+    let idMess = idMessages.chatId;
+    let Token = token;
+    if (
+      token &&
+      idMessages.chatId &&
+      idMessages.senderId &&
+      idMessages.text
+    ) {
+      await axios
+        .post(
+          BASE_URL + `/message/createMessage/`,
+          {
+            chatId: idMessages.chatId,
+            senderId: idMessages.senderId,
+            text: idMessages.text,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        .then((res) => {
+          if (res && res.data) {
+            // console.log(res.data.message);
+            // fetchMessages(Token,idMess)
+            setMessages([...messages, res.data.message])
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    } else {
+      console.log("load pust chat that bai!");
+    }
+  };
+  const DeleteUserMessChat = (token,Mess) => {
+    console.log(Mess);
+    let id = Mess.chatId;
+    let Token = token;
+    if (token && id) {
+      axios
+        .delete(BASE_URL + `/message/deleteMessage/${Mess._id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          if (res && res.data) {
+            alert(res.data.message);
+            fetchMessages(Token,id);
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data.message);
+        });
+    } else {
+      alert("Xoa userChat luan that bai!");
+    }
+  };
+  const fetchMessages = async (token,id) => {
+    if (token && id) {
+      axios
+        .get(BASE_URL + `/message/findMessage/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          if (res && res.data) {
+            setMessages(res.data.message);
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    } else {
+      console.log("load user chat that bai!");
+    }
+};
+
   
-  console.log(DetailOrder);
   return (
     <UserContext.Provider
       value={{
@@ -270,6 +400,17 @@ export const AuthProvider = ({ children }) => {
         orderList,
         Logout,
         LoginUserToken,
+        //chat
+        userChats,
+        AddChats,
+        PostMessage,
+        DeleteUserMessChat,
+        DeleteUserChat,
+        fetchMessages,
+        setMessages,
+        listMessages,
+        chats,
+        messages,
       }}
     >
       {children}
