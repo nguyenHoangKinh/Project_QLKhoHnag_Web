@@ -103,56 +103,6 @@ export default function ListWarehouseUser() {
               <div>Không có kho hàng</div>
             )}
           </div>
-
-          {/* <div className="d-flex mb-3 ms-auto" style={{marginTop: -50, width: 500}}>
-                        <div className="w-75 p-2 border rounded ms-auto">
-                            <h5>Catagory</h5>
-                            <select className="form-select"
-                                onChange={handleSelectCatagory}
-                            >
-                                {listCategoryUser
-                                    && listCategoryUser.length > 0
-                                    && listCategoryUser.map(item => (
-                                        <option value={item._id}>{item.name}</option>
-
-                                    ))}
-                                <option value={0}>Tất cả kho hàng</option>
-                            </select>
-                            {/* <p>{categoryId}</p> 
-                        </div>
-                    </div> */}
-
-          <div className="row g-4">
-            <div>
-              <div className="row row-cols-2 row-cols-md-4 g-4">
-                {listWarehouseUser ? (
-                  listWarehouseUser.length > 0 &&
-                  listWarehouseUser.map((card) => {
-                    if (
-                      (categoryId && card.category._id.includes(categoryId)) ||
-                      categoryId == 0
-                    ) {
-                      if (
-                        card.wareHouseName.toLowerCase().includes(textSearch) ||
-                        !textSearch
-                      ) {
-                        return (
-                          <div key={card.id} className="col">
-                            <CardWarehouse {...card} />
-                          </div>
-                        );
-                      }
-                    }
-                    <div key={card.id} className="col">
-                      <CardWarehouse {...card} />
-                    </div>;
-                  })
-                ) : (
-                  <div>Không có kho hàng</div>
-                )}
-              </div>
-            </div>
-          </div>
         </div>
       </section>
       <Footer />
