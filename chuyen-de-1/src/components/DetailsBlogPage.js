@@ -15,7 +15,12 @@ const DetailsBlogPage = () => {
   const navigation = useNavigate();
   const location = useLocation();
   let id = location.state.item._id;
+  let token = localStorage.getItem("jsonwebtoken");
   let idUser = null;
+  
+  if (token) {
+    idUser = jwtDecode(token);
+}
 
   useEffect(() => {
     //call api
@@ -185,12 +190,12 @@ const DetailsBlogPage = () => {
                   <div class="headings d-flex justify-content-between align-items-center mb-3">
                     <h5>Bình luận</h5>
                   </div>
-                  {idUser ? ( <form class="input-group mb-3" onSubmit={addComment}>
+                 <form class="input-group mb-3" onSubmit={addComment}>
                     <input type="text" class="form-control" placeholder="comment" aria-label="Username" value={message} aria-describedby="basic-addon1" onChange={e => setMessage(e.target.value)} />
                     <div class="input-group-prepend">
                       <button class="input-group-text" id="basic-addon1">Nhập bình luận</button>
                     </div>
-                  </form>) : (<></>)}
+                  </form>
                  
                   {comment ? (comment.length > 0 &&
                     comment.map((item, index) => {
@@ -209,7 +214,7 @@ const DetailsBlogPage = () => {
                               <small class="font-weight-bold" style={{ marginLeft: 14 }}>{item.content}</small>
                             </div>
                             <div class="icons align-items-center">
-                              {idUser !=null ?(idUser.id.includes(item.account._id) && <button type="button" class="btn btn-primary" 
+                              {idUser ? (idUser.id.includes(item.account._id) && <button type="button" class="btn btn-primary" 
                               onClick={() => {
                                 if (window.confirm("Bạn có muốn bình luận này không ?")) {
                                   deleteComment(item._id)
