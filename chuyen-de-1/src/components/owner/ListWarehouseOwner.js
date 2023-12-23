@@ -29,8 +29,20 @@ export default function ListWarehouseOwner() {
         });
     }, [listWarehouseOwner]);
 
-    const handleDelete = (idBlog) => {
-        
+    const handleDelete = (id) => {
+        //call api
+        axios.delete(BASE_URL + '/warehouse/deleteWarehouse/' + id, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                id_owner: idUser.id
+            }
+        }).then((res) => {
+            console.log(res);
+        }).catch((error) => {
+            console.log(error.message);
+        });
     }
 
     return (
