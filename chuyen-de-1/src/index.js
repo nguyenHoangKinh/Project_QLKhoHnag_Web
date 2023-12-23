@@ -30,7 +30,7 @@ import reportWebVitals from './reportWebVitals';
 import Profile from './components/Profile';
 
 import UpdateProfile from './components/UpdateProfile';
-import DetailsOrderPage from './components/DetailsOrderPage';
+import DetailsBlogPage from './components/DetailsBlogPage';
 import ListWarehouseOwner from './components/owner/ListWarehouseOwner';
 import UpdateWarehouseOwner from './components/owner/UpdateWarehouseOwner';
 import Chat from './components/Chat/Chat'
@@ -140,8 +140,8 @@ const router = createBrowserRouter([
     element: <UpdateProfile/>,
   },
   {
-    path: "DetailsOrderPage",
-    element: <DetailsOrderPage/>,
+    path: "DetailsBlogPage",
+    element: <DetailsBlogPage/>,
   },
 	{
     path: "/DetailWareUser/:id",

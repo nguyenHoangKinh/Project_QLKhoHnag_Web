@@ -5,7 +5,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useNavigate } from "react-router-dom";
 import { EnvironmentOutlined, EnvironmentTwoTone } from "@ant-design/icons";
 import CategoryWarehouse from "./CategoryWarehouse";
-import DetailsOrderPage from "./DetailsOrderPage";
+import DetailsBlogPage from "./DetailsBlogPage";
 
 const ListBlog = () => {
   let Token = localStorage.getItem("jsonwebtoken");
@@ -16,9 +16,9 @@ const ListBlog = () => {
     ListBlog(Token);
   }, []);
 const DetaiBolg = (item) => {
-  DetailBlog(Token,item._id)
+  DetailBlog(item._id)
   setTimeout(() => {
-    navigation("/DetailsOrderPage", {
+    navigation("/DetailsBlogPage", {
       state: { item },
     })
   }, 700)

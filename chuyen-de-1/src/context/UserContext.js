@@ -135,16 +135,14 @@ export const AuthProvider = ({ children }) => {
           // }
         });
   };
-  const DetailBlog = (token,id) => {
-    if (token,id) {
+  const DetailBlog = (id) => {
+    console.log(">",id);
+    if (id) {
       axios
-        .get(BASE_URL + `/blog/get-by-id?id=${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get(BASE_URL + `/blog/get-by-id?id=${id}`)
         .then((res) => {
           if (res && res.data.data) {
+            // console.log(">>>",res.data.data);
             setDetailBlog(res.data.data)
           }
         })

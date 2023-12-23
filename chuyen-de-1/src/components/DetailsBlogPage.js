@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Card, Flex, Typography, Carousel } from "antd";
-import SilderComponent from "../components/SilderComponent/SilderComponent";
+import SilderComponent from "./SilderComponent/SilderComponent";
 import { UserContext } from "../context/UserContext";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -8,29 +8,20 @@ import { BASE_URL } from "../config";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
-const DetailsOrderPage = () => {
-  let Token = localStorage.getItem("jsonwebtoken");
+const DetailsBlogPage = () => {
   const { loadingData, detailBlog, DetailBlog } = useContext(UserContext);
   const [comment, setComment] = useState();
   const [message, setMessage] = useState();
   const navigation = useNavigate();
   const location = useLocation();
   let id = location.state.item._id;
-  let token = localStorage.getItem("jsonwebtoken");
-  let idUser = jwtDecode(token);
+  let idUser = null;
 
   useEffect(() => {
     //call api
-    DetailBlog(Token, id);
+    DetailBlog(id);
 
-    axios.get(BASE_URL + '/blog/comment/list-by-blog', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      params: {
-        idBlog: id
-      }
-    }).then((res) => {
+    axios.get(BASE_URL + `/blog/comment/list-by-blog?idBlog=${id}`).then((res) => {
       setComment(res.data.data);
     }).catch((error) => {
       console.log(error.message);
@@ -38,36 +29,53 @@ const DetailsOrderPage = () => {
   }, [comment]);
   
   const addComment = (event) => {
-    event.preventDefault();
-    axios.post(`https://warehouse-management-api.vercel.app/v1/blog/comment/create`, { content: message },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          idBlog: id,
-        },
-      }).then((res) => {
-        setMessage("")
-      }).catch((e) => {
-        console.log(`add comment error ${e}`);
-      });
+    
+    let token = localStorage.getItem("jsonwebtoken");
+      if (token!=null) {
+      idUser = jwtDecode(token);
+
+      event.preventDefault();
+      axios.post(`https://warehouse-management-api.vercel.app/v1/blog/comment/create`, { content: message },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            idBlog: id,
+          },
+        }).then((res) => {
+          setMessage("")
+        }).catch((e) => {
+          console.log(`add comment error ${e}`);
+        });
+    }else{
+      alert("bạn chưa đăng nhập!");
+      navigation("/Login")
+    }
   }
 
   const deleteComment = (idComment) => {
-    axios.delete(`https://warehouse-management-api.vercel.app/v1/blog/comment/delete`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          idComment: idComment,
-        },
-      }).then((res) => {
-        // getComment(idBlog)
-      }).catch((e) => {
-        console.log(`add comment error ${e}`);
-      });
+    let token = localStorage.getItem("jsonwebtoken");
+    if (token!=null) {
+      idUser = jwtDecode(token);
+
+      axios.delete(`https://warehouse-management-api.vercel.app/v1/blog/comment/delete`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            idComment: idComment,
+          },
+        }).then((res) => {
+          // getComment(idBlog)
+        }).catch((e) => {
+          console.log(`add comment error ${e}`);
+        });
+    }else{
+      alert("bạn chưa đăng nhập!")
+      navigation("/Login")
+    }
   };
 
   return (
@@ -76,7 +84,7 @@ const DetailsOrderPage = () => {
       style={{ width: "100%", height: "100vh", background: "#f5f5fa" }}
     >
       <div className="category-containers">
-        <h4>Chi tiết đơn hàng</h4>
+        <h4>Chi tiết bài đăng</h4>
         {detailBlog != "" ? (
           <>
             <Card
@@ -160,14 +168,14 @@ const DetailsOrderPage = () => {
                     </text>
                   </div>
 
-                  <Button
+                  {/* <Button
                     type="primary"
                     href="#"
                     target="_blank"
                     style={{ top: "20px" }}
                   >
                     Get Started
-                  </Button>
+                  </Button> */}
                 </div>
               </Flex>
             </Card>
@@ -200,13 +208,13 @@ const DetailsOrderPage = () => {
                               <small class="font-weight-bold" style={{ marginLeft: 14 }}>{item.content}</small>
                             </div>
                             <div class="icons align-items-center">
-                              {idUser.id.includes(item.account._id) && <button type="button" class="btn btn-primary" 
+                              {idUser !=null ?(idUser.id.includes(item.account._id) && <button type="button" class="btn btn-primary" 
                               onClick={() => {
                                 if (window.confirm("Bạn có muốn bình luận này không ?")) {
                                   deleteComment(item._id)
                               }}}
                               >
-                                Xóa</button>}
+                                Xóa</button>):""}
                               <i class="fa fa-check-circle-o check-icon"></i>
                             </div>
                           </div>
@@ -226,4 +234,4 @@ const DetailsOrderPage = () => {
   );
 };
 
-export default DetailsOrderPage;
+export default DetailsBlogPage;

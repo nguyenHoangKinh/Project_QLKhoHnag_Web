@@ -5,13 +5,12 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const Card = ({ data }) => {
-  let Token = localStorage.getItem("jsonwebtoken");
   const navigation = useNavigate();
-  const {DetailBlog, } = useContext(UserContext);
-  const DetaiBolg = (item) => {
-    DetailBlog(Token,item._id)
+  const {DetailBlog } = useContext(UserContext);
+  const DetaiBolgs = (item) => {
+    DetailBlog(item._id)
     setTimeout(() => {
-      navigation("/DetailsOrderPage", {
+      navigation("/DetailsBlogPage", {
         state: { item },
       })
     }, 700)
@@ -45,7 +44,7 @@ const Card = ({ data }) => {
             </p>
             <a
               onClick={() => {
-                DetaiBolg(data);
+                DetaiBolgs(data);
               }}
               className="btn btn-outline-light rounded-3 px-3 py-2 fs-5 mx-1 text-capitalize mt-2"
             >
