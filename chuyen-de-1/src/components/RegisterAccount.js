@@ -67,7 +67,7 @@ export default function RegisterPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (validateForm()) {
+    if (validateForm() && check) {
       console.log("form value", formValue);
       let acc = {
         username: formValue.username,
@@ -89,7 +89,7 @@ export default function RegisterPage() {
         alert(err.request.response.slice(12).replace('"}', ""));
       });
     } else {
-      console.log("form invalid");
+      alert("Yêu cầu chọn chủ kho hoặc khách hàng");;
     }
   };
 

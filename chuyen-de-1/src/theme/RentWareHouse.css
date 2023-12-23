@@ -14,19 +14,19 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  label {
+  .form-label {
     display: block;
     margin-bottom: 10px;
   }
   
-  select, input {
+  .form-select, .form-input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
     box-sizing: border-box;
   }
   
-  button {
+  .form-button {
     background-color: #4caf50;
     color: white;
     padding: 12px 20px;
@@ -35,26 +35,26 @@
     cursor: pointer;
   }
   
-  button:hover {
+  .form-button:hover {
     background-color: #45a049;
   }
   
-  h3 {
+  .message-heading {
     color: #333;
   }
   
-  p {
+  .warehouse-text {
     color: #666;
   }
   
-  a {
+  /* a {
     color: #4caf50;
     text-decoration: none;
-  }
+  } */
   
-  a:hover {
+  /* a:hover {
     color: #45a049;
-  }
+  } */
 
   
 
