@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { jwtDecode } from "jwt-decode";
 import { BASE_URL } from "../config";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+//import ListWarehouseOwner from "../components/user/ListWarehouseUser";
 
 const Navbar = () => {
     const navigation = useNavigate();
     const [user, setUser] = useState();
     let token = localStorage.getItem("jsonwebtoken");
+    const navigation = useNavigate();
     let idUser;
-
+    
     if (token) {
         idUser = jwtDecode(token);
     }
 
     const logout = () => {
-        localStorage.removeItem("jsonwebtoken")
+        localStorage.removeItem("jsonwebtoken");
+        window.location.href = "/Login";
+    }
+    const ChatUser = () => {
+        navigation("/chatUse")
     }
     const order = () => {
         navigation("/ShowListOrderUser")
@@ -38,7 +45,7 @@ const Navbar = () => {
                 console.log(error.message);
             });
         }
-    }, [user]);
+    }, []);
 
     return (
         <>
@@ -128,7 +135,7 @@ const Navbar = () => {
                             <li className="nav-item mx-2 dropdown">
                                 <a className="nav-link text-uppercase fs-5 dropdown-toggle text-white" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
+                                    Quản Lý Đơn Hàng
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li><a className="dropdown-item" href="#">Action</a></li>
@@ -140,10 +147,13 @@ const Navbar = () => {
                                 </ul>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" href="ListPostOwner">Quản Lý Bài Viết</a>
                             </li>
                             <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
+                                <a className="nav-link text-uppercase fs-5 text-white" href="ListWarehouseOwner">Quản Lý Kho Hàng</a>
+                            </li>
+                            <li className="nav-item mx-2">
+                                <a className="nav-link text-uppercase fs-5 text-white" onClick={ChatUser}>chat</a>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-auto mb-2 mb-lg-0">

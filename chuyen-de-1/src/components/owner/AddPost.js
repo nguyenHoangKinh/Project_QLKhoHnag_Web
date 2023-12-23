@@ -3,6 +3,8 @@ import "../../theme/AddPost.css";
 import axios from "axios";
 import { BASE_URL } from "../../config";
 import { jwtDecode } from "jwt-decode";
+import Navbar from '../HomeNavbar';
+import Footer from '../HomeFooter';
 
 const isEmptyValue = (value) => {
     return !value || value.trim().length < 1;
@@ -76,7 +78,7 @@ export default function AddPost() {
 
     const handleFileChange = (e) => {
         const files = e.target.files;
-        
+
         const arrayFile = Array.from(files).map((file) => ({
             file: file,
         }));
@@ -85,6 +87,7 @@ export default function AddPost() {
 
     return (
         <>
+            <Navbar />
             <div class="container py-5">
                 <h1>Thêm bài viết</h1>
                 <div class="formbold-main-wrapper">
@@ -163,13 +166,14 @@ export default function AddPost() {
                             <button class="formbold-btn">
                                 Đăng bài
                             </button>
-                            <a class="formbold-btn" style={{marginLeft: 10, textDecoration: "none"}} href="ListPostOwner">
+                            <a class="formbold-btn" style={{ marginLeft: 10, textDecoration: "none" }} href="ListPostOwner">
                                 Thoát
                             </a>
                         </form>
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

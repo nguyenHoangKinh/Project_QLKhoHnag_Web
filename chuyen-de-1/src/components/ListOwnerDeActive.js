@@ -10,12 +10,10 @@ import axios from "axios";
 
 export default function ListOwnerDeActive() {
   let Token = localStorage.getItem("jsonwebtoken");
-  //console.log(Token);
+  console.log(Token);
 
   const [ListAcount, setListAcount] = useState();
-  const [deActive, setDeActive] = useState([]);
-
-
+  //const [deActive, setDeActive] = useState([]);
 
   useEffect(() => {
     //call api
@@ -30,7 +28,7 @@ export default function ListOwnerDeActive() {
       )
       .then((res) => {
         setListAcount(res.data.owners);
-        //console.log(res.data.accounts);
+        console.log(res.data.owners);
       })
       .catch((error) => {
         console.log(error.message);
@@ -39,10 +37,12 @@ export default function ListOwnerDeActive() {
 
   return (
     <>
-      <h1>ListOwnerDeActive</h1>
-      
-      <div className="listwarehouseuser"
-      style={{ marginTop: 1000, width: "100%" }}>
+      <h1>ListOwnerActive</h1>
+
+      <div
+        className="listwarehouseuser"
+        style={{ marginTop: 10, width: "100%" }}
+      >
         <table className="styled-table">
           <thead>
             <tr>
@@ -53,14 +53,12 @@ export default function ListOwnerDeActive() {
           </thead>
           <tbody>
             {ListAcount &&
-              // ListAcount.length > 0 &&
               ListAcount.map((item, index) => {
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td>{item.username}</td>
                     <td>{item.email}</td>
                     <td>{item.phone}</td>
-                    
                   </tr>
                 );
               })}
