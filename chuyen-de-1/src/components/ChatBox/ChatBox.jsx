@@ -1,18 +1,26 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext,createContext  } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useRef } from "react";
 import "./ChatBox.css";
-import InputEmoji from 'react-input-emoji'
+import InputEmoji from "react-input-emoji";
 import { BASE_URL } from "../../config";
 import axios from "axios";
 
 const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
-  const { messages, setMessages, fetchMessages, PostMessage } =
+  const { messages, setMessages, fetchMessages, PostMessage,DeleteUserMessChat } =
     useContext(UserContext);
   let token = localStorage.getItem("jsonwebtoken");
   const [userData, setUserData] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
+  
+  const DeleteMess = (message) => {
+    // console.log(token,message);
+    if (window.confirm(`ban muốn xóa tin nhắn này ?`)) {
+      DeleteUserMessChat(token,message)
+    }
+  };
   const handleChange = (newMessage) => {
     setNewMessage(newMessage);
   };
@@ -37,7 +45,6 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
             },
           })
           .then((res) => {
-            // console.log(res.data.others);
             setUserData(res.data.others);
           })
           .catch((error) => {
@@ -69,10 +76,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
     };
     const receiverId = chat.members.find((id) => id !== currentUser);
     // send message to socket server
-    // if (receiverId !== undefined) {
-      setSendMessage({ ...message, receiverId });
-    // }
-    // send message to database
+    setSendMessage({ ...message, receiverId });
     try {
       PostMessage(token, message);
       setNewMessage("");
@@ -83,9 +87,11 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
 
   // Receive Message from parent component
   useEffect(() => {
-    console.log("Message Arrived: ", receivedMessage);
-    if (receivedMessage !== null && receivedMessage.chatId === chat._id) {
-      setMessages([...messages, receivedMessage]);
+    if (chat !== null) {
+      if (receivedMessage !== null && receivedMessage.chatId === chat._id) {
+        console.log("Message Arrived: ", receivedMessage, chat);
+        setMessages([...messages, receivedMessage]);
+      }
     }
   }, [receivedMessage]);
   const formatTime = (time) => {
@@ -115,9 +121,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
                     style={{ width: "50px", height: "50px" }}
                   />
                   <div className="name" style={{ fontSize: "0.9rem" }}>
-                    <span>
-                    {userData?.username}
-                    </span>
+                    <span>{userData?.username}</span>
                   </div>
                 </div>
               </div>
@@ -134,18 +138,23 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
               {messages != ""
                 ? messages.map((message) => (
                     <>
-                    {console.log(message,currentUser)}
                       <div
+                        onMouseEnter={() => {message.senderId === currentUser ? setIsHovered(true):setIsHovered(false)}}
+                        onMouseLeave={() => setIsHovered(false)}
                         ref={scroll}
                         className={
                           message.senderId === currentUser
-                            ? "message own"
+                            ? "message own "
                             : "message"
                         }
                       >
-                        <span>{message.text}</span>{" "}
+                      <div className="row">
+                        <span>{message.text}</span>{" "}  
                         <span>{formatTime(message.createdAt)}</span>
                       </div>
+                      {message.senderId === currentUser ?(isHovered && <div className=""onClick={()=> DeleteMess(message)} ><i class="fa-solid fa-trash"style={{color:"red"}}></i></div>):""}
+                      </div>
+                      
                     </>
                   ))
                 : ""}
@@ -153,11 +162,8 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
             {/* chat-sender */}
             <div className="chat-sender">
               <div onClick={() => imageRef.current.click()}>+</div>
-              <InputEmoji
-                value={newMessage}
-                onChange={handleChange}
-              />
-              <div className="send-button button" onClick={handleSend}>
+              <InputEmoji value={newMessage} onChange={handleChange} />
+              <div className=""style={{background:"linear-gradient(106.23deg, #f99827 0%, #f95f35 100%)",borderRadius:"10px",textAlign:"center",paddingBottom:"30px",paddingTop:"6px"}} onClick={handleSend}>
                 Send
               </div>
               <input

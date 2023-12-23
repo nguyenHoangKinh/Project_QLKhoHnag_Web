@@ -15,7 +15,7 @@ export default function ListWarehouseOwner() {
     const handleDelete = (idBlog) => {
         
     }
-    console.log(listWarehouseOwner);
+
     return (
         <>
             <Navbar />
