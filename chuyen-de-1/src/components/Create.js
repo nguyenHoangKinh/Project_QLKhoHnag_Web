@@ -131,7 +131,7 @@ function Create() {
       )
       .then((res) => {
         console.log(res);
-        // setCheckAdd(true);
+        window.location.href = "ListWarehouseOwner"
       })
       .catch((e) => {
         console.log(`Add error ${e}`);
@@ -249,7 +249,7 @@ function Create() {
                 onChange={handleFileChange}
               />
             </div>
-            <button className="btn btn-info" onClick={updateWarehouse(wareHouseName, address, idCategorie, capacity, monney, status, description, idUser.id, imageWarehouse)}>
+            <button className="btn btn-info" onClick={() => updateWarehouse(wareHouseName, address, idCategorie, capacity, monney, status, description, idUser.id, imageWarehouse)}>
               Submit
             </button>
           </div>
