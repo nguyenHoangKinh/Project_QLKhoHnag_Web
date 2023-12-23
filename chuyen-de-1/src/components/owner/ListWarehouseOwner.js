@@ -23,19 +23,8 @@ export default function ListWarehouseOwner() {
               id_owner: idUser.id
             }
           }
-        )
+        )  
         .then((res) => {
-          alert("xoa thanh cong");
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
-    }
-                Authorization: `Bearer ${token}`
-            },
-            params: {
-                id_owner: idUser.id
-            }
-        }).then((res) => {
             setListWarehouseOwner(res.data);
         }).catch((error) => {
             console.log(error.message);
