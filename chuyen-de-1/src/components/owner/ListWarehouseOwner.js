@@ -12,8 +12,39 @@ export default function ListWarehouseOwner() {
     const navigate = useNavigate();
     let token = localStorage.getItem("jsonwebtoken");
     let idUser = jwtDecode(token);
-    const handleDelete = (idBlog) => {
-        
+
+    useEffect(() => {
+        //call api
+        axios.get(BASE_URL + '/warehouse/list', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+              id_owner: idUser.id
+            }
+          }
+        )  
+        .then((res) => {
+            setListWarehouseOwner(res.data);
+        }).catch((error) => {
+            console.log(error.message);
+        });
+    }, [listWarehouseOwner]);
+
+    const handleDelete = (id) => {
+        //call api
+        axios.delete(BASE_URL + '/warehouse/deleteWarehouse/' + id, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                id_owner: idUser.id
+            }
+        }).then((res) => {
+            console.log(res);
+        }).catch((error) => {
+            console.log(error.message);
+        });
     }
 
     return (
@@ -23,7 +54,7 @@ export default function ListWarehouseOwner() {
                 <div class="d-flex justify-content-center row">
                     <div class="col-md-10">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
-                            <a class="btn btn-outline-primary " type="button" href="#">Thêm Kho Hàng</a>
+                            <a class="btn btn-outline-primary " type="button" href="/create">Thêm Kho Hàng</a>
                         </div>
                         {listWarehouseOwner ? (listWarehouseOwner.length > 0 &&
                             listWarehouseOwner.map((itemWarehouse, index) => {

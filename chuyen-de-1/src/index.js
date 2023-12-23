@@ -49,6 +49,7 @@ import ListOrderPendingPaymentOwner from './components/owner/ListOrderPendingPay
 import ListOrderUnconfirmedOwner from './components/owner/ListOrderUnconfirmedOwner';
 import ListOrdePaidOwner from './components/owner/ListOrdePaidOwner';
 
+import RentWareHouse from './components/user/RentWareHouse';
 
 const router = createBrowserRouter([
   {
@@ -146,8 +147,8 @@ const router = createBrowserRouter([
     element: <DetailsOrderPage/>,
   },
 	{
-    path: "/DetailWareUser/:id",
-    element: <DetailWareUser/>,
+    path: "/RentWareHouse/:id",
+    element: <RentWareHouse/>,
   },
   {
     path: "/ShowListOrderUser",
