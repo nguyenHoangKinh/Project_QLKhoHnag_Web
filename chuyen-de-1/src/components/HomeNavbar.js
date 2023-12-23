@@ -167,28 +167,11 @@ const Navbar = () => {
                             <li className="nav-item me-2">
                                 <a className="nav-link text-uppercase fs-5 active text-white" href="/">Home</a>
                             </li>
-                            <li className="nav-item mx-2 dropdown">
-                                <a className="nav-link text-uppercase fs-5 dropdown-toggle text-white" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr className="dropdown-divider" />
-                                    </li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
                             <li className="nav-item mx-2">
                                 <a className="nav-link text-uppercase fs-5 text-white" href="ListWarehouseUser">Danh Sách Kho Hàng</a>
                             </li>
                             <li className="nav-item mx-2">
                                 <a className="nav-link text-uppercase fs-5 text-white" onClick={ChatUser}>chat</a>
-                            </li>
-                            <li className="nav-item mx-2">
-                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-auto mb-2 mb-lg-0">

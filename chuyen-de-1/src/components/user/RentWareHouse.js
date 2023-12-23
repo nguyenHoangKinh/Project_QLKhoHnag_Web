@@ -60,7 +60,7 @@ const RentWareHouse = () => {
     setEndDate(event.target.value);
     const daysToRent = Math.ceil(
       (new Date(event.target.value + "-01") - new Date(startDate + "-01")) /
-        (1000 * 60 * 60 * 24)
+      (1000 * 60 * 60 * 24)
     );
     setRentalTime(daysToRent);
   };
@@ -174,7 +174,5 @@ const RentWareHouse = () => {
     </div>
   );
 };
-
-
 
 export default RentWareHouse;
