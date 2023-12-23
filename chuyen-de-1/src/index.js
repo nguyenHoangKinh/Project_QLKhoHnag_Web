@@ -48,8 +48,7 @@ import ListOrderPendingPaymentUser from './components/user/ListOrderPendingPayme
 import ListOrderPendingPaymentOwner from './components/owner/ListOrderPendingPaymentOwner';
 import ListOrderUnconfirmedOwner from './components/owner/ListOrderUnconfirmedOwner';
 import ListOrdePaidOwner from './components/owner/ListOrdePaidOwner';
-import DetailOrder from './components/DeltailOrder';
-
+import DetailOrder from './components/DetailOrder';
 import RentWareHouse from './components/user/RentWareHouse';
 
 const router = createBrowserRouter([
