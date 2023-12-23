@@ -42,7 +42,7 @@ export default function ListWarehouseOwner() {
                 <div class="d-flex justify-content-center row">
                     <div class="col-md-10">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
-                            <a class="btn btn-outline-primary " type="button" href="#">Thêm Kho Hàng</a>
+                            <a class="btn btn-outline-primary " type="button" href="/create">Thêm Kho Hàng</a>
                         </div>
                         {listWarehouseOwner ? (listWarehouseOwner.length > 0 &&
                             listWarehouseOwner.map((itemWarehouse, index) => {
