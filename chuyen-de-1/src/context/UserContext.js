@@ -37,11 +37,11 @@ export const AuthProvider = ({ children }) => {
           const token = response.data.accessToken;
           localStorage.setItem("jsonwebtoken", token);
           if (response.data.others.isOwner) {
-            window.location.href = "/HomeScreen";
+            window.location.href = "/ListWarehouseOwner";
           } else if(response.data.others.isAdmin){
             window.location.href = "/HomeAdminScreen";
           } else {
-            window.location.href = "/HomeUserScreen";
+            window.location.href = "/ListWarehouseUser";
           }
         }
       })

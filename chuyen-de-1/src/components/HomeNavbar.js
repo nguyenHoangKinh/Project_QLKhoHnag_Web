@@ -179,6 +179,9 @@ const Navbar = () => {
                             <li className="nav-item mx-2">
                                 <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
                             </li>
+                            <li className="nav-item mx-2">
+                                <a className="nav-link text-uppercase fs-5 text-white" href="#">Link</a>
+                            </li>
                         </ul>
                         <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
                             <li className="nav-item mx-2">
