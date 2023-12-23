@@ -1,22 +1,22 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import ListGroup from "react-bootstrap/ListGroup";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import Header from '../HomeHeader';
+import Navbar from '../HomeNavbar';
+import Footer from '../HomeFooter';
+import ListOrderOnwer from "./ListOrderOwner";
+
 const ShowListOrderOwner = () => {
   const navigation = useNavigate();
   let Token = localStorage.getItem("jsonwebtoken");
-  const { loadingData, orderListOwner, ListOrderOwner } = useContext(UserContext);
+  
 
-  console.log(ListOrderOwner);
-  useEffect(() => {
-    //call api
-    orderListOwner(Token);
-  }, []);
+  
   return (
     <>
-      <div className="category-containers">
+      {/* <div className="category-containers">
         <ListGroup className="category-row">
           <h1 className="text-center">List Order Owner</h1>
           {ListOrderOwner &&
@@ -66,7 +66,13 @@ const ShowListOrderOwner = () => {
               );
             })}
         </ListGroup>
-      </div>
+      </div> */}
+      <>
+      <Header />
+      <Navbar />
+      <ListOrderOnwer/>
+      <Footer />
+    </>
     </>
   );
 };
